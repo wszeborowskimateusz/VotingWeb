@@ -1,4 +1,8 @@
-# voting_web
+# Voting Web
+
+## Description
+This app is part of the bigger university project. It is used to help university parlaiment perform mobile voting session. This part is responsible for voting chariman panel
+
 
 ## Project setup
 ```
