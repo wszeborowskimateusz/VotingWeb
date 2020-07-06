@@ -3,7 +3,6 @@ import config from '@/../config';
 export default {
   getSupportedLocales() {
     const annotatedLocales = [];
-    console.log('Siemanko');
     Object.keys(config.supportedLocales).forEach((code) => {
       annotatedLocales.push({
         code,
