@@ -25,7 +25,7 @@ function handleResponse(response) {
 }
 
 function prepareApiUrl(url) {
-    return `${config.apiUrl}${url}`;
+  return `${config.apiUrl}${url}`;
 }
 
 export default {

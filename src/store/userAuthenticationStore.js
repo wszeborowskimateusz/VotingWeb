@@ -3,7 +3,7 @@ import router from '@/router';
 import toasts from '@/utils/toasts';
 
 
-function onLoginSuccess(commit, dispatch) {
+function onLoginSuccess(commit) {
   commit('loginSuccess');
   router.push('/');
 }
@@ -15,11 +15,11 @@ const userState = userToken
   : { status: {} };
 
 const actions = {
-  login({ commit, dispatch }, { username, password }) {
+  login({ commit }, { username, password }) {
     commit('loginInProgress');
     userService.login(username, password)
       .then(
-        _ => onLoginSuccess(commit, dispatch),
+        () => onLoginSuccess(commit),
         (error) => {
           toasts.errorToast(`${error}. Spróbuj ponownie.`);
           commit('loginFailure', error);
