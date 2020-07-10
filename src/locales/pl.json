@@ -1,3 +1,10 @@
 {
-    "message": "Siemanko"
+    "message": "Siemanko",
+    "login": {
+        "username": "Nazwa użytkownika",
+        "usernameRequired": "Nazwa użytkownika jest wymagana",
+        "password": "Hasło",
+        "passwordRequired": "Hasło jest wymagane",
+        "login": "Zaloguj się"
+      }
 }

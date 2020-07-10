@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <Nav />
-    <router-view />
-    {{ $t('message') }}
+     <div class="row container__row p-2">
+        <router-view :key="$route.path"></router-view>
+      </div>
   </div>
 </template>
 
@@ -26,6 +27,11 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.container__row {
+  height: 100%;
+  overflow: auto;
 }
 </style>
 

@@ -1,3 +1,10 @@
 {
-  "message": "hello i18n !!"
+  "message": "hello i18n !!",
+  "login": {
+    "username": "Username",
+    "usernameRequired": "Username is required",
+    "password": "Password",
+    "passwordRequired": "Password is required",
+    "login": "Login"
+  }
 }
