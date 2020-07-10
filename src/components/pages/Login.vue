@@ -1,5 +1,5 @@
 <template>
-  <div class="col-sm-6 offset-sm-3">
+  <div class="col-sm-6 offset-sm-3 pt-4">
     <h2>{{ $t('login.login') }}</h2>
     <form @submit.prevent="handleSubmit">
       <div class="form-group">

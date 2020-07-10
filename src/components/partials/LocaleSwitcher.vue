@@ -1,5 +1,5 @@
 <template>
-  <div class="locale-switcher">
+  <div>
     <select v-model="lang" class="form-control">
       <option :value="locale.code" v-for="locale in locales" :key="locale.code">
         {{ locale.name }}
@@ -7,8 +7,6 @@
     </select>
   </div>
 </template>
-
-<style scoped></style>
 
 <script>
 import supportedLocales from '@/utils/localeUtils';
@@ -18,9 +16,6 @@ export default {
     return {
       locales: supportedLocales.getSupportedLocales(),
     };
-  },
-  created() {
-    console.log(this.$store.state.localeStore.locale);
   },
   computed: {
     lang: {
