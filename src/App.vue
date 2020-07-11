@@ -39,6 +39,10 @@ body {
 .container {
   min-height: 100%;
 }
+
+.modal-open {
+  overflow: inherit;
+}
 </style>
 
 <script>

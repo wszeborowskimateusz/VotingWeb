@@ -66,13 +66,20 @@ export default {
   actions,
   mutations,
   getters: {
-    activeSession(state) {
-      if (!state.sessions) {
-        return null;
-      }
-      const active = state.sessions.filter((session) => session.isActive);
+    activeSession() {
+      return {
+        name: 'Sesja testowa',
+        date: Date.now(),
+        place: 'Bieszkowice',
+        electionLead: 'Mikołaj Peszko',
+        status: 'IN_PROGRESS',
+      };
+      //   if (!state.sessions) {
+      //     return null;
+      //   }
+      //   const active = state.sessions.filter((session) => session.isActive);
 
-      return active.length > 0 ? active[0] : null;
+      //   return active.length > 0 ? active[0] : null;
     },
   },
 };

@@ -20,7 +20,15 @@
             {{ $t('parliamentManagement.changeActiveSession') }}
           </router-link>
         </li>
+        <li v-if="activeSession" class="nav-item ml-2">
+          <a @click="$modal.show('activeSessionModal')"
+            >{{ $t('parliamentManagement.activeSession') }}:
+            {{ activeSession.name }}</a
+          >
+        </li>
       </ul>
+      <!--Keep the layout consistent-->
+      <div v-else class="flex-fill"></div>
       <ul class="nav navbar-nav">
         <li class="nav-item">
           <button
@@ -35,6 +43,7 @@
           <LocaleSwitcher />
         </li>
       </ul>
+      <ActiveSessionModal></ActiveSessionModal>
     </div>
   </nav>
 </template>
@@ -49,13 +58,15 @@
 }
 </style>
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import LocaleSwitcher from './LocaleSwitcher.vue';
+import ActiveSessionModal from './ActiveSessionModal.vue';
 
 export default {
-  components: { LocaleSwitcher },
+  components: { LocaleSwitcher, ActiveSessionModal },
   computed: {
     ...mapState('userAuthentication', ['status']),
+    ...mapGetters('parliamentManagement', ['activeSession']),
   },
   methods: {
     ...mapActions('userAuthentication', ['logout']),

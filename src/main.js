@@ -3,6 +3,7 @@ import App from '@/App.vue';
 import router from '@/router';
 import store from '@/store';
 import toasts from '@/utils/toasts';
+import VModal from 'vue-js-modal';
 import i18n from './i18n';
 
 require('bootstrap');
@@ -31,7 +32,7 @@ function checkForWrongToken(to, _, next) {
     return next('/login');
   }
 
-  if (loggedIn && (to.path === '/login')) {
+  if (loggedIn && to.path === '/login') {
     return next('/');
   }
 
@@ -42,6 +43,8 @@ function checkForWrongToken(to, _, next) {
 router.beforeEach((to, from, next) => {
   checkForWrongToken(to, from, next);
 });
+
+Vue.use(VModal);
 
 new Vue({
   router,

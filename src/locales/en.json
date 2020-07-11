@@ -16,6 +16,12 @@
   },
   "parliamentManagement": {
     "newSession": "New session",
-    "changeActiveSession": "Change active session"
+    "changeActiveSession": "Change active session",
+    "activeSession": "Active session",
+    "name": "Name",
+    "date": "Date",
+    "place": "Place",
+    "electionLead": "Election lead",
+    "status": "Status"
   }
 }

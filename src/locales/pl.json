@@ -16,6 +16,12 @@
   },
   "parliamentManagement": {
     "newSession": "Nowe posiedzenie",
-    "changeActiveSession": "Zmień aktywne posiedzenie"
+    "changeActiveSession": "Zmień aktywne posiedzenie",
+    "activeSession": "Aktywne posiedzenie",
+    "name": "Nazwa",
+    "date": "Data",
+    "place": "Miejsce",
+    "electionLead": "Przewodniczący komisji",
+    "status": "Status"
   }
 }
