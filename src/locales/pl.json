@@ -1,10 +1,21 @@
 {
-    "message": "Siemanko",
-    "login": {
-        "username": "Nazwa użytkownika",
-        "usernameRequired": "Nazwa użytkownika jest wymagana",
-        "password": "Hasło",
-        "passwordRequired": "Hasło jest wymagane",
-        "login": "Zaloguj się"
-      }
+  "common": {
+    "cancel": "Anuluj",
+    "tryAgain": "Spróbuj ponownie"
+  },
+  "login": {
+      "username": "Nazwa użytkownika",
+      "usernameRequired": "Nazwa użytkownika jest wymagana",
+      "password": "Hasło",
+      "passwordRequired": "Hasło jest wymagane",
+      "login": "Zaloguj się",
+      "logout": "Wyloguj się",
+      "authenticationRequired": "Aby dostać się na tę stronę musisz się zalogować",
+      "invalidToken": "Twój token jest nieprawidłowy, dla bezpieczeństwa wylogowano cię z aplikacji",
+      "logoutSuccess": "Pomyślnie wylogowano się"
+  },
+  "parliamentManagement": {
+    "newSession": "Nowe posiedzenie",
+    "changeActiveSession": "Zmień aktywne posiedzenie"
+  }
 }

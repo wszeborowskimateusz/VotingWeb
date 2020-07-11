@@ -1,5 +1,6 @@
 import Toasted from 'vue-toasted';
 import Vue from 'vue';
+import i18n from '../i18n';
 
 Vue.use(Toasted);
 
@@ -7,7 +8,7 @@ export default {
   errorToast(message) {
     Vue.toasted.error(message, {
       action: {
-        text: 'Anuluj',
+        text: i18n.tc('common.cancel'),
         onClick: (e, toastObject) => {
           toastObject.goAway(0);
         },
@@ -20,7 +21,7 @@ export default {
   successToast(message) {
     Vue.toasted.success(message, {
       action: {
-        text: 'Anuluj',
+        text: i18n.tc('common.cancel'),
         onClick: (e, toastObject) => {
           toastObject.goAway(0);
         },

@@ -1,10 +1,21 @@
 {
-  "message": "hello i18n !!",
+  "common": {
+    "cancel": "Cancel",
+    "tryAgain": "Try again"
+  },
   "login": {
     "username": "Username",
     "usernameRequired": "Username is required",
     "password": "Password",
     "passwordRequired": "Password is required",
-    "login": "Login"
+    "login": "Login",
+    "logout": "Logout",
+    "authenticationRequired": "You need to login to see this page",
+    "invalidToken": "Your token is invalid. You have been logged out",
+    "logoutSuccess": "You have been logged out successfully"
+  },
+  "parliamentManagement": {
+    "newSession": "New session",
+    "changeActiveSession": "Change active session"
   }
 }

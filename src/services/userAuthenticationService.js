@@ -6,8 +6,17 @@ function logout() {
 
 function login(username, password) {
   const url = '/authentication/login';
+  // TODO: Change this once server authentication is ready
+  localStorage.setItem(
+    'user-token',
+    JSON.stringify('This is just a dummy token'),
+  );
+  if (true && username !== '') {
+    return Promise.resolve();
+  }
+
   return requestSender
-    .sendPostRequestWithoutAuthorization(url, { login: username, password })
+    .post(url, { login: username, password })
     .then((user) => {
       if (user.token) {
         localStorage.setItem('user-token', JSON.stringify(user.token));

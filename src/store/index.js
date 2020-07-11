@@ -5,6 +5,7 @@ import createPersistedState from 'vuex-persistedstate';
 
 import userAuthentication from './userAuthenticationStore';
 import localeStore from './localeStore';
+import parliamentManagement from './parliamentManagementStore';
 
 Vue.use(Vuex);
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
   modules: {
     userAuthentication,
     localeStore,
+    parliamentManagement,
   },
   getters: {
     userToken: () => localStorage.getItem('user-token'),

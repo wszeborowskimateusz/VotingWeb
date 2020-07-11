@@ -1,12 +1,16 @@
 <template>
-  <div>
-    <select v-model="lang" class="form-control">
-      <option :value="locale.code" v-for="locale in locales" :key="locale.code">
-        {{ locale.name }}
-      </option>
-    </select>
-  </div>
+  <select v-model="lang" id="locale_switcher" class="custom-select">
+    <option :value="locale.code" v-for="locale in locales" :key="locale.code">
+      {{ locale.name }}
+    </option>
+  </select>
 </template>
+
+<style scoped>
+#locale_switcher {
+  width: auto;
+}
+</style>
 
 <script>
 import supportedLocales from '@/utils/localeUtils';

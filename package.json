@@ -12,6 +12,7 @@
     "bootbox": "^5.4.0",
     "bootstrap": "^4.5.0",
     "core-js": "^3.6.4",
+    "downloadjs": "^1.4.7",
     "fetch-timeout": "0.0.2",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",

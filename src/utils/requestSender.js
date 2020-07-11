@@ -1,5 +1,6 @@
 import fetchTimeout from 'fetch-timeout';
 import config from '@/../config';
+import download from 'downloadjs';
 
 function refreshToken(refreshedToken) {
   localStorage.setItem('user-token', JSON.stringify(refreshedToken));
@@ -28,50 +29,58 @@ function prepareApiUrl(url) {
   return `${config.apiUrl}${url}`;
 }
 
+function sendRequest(url, options) {
+  const token = JSON.parse(localStorage.getItem('user-token'));
+  const reqOptions = options;
+  if (token !== null) {
+    reqOptions.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return fetchTimeout(
+    prepareApiUrl(url),
+    reqOptions,
+    config.requestTimeout,
+    'TIMEOUT',
+  ).then((response) => handleResponse(response));
+}
+
 export default {
-  sendGetRequest(url) {
-    const token = JSON.parse(localStorage.getItem('user-token'));
-    if (token !== null) {
-      const requestOptions = {
-        method: 'GET',
-        headers: { Authorization: `Bearer ${token}` },
-      };
-
-      return fetchTimeout(prepareApiUrl(url), requestOptions, config.requestTimeout, 'TIMEOUT')
-        .then((response) => handleResponse(response));
-    }
-    return Promise.reject(new Error('No token provided'));
+  get(url) {
+    const options = { method: 'GET' };
+    return sendRequest(url, options);
   },
-  sendPostRequest(url, body) {
-    const token = JSON.parse(localStorage.getItem('user-token'));
-    const requestOptions = {
+  post(url, body) {
+    const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     };
 
-    if (token) {
-      requestOptions.headers.Authorization = `Bearer ${token}`;
-      return fetchTimeout(prepareApiUrl(url), requestOptions, config.requestTimeout, 'TIMEOUT')
-        .then((response) => handleResponse(response));
-    }
-
-    return Promise.reject(new Error('No token provided'));
+    return sendRequest(url, options);
   },
-  sendGetRequestWithoutAuthorization(url) {
-    const requestOptions = { method: 'GET' };
-
-    return fetchTimeout(prepareApiUrl(url), requestOptions, config.requestTimeout, 'TIMEOUT')
-      .then((response) => handleResponse(response));
-  },
-  sendPostRequestWithoutAuthorization(url, body) {
-    const requestOptions = {
+  postFile(url, file) {
+    const options = {
       method: 'POST',
+      body: file,
+    };
+
+    return sendRequest(url, options);
+  },
+  getFile(url) {
+    return download(url);
+  },
+  put(url, body) {
+    const options = {
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     };
 
-    return fetchTimeout(prepareApiUrl(url), requestOptions, config.requestTimeout, 'TIMEOUT')
-      .then((response) => handleResponse(response));
+    return sendRequest(url, options);
+  },
+  delete(url) {
+    const options = { method: 'DELETE' };
+
+    return sendRequest(url, options);
   },
 };

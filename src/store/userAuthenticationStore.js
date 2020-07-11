@@ -1,7 +1,7 @@
 import userService from '@/services/userAuthenticationService';
 import router from '@/router';
 import toasts from '@/utils/toasts';
-
+import i18n from '../i18n';
 
 function onLoginSuccess(commit) {
   commit('loginSuccess');
@@ -10,27 +10,24 @@ function onLoginSuccess(commit) {
 
 const userToken = JSON.parse(localStorage.getItem('user-token'));
 
-const userState = userToken
-  ? { status: { loggedIn: true } }
-  : { status: {} };
+const userState = userToken ? { status: { loggedIn: true } } : { status: {} };
 
 const actions = {
   login({ commit }, { username, password }) {
     commit('loginInProgress');
-    userService.login(username, password)
-      .then(
-        () => onLoginSuccess(commit),
-        (error) => {
-          toasts.errorToast(`${error}. Spróbuj ponownie.`);
-          commit('loginFailure', error);
-        },
-      );
+    userService.login(username, password).then(
+      () => onLoginSuccess(commit),
+      (error) => {
+        toasts.errorToast(`${error}. ${i18n.tc('common.tryAgain')}`);
+        commit('loginFailure', error);
+      },
+    );
   },
   logout({ commit }) {
     userService.logout();
-    toasts.successToast('Pomyślnie wylogowano się');
+    toasts.successToast(i18n.tc('login.logoutSuccess'));
     commit('logout');
-    router.push('/');
+    router.push('/login');
   },
 };
 
@@ -50,7 +47,6 @@ const mutations = {
   },
 };
 /* eslint-enable no-param-reassign */
-
 
 export default {
   namespaced: true,

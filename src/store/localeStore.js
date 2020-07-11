@@ -12,7 +12,6 @@ export default {
   },
   actions: {
     changeLocale({ commit }, newLocale) {
-      console.log('CHANGING THE LOCALE');
       i18n.locale = newLocale;
       commit('updateLocale', newLocale);
     },
