@@ -7,13 +7,13 @@
       <h4 class="p-3">
         {{ $t('parliamentManagement.activeSession') }}
       </h4>
-      <div class="d-flex flex-column">
+      <div class="d-flex flex-column mb-3">
         <div
           v-for="field in fieldsToDisplay"
           v-bind:key="field"
-          class="d-flex flex-row justify-content-center p-1"
+          class="d-flex flex-row justify-content-center p-2"
         >
-          <span class="font-weight-bold h6 mr-2"
+          <span class="font-weight-bold mr-2"
             >{{ $t(`parliamentManagement.${field}`) }}:
           </span>
           <span v-if="field == 'date'">{{

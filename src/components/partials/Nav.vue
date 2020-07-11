@@ -16,20 +16,20 @@
           </button>
         </li>
         <li class="nav-item align-items-center">
-          <router-link to="/" class="text-info">
-            {{ $t('parliamentManagement.changeActiveSession') }}
+          <router-link to="/" class="nav-link">
+            {{ $t('parliamentManagement.sessions') }}
           </router-link>
-        </li>
-        <li v-if="activeSession" class="nav-item ml-2">
-          <a @click="$modal.show('activeSessionModal')"
-            >{{ $t('parliamentManagement.activeSession') }}:
-            {{ activeSession.name }}</a
-          >
         </li>
       </ul>
       <!--Keep the layout consistent-->
       <div v-else class="flex-fill"></div>
       <ul class="nav navbar-nav">
+        <li v-if="activeSession" class="nav-item mr-4">
+          <a @click="$modal.show('activeSessionModal')"
+            >{{ $t('parliamentManagement.activeSession') }}:
+            {{ activeSession.name }}</a
+          >
+        </li>
         <li class="nav-item">
           <button
             v-if="status.loggedIn"
@@ -55,6 +55,10 @@
   height: 50px;
   line-height: 50px;
   font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+  display: inline;
 }
 </style>
 <script>

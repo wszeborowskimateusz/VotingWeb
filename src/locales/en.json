@@ -22,6 +22,7 @@
     "date": "Date",
     "place": "Place",
     "electionLead": "Election lead",
-    "status": "Status"
+    "status": "Status",
+    "sessions": "Sessions"
   }
 }

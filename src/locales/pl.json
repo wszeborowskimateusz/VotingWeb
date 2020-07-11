@@ -22,6 +22,7 @@
     "date": "Data",
     "place": "Miejsce",
     "electionLead": "Przewodniczący komisji",
-    "status": "Status"
+    "status": "Status",
+    "sessions": "Posiedzenia"
   }
 }
