@@ -4,15 +4,15 @@
     "tryAgain": "Spróbuj ponownie"
   },
   "login": {
-      "username": "Nazwa użytkownika",
-      "usernameRequired": "Nazwa użytkownika jest wymagana",
-      "password": "Hasło",
-      "passwordRequired": "Hasło jest wymagane",
-      "login": "Zaloguj się",
-      "logout": "Wyloguj się",
-      "authenticationRequired": "Aby dostać się na tę stronę musisz się zalogować",
-      "invalidToken": "Twój token jest nieprawidłowy, dla bezpieczeństwa wylogowano cię z aplikacji",
-      "logoutSuccess": "Pomyślnie wylogowano się"
+    "username": "Nazwa użytkownika",
+    "usernameRequired": "Nazwa użytkownika jest wymagana",
+    "password": "Hasło",
+    "passwordRequired": "Hasło jest wymagane",
+    "login": "Zaloguj się",
+    "logout": "Wyloguj się",
+    "authenticationRequired": "Aby dostać się na tę stronę musisz się zalogować",
+    "invalidToken": "Twój token jest nieprawidłowy, dla bezpieczeństwa wylogowano cię z aplikacji",
+    "logoutSuccess": "Pomyślnie wylogowano się"
   },
   "parliamentManagement": {
     "newSession": "Nowe posiedzenie",
@@ -24,5 +24,31 @@
     "electionLead": "Przewodniczący komisji",
     "status": "Status",
     "sessions": "Posiedzenia"
+  },
+  "sessionStatus": {
+    "FINISHED_NOT_SAVED_TO_GLOBAL": {
+      "name": "Zakończona, nie zapisana do globalnej",
+      "description": "Zakończona, nie zarchiwizowana w globalnej bazie danych"
+    },
+    "FINISHED": {
+      "name": "Zakończona",
+      "description": "Zakończona i zarchiwizowana w globalnej bazie danych"
+    },
+    "SUSPENDED": {
+      "name": "Zawieszona",
+      "description": "Zawieszona - może zostać wznowiona"
+    },
+    "IN_PROGRESS": {
+      "name": "W trakcie",
+      "description": "Sesja jest w trakcie"
+    },
+    "IN_PREPARATION_READY_TO_START": {
+      "name": "W przygotowaniu, gotowa do startu",
+      "description": "Sesja jest w trakcie przygotowań, wszystkie konieczne dane zostały wypełnione i sesja może być rozpoczęta"
+    },
+    "IN_PREPARTION": {
+      "name": "W przygotowaniu",
+      "description": "Sesja jest w trakcie przygotowań, ale nie wszystkie konieczne dane zostały wypełnione i sesja nie może być rozpoczęta"
+    }
   }
 }

@@ -72,7 +72,7 @@ export default {
         date: Date.now(),
         place: 'Bieszkowice',
         electionLead: 'Mikołaj Peszko',
-        status: 'IN_PROGRESS',
+        status: 'IN_PREPARATION_READY_TO_START',
       };
       //   if (!state.sessions) {
       //     return null;

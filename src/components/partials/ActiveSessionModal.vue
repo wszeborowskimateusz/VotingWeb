@@ -19,10 +19,17 @@
           <span v-if="field == 'date'">{{
             getFormatedDate(activeSession[field])
           }}</span>
+          <span v-else-if="field == 'status'">
+            {{ $t(`sessionStatus.${activeSession[field]}.name`) }}
+            <a @click="$modal.show('sessionStatusInfoModal')">
+              <i class="fas fa-info-circle"></i>
+            </a>
+          </span>
           <span v-else>{{ activeSession[field] }}</span>
         </div>
       </div>
     </div>
+    <SessionStatusInfoModal :status="activeSession['status']" />
   </modal>
 </template>
 <style scoped>
@@ -35,6 +42,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import moment from 'moment';
+import SessionStatusInfoModal from './SessionStatusInfoModal.vue';
 
 export default {
   data() {
@@ -52,6 +60,9 @@ export default {
     getFormatedDate(date) {
       return moment(date).format('DD.MM.YYYY');
     },
+  },
+  components: {
+    SessionStatusInfoModal,
   },
 };
 </script>

@@ -24,5 +24,31 @@
     "electionLead": "Election lead",
     "status": "Status",
     "sessions": "Sessions"
+  },
+  "sessionStatus": {
+    "FINISHED_NOT_SAVED_TO_GLOBAL": {
+      "name": "Finished, not saved to global",
+      "description": "Finished, not archived to global database"
+    },
+    "FINISHED": {
+      "name": "Finished",
+      "description": "Finished and archived to global database"
+    },
+    "SUSPENDED": {
+      "name": "Suspended",
+      "description": "Suspended - can be later resumed"
+    },
+    "IN_PROGRESS":  {
+      "name": "In progress",
+      "description": "Session in progress"
+    },
+    "IN_PREPARATION_READY_TO_START":   {
+      "name": "In preparations, ready to start",
+      "description": "The session is in preparations, all necessary data have been provided and session can be started"
+    },
+    "IN_PREPARTION":    {
+      "name": "In preparations",
+      "description": "The session is is preparations but not all necessary data have been provided, so the session cannot be started"
+    }
   }
 }
