@@ -1,7 +1,8 @@
 {
   "common": {
     "cancel": "Cancel",
-    "tryAgain": "Try again"
+    "tryAgain": "Try again",
+    "mainPage": "Main page"
   },
   "login": {
     "username": "Username",

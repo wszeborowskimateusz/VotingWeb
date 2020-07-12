@@ -17,6 +17,12 @@
         </li>
         <li class="nav-item align-items-center">
           <router-link to="/" class="nav-link">
+            {{ $t('common.mainPage') }}
+          </router-link>
+        </li>
+        <li class="divider-vertical"></li>
+        <li class="nav-item align-items-center">
+          <router-link to="/sessions" class="nav-link">
             {{ $t('parliamentManagement.sessions') }}
           </router-link>
         </li>
@@ -29,6 +35,9 @@
             >{{ $t('parliamentManagement.activeSession') }}:
             {{ activeSession.name }}</a
           >
+        </li>
+        <li v-else-if="isLoading" class="nav-item mr-4">
+          <Loader />
         </li>
         <li class="nav-item">
           <button
@@ -60,16 +69,34 @@
 .navbar-nav .nav-link {
   display: inline;
 }
+
+.navbar .divider-vertical {
+  height: 40px;
+  margin: 0 9px;
+  border-right: 1px solid #847d88;
+}
+
+.nav-item {
+  white-space: nowrap;
+}
+
+@media (max-width: 1200px) {
+  .navbar .divider-vertical {
+    display: none;
+  }
+}
 </style>
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
 import LocaleSwitcher from './LocaleSwitcher.vue';
 import ActiveSessionModal from './ActiveSessionModal.vue';
+import Loader from './Loader.vue';
 
 export default {
-  components: { LocaleSwitcher, ActiveSessionModal },
+  components: { LocaleSwitcher, ActiveSessionModal, Loader },
   computed: {
     ...mapState('userAuthentication', ['status']),
+    ...mapState('parliamentManagement', ['isLoading']),
     ...mapGetters('parliamentManagement', ['activeSession']),
   },
   methods: {

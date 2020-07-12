@@ -1,5 +1,6 @@
 <template>
-  <modal name="activeSessionModal" height="auto">
+  <div v-if="!activeSession"></div>
+  <modal v-else name="activeSessionModal" height="auto">
     <a @click="close()" class="close-button">
       <i class="fas fa-times"></i>
     </a>

@@ -66,20 +66,13 @@ export default {
   actions,
   mutations,
   getters: {
-    activeSession() {
-      return {
-        name: 'Sesja testowa',
-        date: Date.now(),
-        place: 'Bieszkowice',
-        electionLead: 'Mikołaj Peszko',
-        status: 'IN_PREPARATION_READY_TO_START',
-      };
-      //   if (!state.sessions) {
-      //     return null;
-      //   }
-      //   const active = state.sessions.filter((session) => session.isActive);
+    activeSession(state) {
+      if (!state.sessions || state.sessions == null) {
+        return null;
+      }
+      const active = state.sessions.filter((session) => session.isActive);
 
-      //   return active.length > 0 ? active[0] : null;
+      return active.length > 0 ? active[0] : null;
     },
   },
 };

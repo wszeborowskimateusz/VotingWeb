@@ -1,7 +1,8 @@
 {
   "common": {
     "cancel": "Anuluj",
-    "tryAgain": "Spróbuj ponownie"
+    "tryAgain": "Spróbuj ponownie",
+    "mainPage": "Strona główna"
   },
   "login": {
     "username": "Nazwa użytkownika",
