@@ -2,13 +2,14 @@ import userService from '@/services/userAuthenticationService';
 import router from '@/router';
 import toasts from '@/utils/toasts';
 import i18n from '../i18n';
+import tokenUtils from '../utils/tokenUtils';
 
 function onLoginSuccess(commit) {
   commit('loginSuccess');
   router.push('/');
 }
 
-const userToken = JSON.parse(localStorage.getItem('user-token'));
+const userToken = JSON.parse(tokenUtils.getToken());
 
 const userState = userToken ? { status: { loggedIn: true } } : { status: {} };
 

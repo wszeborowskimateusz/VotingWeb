@@ -1,33 +1,29 @@
 import requestSender from '@/utils/requestSender';
+import tokenUtils from '../utils/tokenUtils';
 
 function logout() {
-  localStorage.removeItem('user-token');
+  tokenUtils.removeItem();
 }
 
 function login(username, password) {
   const url = '/authentication/login';
   // TODO: Change this once server authentication is ready
-  localStorage.setItem(
-    'user-token',
-    JSON.stringify('This is just a dummy token'),
-  );
+  tokenUtils.setToken(JSON.stringify('This is just a dummy token'));
   if (true && username !== '') {
     return Promise.resolve();
   }
 
-  return requestSender
-    .post(url, { login: username, password })
-    .then((user) => {
-      if (user.token) {
-        localStorage.setItem('user-token', JSON.stringify(user.token));
-      } else {
-        return Promise.reject(
-          new Error("No token provided in server's response"),
-        );
-      }
+  return requestSender.post(url, { login: username, password }).then((user) => {
+    if (user.token) {
+      tokenUtils.setToken(JSON.stringify(user.token));
+    } else {
+      return Promise.reject(
+        new Error("No token provided in server's response"),
+      );
+    }
 
-      return user;
-    });
+    return user;
+  });
 }
 
 export default {

@@ -2,7 +2,8 @@
   "common": {
     "cancel": "Anuluj",
     "tryAgain": "Spróbuj ponownie",
-    "mainPage": "Strona główna"
+    "mainPage": "Strona główna",
+    "more": "Więcej..."
   },
   "login": {
     "username": "Nazwa użytkownika",
@@ -19,6 +20,7 @@
     "newSession": "Nowe posiedzenie",
     "changeActiveSession": "Zmień aktywne posiedzenie",
     "activeSession": "Aktywne posiedzenie",
+    "sessionInfo": "Informacje o sesji",
     "name": "Nazwa",
     "date": "Data",
     "place": "Miejsce",
@@ -43,8 +45,8 @@
       "name": "W trakcie",
       "description": "Sesja jest w trakcie"
     },
-    "IN_PREPARATION_READY_TO_START": {
-      "name": "W przygotowaniu, gotowa do startu",
+    "BEFORE_VOTING": {
+      "name": "Przed głosowaniem",
       "description": "Sesja jest w trakcie przygotowań, wszystkie konieczne dane zostały wypełnione i sesja może być rozpoczęta"
     },
     "IN_PREPARTION": {

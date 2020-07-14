@@ -37,7 +37,7 @@
           >
         </li>
         <li v-else-if="isLoading" class="nav-item mr-4">
-          <Loader />
+          <Loader :isMainPageLoader="false" />
         </li>
         <li class="nav-item">
           <button
@@ -52,7 +52,7 @@
           <LocaleSwitcher />
         </li>
       </ul>
-      <ActiveSessionModal></ActiveSessionModal>
+      <ActiveSessionModal name="activeSessionModal" :session="activeSession" />
     </div>
   </nav>
 </template>
@@ -88,8 +88,9 @@
 </style>
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
+import $ from 'jquery';
 import LocaleSwitcher from './LocaleSwitcher.vue';
-import ActiveSessionModal from './ActiveSessionModal.vue';
+import ActiveSessionModal from './SessionInfoModal.vue';
 import Loader from './Loader.vue';
 
 export default {
@@ -101,6 +102,11 @@ export default {
   },
   methods: {
     ...mapActions('userAuthentication', ['logout']),
+  },
+  mounted() {
+    $('.navbar-nav>li>a').on('click', () => {
+      $('.navbar-collapse').collapse('hide');
+    });
   },
 };
 </script>

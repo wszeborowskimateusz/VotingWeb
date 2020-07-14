@@ -5,6 +5,7 @@ import store from '@/store';
 import toasts from '@/utils/toasts';
 import VModal from 'vue-js-modal';
 import i18n from './i18n';
+import tokenUtils from './utils/tokenUtils';
 
 require('bootstrap');
 
@@ -16,7 +17,7 @@ function checkForWrongToken(to, _, next) {
   const authRequired = !publicPages.includes(to.path);
 
   // See if there is a JWT in local storage
-  const loggedIn = localStorage.getItem('user-token');
+  const loggedIn = tokenUtils.getToken();
 
   if (!loggedIn && store.state.userAuthentication.status.loggedIn) {
     store.dispatch('userAuthentication/logout', null, { root: true });

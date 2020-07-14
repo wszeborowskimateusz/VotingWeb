@@ -2,7 +2,8 @@
   "common": {
     "cancel": "Cancel",
     "tryAgain": "Try again",
-    "mainPage": "Main page"
+    "mainPage": "Main page",
+    "more": "More..."
   },
   "login": {
     "username": "Username",
@@ -19,6 +20,7 @@
     "newSession": "New session",
     "changeActiveSession": "Change active session",
     "activeSession": "Active session",
+    "sessionInfo": "Session info",
     "name": "Name",
     "date": "Date",
     "place": "Place",
@@ -43,7 +45,7 @@
       "name": "In progress",
       "description": "Session in progress"
     },
-    "IN_PREPARATION_READY_TO_START":   {
+    "BEFORE_VOTING":   {
       "name": "In preparations, ready to start",
       "description": "The session is in preparations, all necessary data have been provided and session can be started"
     },

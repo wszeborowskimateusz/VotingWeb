@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Nav />
-    <div class="container__row pt-2">
+    <Nav id="navigation"/>
+    <div class="container__row container pt-2">
       <router-view :key="$route.path"></router-view>
     </div>
   </div>
@@ -21,6 +21,10 @@ body {
   padding: 0;
 }
 
+#navigation {
+  background-color: white;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -29,6 +33,7 @@ body {
   color: #2c3e50;
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 .container__row {
@@ -46,9 +51,16 @@ body {
 </style>
 
 <script>
+import { mapActions } from 'vuex';
 import Nav from './components/partials/Nav.vue';
 
 export default {
   components: { Nav },
+  methods: {
+    ...mapActions('parliamentManagement', ['loadSessions']),
+  },
+  mounted() {
+    this.loadSessions();
+  },
 };
 </script>

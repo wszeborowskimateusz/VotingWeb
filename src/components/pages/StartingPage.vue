@@ -1,7 +1,5 @@
 <template>
-  <div v-if="isLoading" class="d-flex justify-content-center pt-5">
-      <Loader/>
-  </div>
+  <Loader v-if="isLoading" />
   <div v-else-if="!activeSession">
     <SessionsList />
   </div>
@@ -14,7 +12,7 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapGetters } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 import SessionFinished from './SessionFinished.vue';
 import SessionInProgress from './SessionInProgress.vue';
@@ -28,7 +26,6 @@ export default {
     ...mapState('parliamentManagement', ['isLoading']),
   },
   methods: {
-    ...mapActions('parliamentManagement', ['loadSessions']),
     getComponentByActiveSessionStatus() {
       if (this.activeSession == null) {
         // TODO: Probably some error page
@@ -38,7 +35,7 @@ export default {
         case 'FINISHED_NOT_SAVED_TO_GLOBAL':
         case 'FINISHED':
           return 'SessionFinished';
-        case 'IN_PREPARATION_READY_TO_START':
+        case 'BEFORE_VOTING':
         case 'IN_PREPARTION':
           return 'SessionPreparation';
         case 'IN_PROGRESS':
@@ -51,9 +48,6 @@ export default {
       // TODO: Probably some error page
       return '';
     },
-  },
-  mounted() {
-    this.loadSessions();
   },
   components: {
     SessionFinished,

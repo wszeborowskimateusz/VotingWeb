@@ -5,12 +5,22 @@ function getSessionsList() {
 
   const dummySessionList = [
     {
+      id: 1,
       name: 'Sesja testowa',
       date: Date.now(),
       place: 'Bieszkowice',
       electionLead: 'Mikołaj Peszko',
-      status: 'IN_PREPARATION_READY_TO_START',
+      status: 'BEFORE_VOTING',
       isActive: true,
+    },
+    {
+      id: 2,
+      name: 'Sesja testowa 2',
+      date: Date.now(),
+      place: 'Kamień',
+      electionLead: 'Weronika Truskawka',
+      status: 'FINISHED',
+      isActive: false,
     },
   ];
 

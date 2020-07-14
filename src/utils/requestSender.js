@@ -1,9 +1,10 @@
 import fetchTimeout from 'fetch-timeout';
 import config from '@/../config';
 import download from 'downloadjs';
+import tokenUtils from './tokenUtils';
 
 function refreshToken(refreshedToken) {
-  localStorage.setItem('user-token', JSON.stringify(refreshedToken));
+  tokenUtils.setToken(JSON.stringify(refreshedToken));
 }
 
 function handleResponse(response) {
@@ -11,7 +12,7 @@ function handleResponse(response) {
     const data = text && JSON.parse(text);
     if (!response.ok) {
       if (response.status === 401) {
-        localStorage.removeItem('user-token');
+        tokenUtils.removeToken();
       }
 
       const error = (data && data.message) || response.statusText;
@@ -30,7 +31,7 @@ function prepareApiUrl(url) {
 }
 
 function sendRequest(url, options) {
-  const token = JSON.parse(localStorage.getItem('user-token'));
+  const token = JSON.parse(tokenUtils.getToken());
   const reqOptions = options;
   if (token !== null) {
     reqOptions.headers.Authorization = `Bearer ${token}`;
