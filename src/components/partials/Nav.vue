@@ -52,7 +52,11 @@
           <LocaleSwitcher />
         </li>
       </ul>
-      <ActiveSessionModal name="activeSessionModal" :session="activeSession" />
+      <ActiveSessionModal
+        v-if="activeSession"
+        name="activeSessionModal"
+        :session="activeSession"
+      />
     </div>
   </nav>
 </template>
@@ -64,6 +68,7 @@
   height: 50px;
   line-height: 50px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .navbar-nav .nav-link {

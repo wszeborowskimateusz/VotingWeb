@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Nav id="navigation"/>
+    <Nav id="navigation" />
     <div class="container__row container pt-2">
       <router-view :key="$route.path"></router-view>
     </div>
@@ -12,6 +12,7 @@ html {
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 body {
@@ -19,6 +20,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 #navigation {
@@ -47,6 +49,11 @@ body {
 
 .modal-open {
   overflow: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
 }
 </style>
 

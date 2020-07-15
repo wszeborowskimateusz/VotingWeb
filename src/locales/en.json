@@ -3,7 +3,9 @@
     "cancel": "Cancel",
     "tryAgain": "Try again",
     "mainPage": "Main page",
-    "more": "More..."
+    "more": "More...",
+    "edit": "Edit",
+    "download": "Download"
   },
   "login": {
     "username": "Username",
@@ -26,7 +28,8 @@
     "place": "Place",
     "electionLead": "Election lead",
     "status": "Status",
-    "sessions": "Sessions"
+    "sessions": "Sessions",
+    "uploadSession": "Upload session"
   },
   "sessionStatus": {
     "FINISHED_NOT_SAVED_TO_GLOBAL": {
@@ -53,5 +56,12 @@
       "name": "In preparations",
       "description": "The session is is preparations but not all necessary data have been provided, so the session cannot be started"
     }
+  },
+  "sessionActions": {
+    "resume": "Resume",
+    "saveToGlobal": "Save to global database",
+    "suspend": "Suspend",
+    "finish": "Finish",
+    "start": "Start"
   }
 }

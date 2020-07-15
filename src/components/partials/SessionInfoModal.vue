@@ -1,8 +1,5 @@
 <template>
-  <modal :name="name" height="auto" width="65%">
-    <a @click="close()" class="close-button">
-      <i class="fas fa-times"></i>
-    </a>
+  <common-modal :name="name" height="auto" width="65%">
     <div>
       <h4 class="p-3">
         <span v-if="session.isActive">{{
@@ -23,28 +20,22 @@
             getFormatedDate(session[field])
           }}</span>
           <span v-else-if="field == 'status'">
-            {{ $t(`sessionStatus.${session[field]}.name`) }}
-            <a @click="$modal.show('sessionStatusInfoModal')">
-              <i class="fas fa-info-circle"></i>
-            </a>
+            <SessionStatusInfo
+              :status="session.status"
+              :modalName="`sessionInfoModal${session.id}`"
+            />
           </span>
           <span v-else>{{ session[field] }}</span>
         </div>
       </div>
     </div>
-    <SessionStatusInfoModal :status="session['status']" />
-  </modal>
+  </common-modal>
 </template>
-<style scoped>
-.close-button {
-  position: absolute;
-  right: 10px;
-  top: 5px;
-}
-</style>
+
 <script>
 import moment from 'moment';
-import SessionStatusInfoModal from './SessionStatusInfoModal.vue';
+import SessionStatusInfo from './SessionStatusInfo.vue';
+import CommonModal from './CommonModal.vue';
 
 export default {
   props: {
@@ -63,15 +54,13 @@ export default {
     };
   },
   methods: {
-    close() {
-      this.$modal.hide(this.name);
-    },
     getFormatedDate(date) {
       return moment(date).format('DD.MM.YYYY');
     },
   },
   components: {
-    SessionStatusInfoModal,
+    SessionStatusInfo,
+    CommonModal,
   },
 };
 </script>
