@@ -1,3 +1,5 @@
+import i18n from '../i18n';
+
 const bootbox = require('bootbox');
 
 export default {
@@ -10,12 +12,16 @@ export default {
     });
   },
   confirmationDialog(message, callback) {
-    bootbox.confirm({
+    this.customConfirmationDialog(
       message,
-      callback,
-      centerVertical: true,
-      className: 'modal-open',
-    });
+      (isAccepted) => {
+        if (isAccepted) {
+          callback();
+        }
+      },
+      i18n.tc('common.confirm'),
+      i18n.tc('common.cancel'),
+    );
   },
   customConfirmationDialog(message, callback, confirmTitle, declineTitle) {
     bootbox.confirm({

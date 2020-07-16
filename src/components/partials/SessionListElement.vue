@@ -1,12 +1,9 @@
 <template>
-  <div class="row my-4" @click="changeActiveSession(session.id)">
+  <div class="row my-5" @click="changeActiveSession(session.id)">
     <div
       class="col-8 offset-2 rounded p-3 shadow main__container"
       :class="[session.isActive ? ['border-success', 'border'] : '']"
     >
-      <div class="active_session_badge" v-if="session.isActive">
-        <img :src="imageGetter.getImgUrl('tick.svg')" height="50" />
-      </div>
       <div class="action__buttons__section action__button">
         <span
           v-if="session.status !== 'FINISHED'"
@@ -21,6 +18,27 @@
           :title="$t('common.download')"
           ><i class="fas fa-download mr-3"></i
         ></span>
+        <span
+          v-if="session.status === 'FINISHED'"
+          @click="removeSession(session.id)"
+          :title="$t('common.remove')"
+          ><i class="fas fa-trash-alt mr-3"></i
+        ></span>
+        <div
+          class="active_session_badge d-inline"
+          v-if="session.isActive"
+          :title="$t('parliamentManagement.thisSessionIsActive')"
+        >
+          <img :src="imageGetter.getImgUrl('filled.png')" height="50" />
+        </div>
+        <div
+          class="active_session_badge d-inline"
+          v-else
+          @click="changeActiveSession(session.id)"
+          :title="$t('parliamentManagement.changeToActiveSession')"
+        >
+          <img :src="imageGetter.getImgUrl('unfilled.png')" height="50" />
+        </div>
       </div>
       <div class="row">
         <div class="col-12 col-md-6 text-left">
@@ -44,12 +62,6 @@
   </div>
 </template>
 <style scoped>
-.active_session_badge {
-  position: absolute;
-  right: -10px;
-  top: -10px;
-}
-
 .action__buttons__section {
   position: absolute;
   bottom: 5px;
@@ -67,10 +79,13 @@
 </style>
 <script>
 import moment from 'moment';
+import { mapActions } from 'vuex';
 import imageGetter from '../../utils/imagesGetter';
 import SessionInfoModal from './SessionInfoModal.vue';
 import SessionStatusInfo from './SessionStatusInfo.vue';
 import SessionActions from './SessionActions.vue';
+import bootbox from '../../utils/bootbox';
+import i18n from '../../i18n';
 
 export default {
   props: {
@@ -86,6 +101,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions('parliamentManagement', ['changeActiveSession']),
     getFormatedDate(date) {
       return moment(date).format('DD.MM.YYYY');
     },
@@ -98,8 +114,15 @@ export default {
     editSession(sessionId) {
       console.log(`Editing the session with id: ${sessionId}`);
     },
-    changeActiveSession(sessionId) {
-      console.log(`Change active session to: ${sessionId}`);
+    removeSession(sessionId) {
+      bootbox.confirmationDialog(
+        i18n.t('sessionActions.areYouSureToRemove', {
+          sessionName: this.session.name,
+        }),
+        () => {
+          console.log(`Session with id ${sessionId} was removed`);
+        },
+      );
     },
   },
   components: {

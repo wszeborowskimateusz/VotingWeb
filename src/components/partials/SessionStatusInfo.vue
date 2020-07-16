@@ -1,18 +1,19 @@
 <template>
   <div>
     {{ $t(`sessionStatus.${status}.name`) }}
-    <a @click="$modal.show(modalName)" style="cursor:pointer">
-      <i class="fas fa-info-circle"></i>
-    </a>
-    <SessionStatusInfoModal
-      :status="status"
-      :name="modalName"
-    />
+    <tooltip :modalName="modalName">
+         <p>
+        <span class="font-weight-bold"
+          >{{ $t(`sessionStatus.${status}.name`) }} </span
+        >-
+        {{ $t(`sessionStatus.${status}.description`) }}
+      </p>
+    </tooltip>
   </div>
 </template>
 
 <script>
-import SessionStatusInfoModal from './SessionStatusInfoModal.vue';
+import Tooltip from './Tooltip.vue';
 
 export default {
   props: {
@@ -26,7 +27,7 @@ export default {
     },
   },
   components: {
-    SessionStatusInfoModal,
+    Tooltip,
   },
 };
 </script>

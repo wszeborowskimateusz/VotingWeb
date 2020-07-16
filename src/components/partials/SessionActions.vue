@@ -1,22 +1,22 @@
 <template>
   <div class="ml-md-auto mr-2 my-4 my-md-0 mx-auto mx-md-2">
     <div v-if="status === 'IN_PREPARTION'">
-      <button class="btn btn-info mr-2">
+      <button class="btn btn-success mr-2">
         <i class="far fa-play-circle mr-1"></i>{{ $t('sessionActions.start') }}
       </button>
     </div>
     <div v-if="status === 'BEFORE_VOTING'"></div>
     <div v-if="status === 'IN_PROGRESS'">
-      <button class="btn btn-info mr-2">
+      <button class="btn btn-warning mr-2">
         <i class="far fa-pause-circle mr-1"></i
         >{{ $t('sessionActions.suspend') }}
       </button>
-      <button class="btn btn-info">
+      <button class="btn btn-danger">
         <i class="far fa-stop-circle mr-1"></i>{{ $t('sessionActions.finish') }}
       </button>
     </div>
     <div v-if="status === 'SUSPENDED'">
-      <button class="btn btn-info">
+      <button class="btn btn-secondary">
         <i class="far fa-arrow-alt-circle-right mr-1"></i
         >{{ $t('sessionActions.resume') }}
       </button>

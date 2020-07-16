@@ -1,5 +1,5 @@
 <template>
-  <common-modal :name="name" height="auto" width="65%">
+  <common-modal :name="name" height="auto" :width="modalWidth">
     <div>
       <h4 class="p-3">
         <span v-if="session.isActive">{{
@@ -11,9 +11,10 @@
         <div
           v-for="field in fieldsToDisplay"
           v-bind:key="field"
-          class="d-flex flex-row justify-content-center p-2"
+          class="d-flex flex-row justify-content-center"
+          :class="{'p-2': session[field] != null}"
         >
-          <span class="font-weight-bold mr-2"
+          <span class="font-weight-bold mr-2" v-if="session[field] != null"
             >{{ $t(`parliamentManagement.${field}`) }}:
           </span>
           <span v-if="field == 'date'">{{
@@ -25,7 +26,7 @@
               :modalName="`sessionInfoModal${session.id}`"
             />
           </span>
-          <span v-else>{{ session[field] }}</span>
+          <span v-else-if="session[field] != null">{{ session[field] }}</span>
         </div>
       </div>
     </div>
@@ -51,11 +52,21 @@ export default {
   data() {
     return {
       fieldsToDisplay: ['name', 'date', 'place', 'electionLead', 'status'],
+      modalWidth: window.innerWidth < 400 ? '85%' : '50%',
     };
+  },
+  mounted() {
+    window.addEventListener('resize', this.getModalWidth);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.getModalWidth);
   },
   methods: {
     getFormatedDate(date) {
       return moment(date).format('DD.MM.YYYY');
+    },
+    getModalWidth() {
+      this.modalWidth = window.innerWidth < 400 ? '85%' : '50%';
     },
   },
   components: {
