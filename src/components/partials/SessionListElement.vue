@@ -1,5 +1,5 @@
 <template>
-  <div class="row my-5" @click="changeActiveSession(session.id)">
+  <div class="row my-5">
     <div
       class="col-8 offset-2 rounded p-3 shadow main__container"
       :class="[session.isActive ? ['border-success', 'border'] : '']"
