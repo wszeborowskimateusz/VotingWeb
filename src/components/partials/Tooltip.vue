@@ -3,7 +3,7 @@
     <a @click="$modal.show(modalName)" style="cursor:pointer">
       <i class="fas fa-info-circle"></i>
     </a>
-    <common-modal :name="modalName" :height="300" :width="300">
+    <common-modal :name="modalName" :height="300">
       <div
         class="p-2 pt-4 d-flex justify-content-center align-items-center h-100"
       >

@@ -55,7 +55,7 @@
             >{{ $t('common.more') }}</a
           >
         </div>
-        <SessionActions :status="session.status" />
+        <SessionActions :status="session.status" class="pb-4" />
       </div>
     </div>
     <SessionInfoModal :name="sessionModalName" :session="session" />

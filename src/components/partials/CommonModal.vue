@@ -1,5 +1,11 @@
 <template>
-  <modal :name="name" :height="height" :width="width">
+  <modal
+    :name="name"
+    :height="height"
+    @before-close="beforeClose"
+    :adaptive="true"
+    :max-width="700"
+  >
     <a @click="close()" class="close-button">
       <i class="fas fa-times"></i>
     </a>
@@ -28,14 +34,13 @@ export default {
       required: false,
       default: () => 'auto',
     },
-    width: {
-      type: [Number, String],
-      required: true,
-    },
   },
   methods: {
     close() {
       this.$modal.hide(this.name);
+    },
+    beforeClose() {
+      this.$emit('before-close');
     },
   },
 };

@@ -10,7 +10,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul v-if="status.loggedIn" class="navbar-nav flex-fill">
         <li class="nav-item">
-          <button class="btn btn-primary mr-3">
+          <button
+            class="btn btn-primary mr-3"
+            @click="$modal.show('newSessionModal')"
+          >
             <i class="fas fa-plus-square"></i>
             {{ $t('parliamentManagement.newSession') }}
           </button>
@@ -31,10 +34,10 @@
       <div v-else class="flex-fill"></div>
       <ul class="nav navbar-nav">
         <li v-if="activeSession" class="nav-item mr-4">
-          <a @click="$modal.show('activeSessionModal')"
-            >{{ $t('parliamentManagement.activeSession') }}:
-            {{ activeSession.name }}</a
-          >
+          <p @click="$modal.show('activeSessionModal')">
+            {{ $t('parliamentManagement.activeSession') }}:
+            {{ activeSession.name }}
+          </p>
         </li>
         <li v-else-if="isLoading" class="nav-item mr-4">
           <Loader :isMainPageLoader="false" />
@@ -57,6 +60,7 @@
         name="activeSessionModal"
         :session="activeSession"
       />
+      <NewSessionModal />
     </div>
   </nav>
 </template>
@@ -96,10 +100,16 @@ import { mapState, mapActions, mapGetters } from 'vuex';
 import $ from 'jquery';
 import LocaleSwitcher from './LocaleSwitcher.vue';
 import ActiveSessionModal from './SessionInfoModal.vue';
+import NewSessionModal from '../pages/NewSessionModal.vue';
 import Loader from './Loader.vue';
 
 export default {
-  components: { LocaleSwitcher, ActiveSessionModal, Loader },
+  components: {
+    LocaleSwitcher,
+    ActiveSessionModal,
+    Loader,
+    NewSessionModal,
+  },
   computed: {
     ...mapState('userAuthentication', ['status']),
     ...mapState('parliamentManagement', ['isLoading']),

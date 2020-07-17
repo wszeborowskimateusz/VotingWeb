@@ -8,7 +8,8 @@
     "edit": "Edit",
     "download": "Download",
     "remove": "Remove",
-    "notFilledYet": "Not filled yet"
+    "notFilledYet": "Not filled yet",
+    "create": "Create"
   },
   "login": {
     "username": "Username",
@@ -23,12 +24,20 @@
   },
   "parliamentManagement": {
     "newSession": "New session",
+    "createNewSession": "Create new session",
     "changeActiveSession": "Change active session",
     "activeSession": "Active session",
     "sessionInfo": "Session info",
     "name": "Name",
     "date": "Date",
     "place": "Place",
+    "userFile": "File with users",
+    "nameRequired": "Name is required",
+    "dateRequired": "Date is required",
+    "placeRequired": "Place is required",
+    "userFileRequired": "File with users is required",
+    "chooseAFile": "Choose a file",
+    "browse": "Browse",
     "electionLead": "Election lead",
     "status": "Status",
     "sessions": "Sessions",

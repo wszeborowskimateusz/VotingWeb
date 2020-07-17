@@ -1,5 +1,5 @@
 <template>
-  <common-modal :name="name" height="auto" :width="modalWidth">
+  <common-modal :name="name">
     <div>
       <h4 class="p-3">
         <span v-if="session.isActive">{{
@@ -52,21 +52,11 @@ export default {
   data() {
     return {
       fieldsToDisplay: ['name', 'date', 'place', 'electionLead', 'status'],
-      modalWidth: window.innerWidth < 400 ? '85%' : '50%',
     };
-  },
-  mounted() {
-    window.addEventListener('resize', this.getModalWidth);
-  },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.getModalWidth);
   },
   methods: {
     getFormatedDate(date) {
       return moment(date).format('DD.MM.YYYY');
-    },
-    getModalWidth() {
-      this.modalWidth = window.innerWidth < 400 ? '85%' : '50%';
     },
   },
   components: {

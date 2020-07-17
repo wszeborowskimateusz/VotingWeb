@@ -8,7 +8,8 @@
     "edit": "Edytuj",
     "download": "Pobierz",
     "remove": "Usuń",
-    "notFilledYet": "Jeszcze nie wybrany"
+    "notFilledYet": "Jeszcze nie wybrany",
+    "create": "Utwórz"
   },
   "login": {
     "username": "Nazwa użytkownika",
@@ -23,13 +24,21 @@
   },
   "parliamentManagement": {
     "newSession": "Nowe posiedzenie",
+    "createNewSession": "Utwórz nowe posiedzenie",
     "changeActiveSession": "Zmień aktywne posiedzenie",
     "activeSession": "Aktywne posiedzenie",
     "sessionInfo": "Informacje o sesji",
     "name": "Nazwa",
     "date": "Data",
     "place": "Miejsce",
+    "userFile": "Plik z uczestnikami",
+    "nameRequired": "Nazwa jest wymagana",
+    "dateRequired": "Data jest wymagana",
+    "placeRequired": "Miejsce jest wymagane",
     "electionLead": "Przewodniczący komisji",
+    "userFileRequired": "Plik z uczestnikami jest wymagany",
+    "chooseAFile": "Wybierz plik",
+    "browse": "Przeglądaj",
     "status": "Status",
     "sessions": "Posiedzenia",
     "uploadSession": "Wczytaj posiedzenie",

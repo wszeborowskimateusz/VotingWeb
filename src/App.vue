@@ -12,7 +12,6 @@ html {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
 
 body {
@@ -20,7 +19,6 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
 
 #navigation {
@@ -40,7 +38,6 @@ body {
 
 .container__row {
   height: 100%;
-  overflow: auto;
 }
 
 .container {
@@ -51,9 +48,10 @@ body {
   overflow: inherit;
 }
 
+/* Remove the scrollbar - scrolling is still possible */
 ::-webkit-scrollbar {
   width: 0px;
-  background: transparent; /* make scrollbar transparent */
+  background: transparent;
 }
 </style>
 
