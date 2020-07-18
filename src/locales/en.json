@@ -36,6 +36,7 @@
     "dateRequired": "Date is required",
     "placeRequired": "Place is required",
     "userFileRequired": "File with users is required",
+    "userFileTooltip": "The file should contain the list of all parliament members.",
     "chooseAFile": "Choose a file",
     "browse": "Browse",
     "electionLead": "Election lead",
@@ -44,7 +45,8 @@
     "uploadSession": "Upload session",
     "thisSessionIsActive": "This is the active session",
     "changeToActiveSession": "Click this to set session as active",
-    "activeSessionDescription": "Active session is a session that you are currently working on. The home page tab will be displayed in a context of active session"
+    "activeSessionDescription": "Active session is a session that you are currently working on. The home page tab will be displayed in a context of active session",
+    "noSessionsDisclaimer": "Currently there are no sessions.\nCreate one using 'New session' button at the top of the page."
   },
   "sessionStatus": {
     "FINISHED_NOT_SAVED_TO_GLOBAL": {

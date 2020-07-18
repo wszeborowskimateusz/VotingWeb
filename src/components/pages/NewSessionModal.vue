@@ -9,6 +9,9 @@
       <form @submit.prevent="handleSubmit">
         <div class="form-group" v-for="field in fieldsToDisplay" :key="field">
           <label :for="field"> {{ $t(`parliamentManagement.${field}`) }}</label>
+          <tooltip v-if="field === 'userFile'" class="ml-2" modalName="userFileTooltip">
+              {{$t('parliamentManagement.userFileTooltip')}}
+          </tooltip>
           <datepicker
             v-if="field === 'date'"
             v-model="session.date"
@@ -16,6 +19,8 @@
             :required="true"
             :clear-button="true"
             :language="locale"
+            :disabled-dates="disabledDays"
+            :monday-first="true"
           />
 
           <div class="custom-file" v-else-if="field === 'userFile'">
@@ -41,7 +46,7 @@
           <div
             v-show="submitted && !session[field]"
             class="invalid-feedback"
-            :class="{ display: field === 'date' }"
+            :class="{ display: field === 'date' || field === 'userFile' }"
           >
             {{ $t(`parliamentManagement.${field}Required`) }}
           </div>
@@ -77,9 +82,10 @@
 import Datepicker from 'vuejs-datepicker';
 import { en, pl } from 'vuejs-datepicker/dist/locale';
 import CommonModal from '../partials/CommonModal.vue';
+import Tooltip from '../partials/Tooltip.vue';
 
 export default {
-  components: { CommonModal, Datepicker },
+  components: { CommonModal, Datepicker, Tooltip },
   data() {
     return {
       submitted: false,
@@ -104,6 +110,15 @@ export default {
       return this.session.userFile == null
         ? this.$t('parliamentManagement.chooseAFile')
         : this.session.userFile.name;
+    },
+    disabledDays() {
+      const today = new Date();
+      const yesterday = new Date(today);
+      yesterday.setDate(today.getDate() - 1);
+
+      return {
+        to: yesterday,
+      };
     },
   },
   methods: {

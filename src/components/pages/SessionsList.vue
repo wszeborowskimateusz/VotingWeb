@@ -1,8 +1,10 @@
 <template>
   <div class="session__list">
-    <Loader v-if="isLoading" />
-    <div v-else>
-      <h1 class="font-weight-bold py-2">
+    <div :style="{ visibility: isLoading ? 'visible' : 'hidden' }">
+      <Loader />
+    </div>
+    <div>
+      <h1 class="font-weight-bold pb-2">
         {{ $t('parliamentManagement.sessions') }}
       </h1>
       <button class="btn btn-primary mb-3">
@@ -25,12 +27,22 @@
         :key="session.id"
         :session="session"
       />
+      <div
+        v-if="!isLoading && (sessions == null || sessions.length === 0)"
+        class="h3 mt-5 pre-formatted"
+      >
+        {{ $t('parliamentManagement.noSessionsDisclaimer') }}
+      </div>
     </div>
   </div>
 </template>
 <style scoped>
 .session__list {
   padding-bottom: 10vh;
+}
+
+.pre-formatted {
+  white-space: pre;
 }
 </style>
 <script>

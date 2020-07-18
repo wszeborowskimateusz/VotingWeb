@@ -37,6 +37,7 @@
     "placeRequired": "Miejsce jest wymagane",
     "electionLead": "Przewodniczący komisji",
     "userFileRequired": "Plik z uczestnikami jest wymagany",
+    "userFileTooltip": "Plik powinien zawierać listę wszystkich członków parlamentu",
     "chooseAFile": "Wybierz plik",
     "browse": "Przeglądaj",
     "status": "Status",
@@ -44,7 +45,8 @@
     "uploadSession": "Wczytaj posiedzenie",
     "thisSessionIsActive": "To jest aktywna sesja",
     "changeToActiveSession": "Kliknij, aby uczynić sesję aktywną",
-    "activeSessionDescription": "Aktywna sesja to taka, nad którą obecnie pracujesz. Strona główna będzie prezentowana w kontekście aktywnej sesji."
+    "activeSessionDescription": "Aktywna sesja to taka, nad którą obecnie pracujesz. Strona główna będzie prezentowana w kontekście aktywnej sesji.",
+    "noSessionsDisclaimer": "Obecnie w historii nie ma żadnych posiedzeń.\nUtwórz nowe przyciskając 'Nowe posiedzenie' na górze strony."
   },
   "sessionStatus": {
     "FINISHED_NOT_SAVED_TO_GLOBAL": {
