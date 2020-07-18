@@ -3,9 +3,16 @@
   <div v-else-if="!activeSession">
     <SessionsList />
   </div>
-  <div v-else>
+  <div v-else class="h-100">
+    <h1 class="my-2 font-weight-bold">
+      {{ $t('parliamentManagement.session') }}: {{ activeSession.name }}
+    </h1>
+    <session-status-info
+      :status="activeSession.status"
+      modalName="homePageActiveSessionStatus"
+    />
     <component
-      class="content"
+      class="mt-5"
       :is="getComponentByActiveSessionStatus()"
     ></component>
   </div>
@@ -19,6 +26,7 @@ import SessionInProgress from './SessionInProgress.vue';
 import SessionPreparation from './SessionPreparation.vue';
 import SessionsList from './SessionsList.vue';
 import Loader from '../partials/Loader.vue';
+import SessionStatusInfo from '../partials/SessionStatusInfo.vue';
 
 export default {
   computed: {
@@ -55,6 +63,7 @@ export default {
     SessionPreparation,
     SessionsList,
     Loader,
+    SessionStatusInfo,
   },
 };
 </script>

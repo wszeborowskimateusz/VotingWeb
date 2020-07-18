@@ -42,6 +42,7 @@
     "electionLead": "Election lead",
     "status": "Status",
     "sessions": "Sessions",
+    "session": "Session",
     "uploadSession": "Upload session",
     "thisSessionIsActive": "This is the active session",
     "changeToActiveSession": "Click this to set session as active",
@@ -80,6 +81,18 @@
     "suspend": "Suspend",
     "finish": "Finish",
     "start": "Start",
-    "areYouSureToRemove": "Are you sure you want to remove session <b>{sessionName}</b>"
+    "areYouSureToRemove": "Are you sure you want to remove session <b>{sessionName}</b>",
+    "generatePasswords": "Generate passwords",
+    "goToVotings": "Go to votings"
+  },
+  "session": {
+    "enterCommitee": "Enter election committee",
+    "electionLead": "Election lead",
+    "committeeMembers": "Committee members (without election lead)",
+    "pickElectionLead": "Pick election lead",
+    "pickCommitteeMembers": "Pick committee members",
+    "electionLeadIsRequired": "Election lead is required",
+    "committeeAtLeastMembers": "The committee should have at least {amount} members",
+    "noUserFound": "No user found"
   }
 }

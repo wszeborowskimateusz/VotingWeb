@@ -42,6 +42,7 @@
     "browse": "Przeglądaj",
     "status": "Status",
     "sessions": "Posiedzenia",
+    "session": "Posiedzenie",
     "uploadSession": "Wczytaj posiedzenie",
     "thisSessionIsActive": "To jest aktywna sesja",
     "changeToActiveSession": "Kliknij, aby uczynić sesję aktywną",
@@ -80,6 +81,18 @@
     "suspend": "Wstrzymaj",
     "finish": "Zakończ",
     "start": "Rozpocznij",
-    "areYouSureToRemove": "Czy na pewno chcesz usunąć sesję <b>{sessionName}</b>"
+    "areYouSureToRemove": "Czy na pewno chcesz usunąć sesję <b>{sessionName}</b>",
+    "generatePasswords": "Generuj hasła",
+    "goToVotings": "Przejdź do głosowań"
+  },
+  "session": {
+    "enterCommitee": "Podaj skład komisji skrutacyjnej",
+    "electionLead": "Przewodniczący komisji skrutacyjnej",
+    "committeeMembers": "Skład komisji skrutacyjnej (bez przewodniczącego)",
+    "pickElectionLead": "Wybierz przewodniczącego",
+    "pickCommitteeMembers": "Wybierz skład",
+    "electionLeadIsRequired": "Przewodniczący komisji jest wymagany",
+    "committeeAtLeastMembers": "Komisja powinna składać się z przynajmniej {amount} członków",
+    "noUserFound": "Nie znaleziono użytkownika"
   }
 }
