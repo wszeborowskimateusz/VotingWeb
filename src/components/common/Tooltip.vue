@@ -14,17 +14,13 @@
 </template>
 
 <script>
-import CommonModal from './CommonModal.vue';
-
 export default {
+  name: 'Tooltip',
   props: {
     modalName: {
       type: String,
       required: true,
     },
-  },
-  components: {
-    CommonModal,
   },
 };
 </script>

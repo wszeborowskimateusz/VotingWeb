@@ -25,7 +25,6 @@ import SessionFinished from './SessionFinished.vue';
 import SessionInProgress from './SessionInProgress.vue';
 import SessionPreparation from './SessionPreparation.vue';
 import SessionsList from './SessionsList.vue';
-import Loader from '../partials/Loader.vue';
 import SessionStatusInfo from '../partials/SessionStatusInfo.vue';
 
 export default {
@@ -62,7 +61,6 @@ export default {
     SessionInProgress,
     SessionPreparation,
     SessionsList,
-    Loader,
     SessionStatusInfo,
   },
 };

@@ -9,7 +9,9 @@
     "download": "Pobierz",
     "remove": "Usuń",
     "notFilledYet": "Jeszcze nie wybrany",
-    "create": "Utwórz"
+    "create": "Utwórz",
+    "yes": "Tak",
+    "no": "Nie"
   },
   "login": {
     "username": "Nazwa użytkownika",
@@ -77,9 +79,12 @@
   },
   "sessionActions": {
     "resume": "Wznów",
+    "resumeSession": "Wznów posiedzenie",
     "saveToGlobal": "Zapisz do globalnej bazy danych",
     "suspend": "Wstrzymaj",
+    "suspendSession": "Wstrzymaj posiedzenie",
     "finish": "Zakończ",
+    "finishSession": "Zakończ posiedzenie",
     "start": "Rozpocznij",
     "areYouSureToRemove": "Czy na pewno chcesz usunąć sesję <b>{sessionName}</b>",
     "generatePasswords": "Generuj hasła",
@@ -94,5 +99,30 @@
     "electionLeadIsRequired": "Przewodniczący komisji jest wymagany",
     "committeeAtLeastMembers": "Komisja powinna składać się z przynajmniej {amount} członków",
     "noUserFound": "Nie znaleziono użytkownika"
+  },
+  "voting": {
+    "votingInProgress": "Głosowanie w trakcie",
+    "finishVoting": "Zakończ głosowanie",
+    "majority": "Większość",
+    "cardinality": "Liczność",
+    "secrecy": "Tajność",
+    "threshold": "Próg",
+    "electionLead": "Przewodniczący komisji",
+    "majorityTypes": {
+      "RELATIVE": "Względna",
+      "ABSOLUTE": "Bezwzględna",
+      "TWO_THIRDS": "2/3 głosów"
+    },
+    "cardinalityTypes": {
+      "SINGLE_CHOICE": "Głosowanie na jedną opcję",
+      "MULTIPLE_CHOICE": "Głosowanie na wiele opcji"
+    },
+    "status": {
+      "FINISHED": "Zakończone",
+      "NOT_STARTED": "Niezaczęte",
+      "DURING_VOTING": "Podczas głosowania"
+    },
+    "newVoting": "Nowe głosowanie",
+    "votingsList": "Lista głosowań"
   }
 }

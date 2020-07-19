@@ -4,8 +4,11 @@ import router from '@/router';
 import store from '@/store';
 import toasts from '@/utils/toasts';
 import VModal from 'vue-js-modal';
+import 'vuetify/dist/vuetify.min.css';
 import i18n from './i18n';
 import tokenUtils from './utils/tokenUtils';
+import vuetify from './plugins/vuetify';
+import commonComponents from './plugins/commonComponents';
 
 require('bootstrap');
 
@@ -46,10 +49,13 @@ router.beforeEach((to, from, next) => {
 });
 
 Vue.use(VModal);
+commonComponents.register();
+
 
 new Vue({
   router,
   store,
   i18n,
+  vuetify,
   render: (h) => h(App),
 }).$mount('#app');

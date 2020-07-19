@@ -48,15 +48,11 @@
 <script>
 import { mapActions, mapState } from 'vuex';
 import SessionListElement from '../partials/SessionListElement.vue';
-import Tooltip from '../partials/Tooltip.vue';
-import Loader from '../partials/Loader.vue';
 import imageGetter from '../../utils/imagesGetter';
 
 export default {
   components: {
     SessionListElement,
-    Loader,
-    Tooltip,
   },
   data() {
     return {

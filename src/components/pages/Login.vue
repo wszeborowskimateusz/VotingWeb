@@ -53,7 +53,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import Loader from '@/components/partials/Loader.vue';
 import imagesGetter from '@/utils/imagesGetter';
 
 export default {
@@ -65,9 +64,6 @@ export default {
       password: '',
       submitted: false,
     };
-  },
-  components: {
-    Loader,
   },
   computed: {
     ...mapState('userAuthentication', ['status']),

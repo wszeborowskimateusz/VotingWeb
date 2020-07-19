@@ -9,6 +9,7 @@
 import Spinner from 'vue-loading-spinner/src/components/Circle4.vue';
 
 export default {
+  name: 'Loader',
   components: { Spinner },
   props: {
     isMainPageLoader: {

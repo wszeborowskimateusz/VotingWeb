@@ -9,8 +9,12 @@
       <form @submit.prevent="handleSubmit">
         <div class="form-group" v-for="field in fieldsToDisplay" :key="field">
           <label :for="field"> {{ $t(`parliamentManagement.${field}`) }}</label>
-          <tooltip v-if="field === 'userFile'" class="ml-2" modalName="userFileTooltip">
-              {{$t('parliamentManagement.userFileTooltip')}}
+          <tooltip
+            v-if="field === 'userFile'"
+            class="ml-2"
+            modalName="userFileTooltip"
+          >
+            {{ $t('parliamentManagement.userFileTooltip') }}
           </tooltip>
           <datepicker
             v-if="field === 'date'"
@@ -81,11 +85,9 @@
 <script>
 import Datepicker from 'vuejs-datepicker';
 import { en, pl } from 'vuejs-datepicker/dist/locale';
-import CommonModal from '../partials/CommonModal.vue';
-import Tooltip from '../partials/Tooltip.vue';
 
 export default {
-  components: { CommonModal, Datepicker, Tooltip },
+  components: { Datepicker },
   data() {
     return {
       submitted: false,

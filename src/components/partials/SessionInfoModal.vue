@@ -36,7 +36,6 @@
 <script>
 import moment from 'moment';
 import SessionStatusInfo from './SessionStatusInfo.vue';
-import CommonModal from './CommonModal.vue';
 
 export default {
   props: {
@@ -61,7 +60,6 @@ export default {
   },
   components: {
     SessionStatusInfo,
-    CommonModal,
   },
 };
 </script>

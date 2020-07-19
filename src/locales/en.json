@@ -9,7 +9,9 @@
     "download": "Download",
     "remove": "Remove",
     "notFilledYet": "Not filled yet",
-    "create": "Create"
+    "create": "Create",
+    "yes": "Yes",
+    "no": "No"
   },
   "login": {
     "username": "Username",
@@ -77,9 +79,12 @@
   },
   "sessionActions": {
     "resume": "Resume",
+    "resumeSession": "Resume session",
     "saveToGlobal": "Save to global database",
     "suspend": "Suspend",
+    "suspendSession": "Suspend session",
     "finish": "Finish",
+    "finishSession": "Finish session",
     "start": "Start",
     "areYouSureToRemove": "Are you sure you want to remove session <b>{sessionName}</b>",
     "generatePasswords": "Generate passwords",
@@ -94,5 +99,30 @@
     "electionLeadIsRequired": "Election lead is required",
     "committeeAtLeastMembers": "The committee should have at least {amount} members",
     "noUserFound": "No user found"
+  },
+  "voting": {
+    "votingInProgress": "Voting in progress",
+    "finishVoting": "Finish voting",
+    "majority": "Majority",
+    "cardinality": "Cardinality",
+    "secrecy": "Secrecy",
+    "threshold": "Threshold",
+    "electionLead": "Election lead",
+    "majorityTypes": {
+      "RELATIVE": "Relative",
+      "ABSOLUTE": "Absolute",
+      "TWO_THIRDS": "Two thirds"
+    },
+    "cardinalityTypes": {
+      "SINGLE_CHOICE": "Single choice",
+      "MULTIPLE_CHOICE": "Multiple choice"
+    },
+    "statuses": {
+      "FINISHED": "Finished",
+      "NOT_STARTED": "Not started",
+      "DURING_VOTING": "During voting"
+    },
+    "newVoting": "New voting",
+    "votingsList": "Votings list"
   }
 }

@@ -24,6 +24,7 @@
 
 <script>
 export default {
+  name: 'CommonModal',
   props: {
     name: {
       type: String,

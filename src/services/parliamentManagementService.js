@@ -8,7 +8,7 @@ const dummySessionList = [
     place: 'Bieszkowice',
     electionLead: null,
     status: 'BEFORE_VOTING',
-    isActive: true,
+    isActive: false,
   },
   {
     id: 2,
@@ -44,7 +44,7 @@ const dummySessionList = [
     place: 'Kamień',
     electionLead: 'Weronika Truskawka',
     status: 'IN_PROGRESS',
-    isActive: false,
+    isActive: true,
   },
   {
     id: 6,

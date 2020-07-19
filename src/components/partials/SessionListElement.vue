@@ -13,17 +13,18 @@
           ><i class="fas fa-edit"></i
         ></span>
         <span
-          @click="downloadSession(session.id)"
-          class="pl-2"
-          :title="$t('common.download')"
-          ><i class="fas fa-download mr-3"></i
-        ></span>
-        <span
           v-if="session.status === 'FINISHED'"
           @click="removeSession(session.id)"
           :title="$t('common.remove')"
           ><i class="fas fa-trash-alt mr-3"></i
         ></span>
+        <span
+          @click="downloadSession(session.id)"
+          class="pl-2"
+          :title="$t('common.download')"
+          ><i class="fas fa-download mr-3"></i
+        ></span>
+
         <div
           class="active_session_badge d-inline"
           v-if="session.isActive"

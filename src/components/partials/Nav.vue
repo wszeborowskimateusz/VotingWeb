@@ -101,13 +101,11 @@ import $ from 'jquery';
 import LocaleSwitcher from './LocaleSwitcher.vue';
 import ActiveSessionModal from './SessionInfoModal.vue';
 import NewSessionModal from '../pages/NewSessionModal.vue';
-import Loader from './Loader.vue';
 
 export default {
   components: {
     LocaleSwitcher,
     ActiveSessionModal,
-    Loader,
     NewSessionModal,
   },
   computed: {
