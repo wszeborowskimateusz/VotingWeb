@@ -2,7 +2,7 @@ import requestSender from '@/utils/requestSender';
 import tokenUtils from '../utils/tokenUtils';
 
 function logout() {
-  tokenUtils.removeItem();
+  tokenUtils.removeToken();
 }
 
 function login(username, password) {

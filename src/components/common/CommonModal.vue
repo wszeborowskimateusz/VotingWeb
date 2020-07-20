@@ -3,6 +3,7 @@
     :name="name"
     :height="height"
     @before-close="beforeClose"
+    @before-open="beforeOpen"
     :adaptive="true"
     :max-width="700"
   >
@@ -42,6 +43,9 @@ export default {
     },
     beforeClose() {
       this.$emit('before-close');
+    },
+    beforeOpen(params) {
+      this.$emit('before-open', params);
     },
   },
 };

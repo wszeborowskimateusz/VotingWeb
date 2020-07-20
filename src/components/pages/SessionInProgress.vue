@@ -17,21 +17,25 @@
         >{{ $t('sessionActions.finishSession') }}
       </button>
     </div>
-    <div v-if="activeSession.status === 'IN_PROGRESS'">
-      <VotingInProgress />
-      <v-divider class="my-5" :light="true"></v-divider>
-      <NewVoting />
+    <v-divider />
+    <button class="btn btn-success my-5" @click="$modal.show('newEditVoting')">
+      {{ $t('voting.newVoting') }}
+    </button>
+    <v-divider />
+    <div v-if="activeSession.status === 'IN_PROGRESS'" class="my-5">
+      <VotingInProgress class="my-5"/>
       <v-divider class="my-5" :light="true"></v-divider>
     </div>
-    <NotInProgressVotingsList />
+    <NotInProgressVotingsList class="my-5"/>
+    <NewEditVoting />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import NewVoting from '../partials/votings/NewVoting.vue';
 import VotingInProgress from '../partials/votings/VotingInProgress.vue';
 import NotInProgressVotingsList from '../partials/votings/NotInProgressVotingsList.vue';
+import NewEditVoting from '../partials/votings/NewEditVoting.vue';
 
 export default {
   computed: {
@@ -39,8 +43,8 @@ export default {
   },
   components: {
     VotingInProgress,
-    NewVoting,
     NotInProgressVotingsList,
+    NewEditVoting,
   },
 };
 </script>

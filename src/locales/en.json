@@ -11,7 +11,8 @@
     "notFilledYet": "Not filled yet",
     "create": "Create",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "save": "Save"
   },
   "login": {
     "username": "Username",
@@ -103,11 +104,26 @@
   "voting": {
     "votingInProgress": "Voting in progress",
     "finishVoting": "Finish voting",
+    "name": "Name",
+    "nameRequired": "Name is required",
     "majority": "Majority",
+    "majorityRequired": "Majority is required",
+    "status": "Status",
     "cardinality": "Cardinality",
+    "cardinalityRequired": "Cardinality is required",
     "secrecy": "Secrecy",
+    "secrecyRequired": "Secrecy is required",
     "threshold": "Threshold",
+    "thresholdRequired": "Threshold is required",
+    "thresholdMustBe": "Threshold must be between {from} to {to}",
+    "options": "Options",
+    "option": "Option",
+    "optionNotEmpty": "Option cannot be empty",
+    "specifyOptions": "Specify options to make use of threshold",
     "electionLead": "Election lead",
+    "electionLeadRequired": "Election lead is required",
+    "downloadVotingRaport": "Download votings report",
+    "noVotings": "There are no votings in a given group",
     "majorityTypes": {
       "RELATIVE": "Relative",
       "ABSOLUTE": "Absolute",
@@ -117,12 +133,13 @@
       "SINGLE_CHOICE": "Single choice",
       "MULTIPLE_CHOICE": "Multiple choice"
     },
-    "statuses": {
+    "statusTypes": {
       "FINISHED": "Finished",
       "NOT_STARTED": "Not started",
       "DURING_VOTING": "During voting"
     },
     "newVoting": "New voting",
-    "votingsList": "Votings list"
+    "votingsList": "Votings list",
+    "startVoting": "Start voting"
   }
 }

@@ -5,25 +5,29 @@
       :class="[session.isActive ? ['border-success', 'border'] : '']"
     >
       <div class="action__buttons__section action__button">
-        <span
+        <v-btn
+          icon
           v-if="session.status !== 'FINISHED'"
           @click="editSession(session.id)"
-          class="pr-2"
           :title="$t('common.edit')"
-          ><i class="fas fa-edit"></i
-        ></span>
-        <span
+        >
+          <v-icon>mdi-pencil</v-icon>
+        </v-btn>
+        <v-btn
+          icon
           v-if="session.status === 'FINISHED'"
           @click="removeSession(session.id)"
           :title="$t('common.remove')"
-          ><i class="fas fa-trash-alt mr-3"></i
-        ></span>
-        <span
+        >
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
+        <v-btn
+          icon
           @click="downloadSession(session.id)"
-          class="pl-2"
           :title="$t('common.download')"
-          ><i class="fas fa-download mr-3"></i
-        ></span>
+        >
+          <v-icon>mdi-download</v-icon>
+        </v-btn>
 
         <div
           class="active_session_badge d-inline"

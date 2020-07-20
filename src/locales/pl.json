@@ -11,7 +11,8 @@
     "notFilledYet": "Jeszcze nie wybrany",
     "create": "Utwórz",
     "yes": "Tak",
-    "no": "Nie"
+    "no": "Nie",
+    "save": "Zapisz"
   },
   "login": {
     "username": "Nazwa użytkownika",
@@ -103,11 +104,28 @@
   "voting": {
     "votingInProgress": "Głosowanie w trakcie",
     "finishVoting": "Zakończ głosowanie",
+    "name": "Nazwa",
+    "nameRequired": "Nazwa jest wymagana",
     "majority": "Większość",
+    "majorityRequired": "Większość jest wymagana",
+    "status": "Status",
     "cardinality": "Liczność",
+    "cardinalityRequired": "Liczność jest wymagana",
     "secrecy": "Tajność",
+    "secrecyRequired": "Tajność jest wymagana",
     "threshold": "Próg",
+    "thresholdMustBe": "Próg musi mieścić się pomiędzy {from} a {to}",
+    "thresholdRequired": "Próg jest wymagany",
+    "options": "Opcje",
+    "option": "Opcja",
+    "optionNotEmpty": "Opcja nie może być pusta",
+    "specifyOptions": "Podaj opcje, aby korzystać z progu",
     "electionLead": "Przewodniczący komisji",
+    "electionLeadRequired": "Przewodniczący komisji jest wymagany",
+    "downloadVotingRaport": "Pobierz raport z głosowania",
+    "votingsReadyToStart": "Głosowanie gotowe do rozpoczęcia",
+    "finishedVotings": "Głosowania zakończone",
+    "noVotings": "Brak głosowań w danej grupie",
     "majorityTypes": {
       "RELATIVE": "Względna",
       "ABSOLUTE": "Bezwzględna",
@@ -117,12 +135,13 @@
       "SINGLE_CHOICE": "Głosowanie na jedną opcję",
       "MULTIPLE_CHOICE": "Głosowanie na wiele opcji"
     },
-    "status": {
+    "statusTypes": {
       "FINISHED": "Zakończone",
       "NOT_STARTED": "Niezaczęte",
       "DURING_VOTING": "Podczas głosowania"
     },
     "newVoting": "Nowe głosowanie",
-    "votingsList": "Lista głosowań"
+    "votingsList": "Lista głosowań",
+    "startVoting": "Rozpocznij głosowanie"
   }
 }

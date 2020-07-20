@@ -3,7 +3,7 @@
   <div v-else-if="!activeSession">
     <SessionsList />
   </div>
-  <div v-else class="h-100">
+  <div v-else class=" bottom-margin">
     <h1 class="my-2 font-weight-bold">
       {{ $t('parliamentManagement.session') }}: {{ activeSession.name }}
     </h1>
@@ -17,6 +17,12 @@
     ></component>
   </div>
 </template>
+
+<style scoped>
+.bottom-margin {
+  margin-bottom: 10vh;
+}
+</style>
 
 <script>
 import { mapState, mapGetters } from 'vuex';

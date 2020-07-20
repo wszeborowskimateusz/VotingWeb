@@ -1,9 +1,5 @@
 <template>
-  <common-modal
-    name="newSessionModal"
-    height="80%"
-    @before-close="beforeClose()"
-  >
+  <common-modal name="newSessionModal" @before-close="beforeClose()">
     <div class="col-sm-6 offset-sm-3 py-5 h-100">
       <h2 class="mb-4">{{ $t('parliamentManagement.createNewSession') }}</h2>
       <form @submit.prevent="handleSubmit">
@@ -55,8 +51,7 @@
             {{ $t(`parliamentManagement.${field}Required`) }}
           </div>
         </div>
-
-        <div class="form-group ">
+        <div class="form-group mt-5 mt-5">
           <button class="btn btn-primary bottom">
             <i class="fas fa-plus-square mr-1"></i>{{ $t('common.create') }}
           </button>
@@ -73,10 +68,6 @@
 .bottom {
   height: 60px;
   width: 200px;
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  margin-left: -100px;
 }
 .custom-file-label::after {
   content: var(--fileLabel);

@@ -1,10 +1,12 @@
 <template>
-  <div id="app">
-    <Nav id="navigation" />
-    <div class="container__row container pt-2">
-      <router-view :key="$route.path"></router-view>
+  <v-app>
+    <div id="app">
+      <Nav id="navigation" />
+      <div class="container__row container pt-2">
+        <router-view :key="$route.path"></router-view>
+      </div>
     </div>
-  </div>
+  </v-app>
 </template>
 
 <style>
@@ -46,12 +48,6 @@ body {
 
 .modal-open {
   overflow: inherit;
-}
-
-/* Remove the scrollbar - scrolling is still possible */
-::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
 }
 </style>
 

@@ -33,7 +33,7 @@
       <!--Keep the layout consistent-->
       <div v-else class="flex-fill"></div>
       <ul class="nav navbar-nav">
-        <li v-if="activeSession" class="nav-item mr-4">
+        <li v-if="activeSession && status.loggedIn" class="nav-item mr-4">
           <p @click="$modal.show('activeSessionModal')">
             {{ $t('parliamentManagement.activeSession') }}:
             {{ activeSession.name }}
