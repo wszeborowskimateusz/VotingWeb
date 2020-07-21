@@ -70,6 +70,13 @@
         <v-radio :label="$t('common.no')" :value="false"></v-radio>
       </v-radio-group>
 
+      <v-select
+        v-model="voting.electionLead"
+        :items="electionCommittee"
+        :label="$t('voting.electionLead')"
+        required
+      ></v-select>
+
       <v-btn @click="cancel" class="mr-4 mt-4">{{ $t('common.cancel') }}</v-btn>
       <v-btn @click="submit" class="mt-4">{{
         $t(`common.${editMode ? 'save' : 'create'}`)
@@ -94,6 +101,14 @@ export default {
       voting: this.getClearVoting(),
       all_majorityTypes: ['RELATIVE', 'ABSOLUTE', 'TWO_THIRDS'],
       all_cardinalityTypes: ['SINGLE_CHOICE', 'MULTIPLE_CHOICE'],
+      electionCommittee: [
+        'Robert Lewandowski',
+        'Marcin Prokop',
+        'Zbigniew Stonoga',
+        'Ryszard Petru',
+        'Maciej Wapiński',
+      ],
+      electionLead: 'Zbigniew Stonoga',
     };
   },
   methods: {
@@ -127,7 +142,7 @@ export default {
         cardinality: null,
         secrecy: true,
         threshold: null,
-        electionLead: null,
+        electionLead: this.electionLead,
         options: [{ id: 0, name: '' }],
       };
     },

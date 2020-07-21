@@ -10,16 +10,23 @@
     <a @click="close()" class="close-button">
       <i class="fas fa-times"></i>
     </a>
-    <slot></slot>
+    <div class="limit-height">
+      <slot></slot>
+    </div>
   </modal>
 </template>
 
 <style scoped>
 .close-button {
   position: absolute;
-  right: 10px;
-  top: 5px;
+  right: 20px;
+  top: 10px;
   cursor: pointer;
+}
+
+.limit-height {
+  max-height: 85vh;
+  overflow: auto;
 }
 </style>
 
