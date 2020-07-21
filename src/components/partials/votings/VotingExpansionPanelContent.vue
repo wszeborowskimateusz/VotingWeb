@@ -83,6 +83,8 @@
           "
           class="d-flex justify-content-center"
           :results="voting.results"
+          :secret="voting.secrecy"
+          :votingKey="`${voting.id}`"
         >
           <v-list-item-icon :title="pickStarTitle()" class="w-100">
             <v-icon :color="pickStarColor()">mdi-star</v-icon>
@@ -98,7 +100,11 @@
             </v-list-item-content>
 
             <v-list-item-action v-if="voting.status === 'FINISHED'">
-              <VotingResults :results="voting.results[option.id]" />
+              <VotingResults
+                :results="voting.results[option.id]"
+                :secret="voting.secrecy"
+                :votingKey="`${voting.id}|${option.id}`"
+              />
             </v-list-item-action>
           </v-list-item>
         </v-list>
@@ -131,16 +137,11 @@ export default {
       enumFields: ['status', 'majority', 'cardinality'],
     };
   },
-  created() {
-    console.log(this.voting);
-  },
   methods: {
     pickStarColor(optionId) {
       if (this.voting.status !== 'FINISHED') return 'grey';
       const results =
         optionId == null ? this.voting.results : this.voting.results[optionId];
-
-      console.log(results);
 
       if (results.wasSuccessful) {
         return 'green';

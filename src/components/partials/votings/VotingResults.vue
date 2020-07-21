@@ -36,11 +36,27 @@
       ></v-img
       >{{ results.hold }}
     </div>
+    <div v-if="!secret">
+      <v-btn
+        class="ml-2"
+        color="primary"
+        text
+        small
+        @click="$modal.show(`specificVotes${votingKey}`)"
+        >{{ $t('voting.specificVotes') }}</v-btn
+      >
+
+      <SpecificVotesModal
+        :specificVotes="results.specificVotes"
+        :modalName="`specificVotes${votingKey}`"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import imagesGetter from '@/utils/imagesGetter';
+import SpecificVotesModal from './SpecificVotesModal.vue';
 
 export default {
   data() {
@@ -51,6 +67,19 @@ export default {
       type: Object,
       required: true,
     },
+    votingKey: {
+      type: String,
+      required: true,
+    },
+    secret: {
+      type: Boolean,
+      default() {
+        return true;
+      },
+    },
+  },
+  components: {
+    SpecificVotesModal,
   },
 };
 </script>

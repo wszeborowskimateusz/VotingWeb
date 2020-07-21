@@ -93,11 +93,26 @@ export default {
               hold: 6,
               notVote: 1,
               specificVotes: [
-                { voter: 0, voteType: 'HOLD' },
-                { voter: 1, voteType: 'HOLD' },
-                { voter: 1, voteType: 'FOR' },
-                { voter: 1, voteType: 'FOR' },
-                { voter: 1, voteType: 'FOR' },
+                {
+                  voter: { name: 'Jan Rokita', index: '156845' },
+                  voteType: 'HOLD',
+                },
+                {
+                  voter: { name: 'John Bonjovi', index: '456123' },
+                  voteType: 'HOLD',
+                },
+                {
+                  voter: { name: 'Fidel Castro', index: '123489' },
+                  voteType: 'FOR',
+                },
+                {
+                  voter: { name: 'Frank Sinatra', index: '478921' },
+                  voteType: 'FOR',
+                },
+                {
+                  voter: { name: 'Blue Budy', index: '354223' },
+                  voteType: 'FOR',
+                },
               ],
             },
             2: {
@@ -107,8 +122,14 @@ export default {
               hold: 5,
               notVote: 9,
               specificVotes: [
-                { voter: 0, voteType: 'FOR' },
-                { voter: 1, voteType: 'FOR' },
+                {
+                  voter: { name: 'Jan Rokita', index: '156845' },
+                  voteType: 'FOR',
+                },
+                {
+                  voter: { name: 'John Bonjovi', index: '456123' },
+                  voteType: 'FOR',
+                },
               ],
             },
             3: {
@@ -118,11 +139,26 @@ export default {
               hold: 2,
               notVote: 1,
               specificVotes: [
-                { voter: 0, voteType: 'AGAINST' },
-                { voter: 1, voteType: 'AGAINST' },
-                { voter: 1, voteType: 'FOR' },
-                { voter: 1, voteType: 'AGAINST' },
-                { voter: 1, voteType: 'FOR' },
+                {
+                  voter: { name: 'Jan Rokita', index: '156845' },
+                  voteType: 'HOLD',
+                },
+                {
+                  voter: { name: 'John Bonjovi', index: '456123' },
+                  voteType: 'HOLD',
+                },
+                {
+                  voter: { name: 'Fidel Castro', index: '123489' },
+                  voteType: 'AGAINST',
+                },
+                {
+                  voter: { name: 'Frank Sinatra', index: '478921' },
+                  voteType: 'AGAINST',
+                },
+                {
+                  voter: { name: 'Blue Budy', index: '354223' },
+                  voteType: 'FOR',
+                },
               ],
             },
             4: {
@@ -132,11 +168,26 @@ export default {
               hold: 11,
               notVote: 7,
               specificVotes: [
-                { voter: 0, voteType: 'FOR' },
-                { voter: 1, voteType: 'FOR' },
-                { voter: 1, voteType: 'FOR' },
-                { voter: 1, voteType: 'AGAINS' },
-                { voter: 1, voteType: 'HOLD' },
+                {
+                  voter: { name: 'Jan Rokita', index: '156845' },
+                  voteType: 'HOLD',
+                },
+                {
+                  voter: { name: 'John Bonjovi', index: '456123' },
+                  voteType: 'HOLD',
+                },
+                {
+                  voter: { name: 'Fidel Castro', index: '123489' },
+                  voteType: 'AGAINST',
+                },
+                {
+                  voter: { name: 'Frank Sinatra', index: '478921' },
+                  voteType: 'AGAINST',
+                },
+                {
+                  voter: { name: 'Blue Budy', index: '354223' },
+                  voteType: 'FOR',
+                },
               ],
             },
           },
