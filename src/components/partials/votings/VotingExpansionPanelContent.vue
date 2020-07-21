@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-expansion-panel-header
-      ><div class="d-flex flex-fill">
+      ><div class="d-flex justify-content-center">
         {{ voting.name }}
       </div>
     </v-expansion-panel-header>
@@ -74,15 +74,32 @@
             />
           </div>
         </div>
-        <v-divider v-if="voting.options.length > 0" />
+
+        <v-divider />
+        <VotingResults
+          v-if="
+            voting.status === 'FINISHED' &&
+              voting.cardinality === 'SINGLE_CHOICE'
+          "
+          class="d-flex justify-content-center"
+          :results="voting.results"
+        >
+          <v-list-item-icon :title="pickStarTitle()" class="w-100">
+            <v-icon :color="pickStarColor()">mdi-star</v-icon>
+          </v-list-item-icon>
+        </VotingResults>
         <v-list>
           <v-list-item v-for="option in voting.options" :key="option.id">
-            <v-list-item-icon>
-              <v-icon color="pink">mdi-star</v-icon>
+            <v-list-item-icon :title="pickStarTitle(option.id)">
+              <v-icon :color="pickStarColor(option.id)">mdi-star</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title v-text="option.name"></v-list-item-title>
             </v-list-item-content>
+
+            <v-list-item-action v-if="voting.status === 'FINISHED'">
+              <VotingResults :results="voting.results[option.id]" />
+            </v-list-item-action>
           </v-list-item>
         </v-list>
       </div>
@@ -91,6 +108,8 @@
 </template>
 
 <script>
+import VotingResults from './VotingResults.vue';
+
 export default {
   props: {
     voting: {
@@ -111,6 +130,38 @@ export default {
       ],
       enumFields: ['status', 'majority', 'cardinality'],
     };
+  },
+  created() {
+    console.log(this.voting);
+  },
+  methods: {
+    pickStarColor(optionId) {
+      if (this.voting.status !== 'FINISHED') return 'grey';
+      const results =
+        optionId == null ? this.voting.results : this.voting.results[optionId];
+
+      console.log(results);
+
+      if (results.wasSuccessful) {
+        return 'green';
+      }
+
+      return 'red';
+    },
+    pickStarTitle(optionId) {
+      if (this.voting.status !== 'FINISHED') return '';
+      const results =
+        optionId == null ? this.voting.results : this.voting.results[optionId];
+
+      if (results.wasSuccessful) {
+        return this.$t('voting.votingPassed');
+      }
+
+      return this.$t('voting.votingFailed');
+    },
+  },
+  components: {
+    VotingResults,
   },
 };
 </script>

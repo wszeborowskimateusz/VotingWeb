@@ -140,6 +140,15 @@
     },
     "newVoting": "New voting",
     "votingsList": "Votings list",
-    "startVoting": "Start voting"
+    "startVoting": "Start voting",
+    "wasVotingSuccessful": "Was voting successful",
+    "inFavor": "In favor",
+    "against": "Against",
+    "hold": "Hold",
+    "notVoted": "Not voted",
+    "specificVotes": "Specific votes",
+    "votingNotFinished": "Voting not finished",
+    "votingPassed": "Voting has passed",
+    "votingFailed": "Voting failed"
   }
 }

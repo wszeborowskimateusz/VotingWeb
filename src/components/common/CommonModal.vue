@@ -10,7 +10,8 @@
     <a @click="close()" class="close-button">
       <i class="fas fa-times"></i>
     </a>
-    <div class="limit-height">
+
+    <div class="limit-height h-100">
       <slot></slot>
     </div>
   </modal>

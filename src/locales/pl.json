@@ -142,6 +142,15 @@
     },
     "newVoting": "Nowe głosowanie",
     "votingsList": "Lista głosowań",
-    "startVoting": "Rozpocznij głosowanie"
+    "startVoting": "Rozpocznij głosowanie",
+    "wasVotingSuccessful": "Czy głosowanie przeszło",
+    "inFavor": "Za",
+    "against": "Przeciw",
+    "hold": "Wstzymał(a) się",
+    "notVoted": "Nie zagłosował(a)",
+    "specificVotes": "Konkretne głosy",
+    "votingNotFinished": "Głosowanie nie zakończyło się",
+    "votingPassed": "Głosowanie przeszło",
+    "votingFailed": "Głosowanie nie przeszło"
   }
 }
