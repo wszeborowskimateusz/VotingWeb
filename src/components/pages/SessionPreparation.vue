@@ -13,13 +13,14 @@
       />
     </div>
     <div class="flex-row d-flex justify-content-center">
-      <button class="btn btn-primary mx-3 shadow">
-        <i class="far fa-file-archive mr-1"></i
-        >{{ $t('sessionActions.generatePasswords') }}
-      </button>
-      <button class="btn btn-success mx-3 shadow">
-        <i class="fas fa-play-circle mr-1"></i>{{ $t('sessionActions.start') }}
-      </button>
+      <v-btn color="primary" class="mx-3 shadow">
+        <v-icon left>mdi-file</v-icon>
+        {{ $t('sessionActions.generatePasswords') }}
+      </v-btn>
+      <v-btn color="success" class="mx-3 shadow">
+        <v-icon left>mdi-play</v-icon>
+        {{ $t('sessionActions.start') }}
+      </v-btn>
     </div>
   </div>
   <div v-else>
@@ -73,14 +74,14 @@
         </div>
       </div>
       <div class="flex-row d-flex justify-content-center mt-5">
-        <button class="btn btn-primary mx-3 shadow" type="button">
-          <i class="far fa-file-archive mr-1"></i
-          >{{ $t('sessionActions.generatePasswords') }}
-        </button>
-        <button class="btn btn-success mx-3 shadow" type="submit">
-          <i class="fas fa-play-circle mr-1"></i
-          >{{ $t('sessionActions.goToVotings') }}
-        </button>
+        <v-btn color="primary" class="mx-3 shadow" type="button">
+          <v-icon left>mdi-file</v-icon>
+          {{ $t('sessionActions.generatePasswords') }}
+        </v-btn>
+        <v-btn color="success" class="mx-3 shadow" type="submit">
+          <v-icon left>mdi-play</v-icon>
+          {{ $t('sessionActions.goToVotings') }}
+        </v-btn>
       </div>
     </form>
   </div>

@@ -89,7 +89,8 @@
     "start": "Rozpocznij",
     "areYouSureToRemove": "Czy na pewno chcesz usunąć sesję <b>{sessionName}</b>",
     "generatePasswords": "Generuj hasła",
-    "goToVotings": "Przejdź do głosowań"
+    "goToVotings": "Przejdź do głosowań",
+    "removeSession": "Usuń posiedzenie"
   },
   "session": {
     "enterCommitee": "Podaj skład komisji skrutacyjnej",
@@ -151,6 +152,7 @@
     "specificVotes": "Konkretne głosy",
     "votingNotFinished": "Głosowanie nie zakończyło się",
     "votingPassed": "Głosowanie przeszło",
-    "votingFailed": "Głosowanie nie przeszło"
+    "votingFailed": "Głosowanie nie przeszło",
+    "liveVotedList": "Osoby, które już zagłosowały"
   }
 }

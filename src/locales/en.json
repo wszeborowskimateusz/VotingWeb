@@ -89,7 +89,8 @@
     "start": "Start",
     "areYouSureToRemove": "Are you sure you want to remove session <b>{sessionName}</b>",
     "generatePasswords": "Generate passwords",
-    "goToVotings": "Go to votings"
+    "goToVotings": "Go to votings",
+    "removeSession": "Remove session"
   },
   "session": {
     "enterCommitee": "Enter election committee",
@@ -149,6 +150,7 @@
     "specificVotes": "Specific votes",
     "votingNotFinished": "Voting not finished",
     "votingPassed": "Voting has passed",
-    "votingFailed": "Voting failed"
+    "votingFailed": "Voting failed",
+    "liveVotedList": "Already voted list"
   }
 }

@@ -10,13 +10,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul v-if="status.loggedIn" class="navbar-nav flex-fill">
         <li class="nav-item">
-          <button
-            class="btn btn-primary mr-3"
+          <v-btn
+          color="primary"
+            class="mr-3"
             @click="$modal.show('newSessionModal')"
           >
-            <i class="fas fa-plus-square"></i>
+          <v-icon left>mdi-plus</v-icon>
             {{ $t('parliamentManagement.newSession') }}
-          </button>
+          </v-btn>
         </li>
         <li class="nav-item align-items-center">
           <router-link to="/" class="nav-link">
@@ -43,13 +44,15 @@
           <Loader :isMainPageLoader="false" />
         </li>
         <li class="nav-item">
-          <button
+          <v-btn
             v-if="status.loggedIn"
-            class="btn btn-outline-dark mr-3"
+            outlined=""
+            class="mr-3"
             @click="logout()"
           >
-            <i class="fas fa-sign-out-alt"></i> {{ $t('login.logout') }}
-          </button>
+            <v-icon left>mdi-logout</v-icon>
+            {{ $t('login.logout') }}
+          </v-btn>
         </li>
         <li class="nav-item">
           <LocaleSwitcher />

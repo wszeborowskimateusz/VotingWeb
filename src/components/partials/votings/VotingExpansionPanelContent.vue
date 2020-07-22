@@ -9,11 +9,9 @@
       <div
         class="d-flex mt-2"
         :class="
-          voting.status === 'NOT_STARTED'
-            ? 'justify-content-between'
-            : voting.status === 'DURING_VOTING'
-            ? 'justify-content-end'
-            : 'justify-content-start'
+          voting.status === 'FINISHED'
+            ? 'justify-content-start'
+            : 'justify-content-between'
         "
       >
         <div v-if="voting.status === 'NOT_STARTED'">
@@ -35,15 +33,15 @@
         >
           <v-icon>mdi-download</v-icon>
         </v-btn>
-        <button class="btn btn-danger" v-if="voting.status === 'DURING_VOTING'">
+        <v-btn v-if="voting.status === 'DURING_VOTING'" text color="primary">
+          {{ $t('voting.liveVotedList') }}
+        </v-btn>
+        <v-btn color="error" v-if="voting.status === 'DURING_VOTING'">
           {{ $t('voting.finishVoting') }}
-        </button>
-        <button
-          class="btn btn-success"
-          v-else-if="voting.status === 'NOT_STARTED'"
-        >
+        </v-btn>
+        <v-btn color="success" v-else-if="voting.status === 'NOT_STARTED'">
           {{ $t('voting.startVoting') }}
-        </button>
+        </v-btn>
       </div>
       <div>
         <v-divider />

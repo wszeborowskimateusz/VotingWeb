@@ -10,15 +10,25 @@
 
     <v-card>
       <v-tabs grow v-model="tab" background-color="primary" dark>
-        <v-tab>{{ $t('voting.votingsReadyToStart') }}</v-tab>
-        <v-tab>{{ $t('voting.finishedVotings') }}</v-tab>
+        <v-tab v-if="votingTypes.includes('NOT_STARTED')">{{
+          $t('voting.votingInProgress')
+        }}</v-tab>
+        <v-tab v-if="votingTypes.includes('DURING_VOTING')">{{
+          $t('voting.votingsReadyToStart')
+        }}</v-tab>
+        <v-tab v-if="votingTypes.includes('FINISHED')">{{
+          $t('voting.finishedVotings')
+        }}</v-tab>
       </v-tabs>
 
       <v-tabs-items v-model="tab">
-        <v-tab-item>
+        <v-tab-item v-if="votingTypes.includes('NOT_STARTED')">
+          <VotingExpansionTile :votings="votingInProgress" />
+        </v-tab-item>
+        <v-tab-item v-if="votingTypes.includes('DURING_VOTING')">
           <VotingExpansionTile :votings="notStartedVotings" />
         </v-tab-item>
-        <v-tab-item>
+        <v-tab-item v-if="votingTypes.includes('FINISHED')">
           <VotingExpansionTile :votings="finishedVotings" />
         </v-tab-item>
       </v-tabs-items>
@@ -30,10 +40,35 @@
 import VotingExpansionTile from './VotingExpansionTile.vue';
 
 export default {
+  props: {
+    votingTypes: {
+      type: Array,
+      default() {
+        return ['NOT_STARTED', 'DURING_VOTING', 'FINISHED'];
+      },
+    },
+  },
   data() {
     return {
       tab: null,
       votingsList: [
+        {
+          id: 10,
+          name:
+            'Głosowanie ws. wyboru członków Komisji Prawno Rewizyjnej: kandydat(ka)',
+          majority: 'ABSOLUTE',
+          cardinality: 'MULTIPLE_CHOICE',
+          secrecy: true,
+          status: 'DURING_VOTING',
+          threshold: 2,
+          electionLead: 'Zbigniew Stonoga',
+          options: [
+            { id: 1, name: 'Anna Winiarska' },
+            { id: 2, name: 'Marta Rutkowska' },
+            { id: 3, name: 'Bartosz Nurek' },
+            { id: 4, name: 'Dawid Krefta' },
+          ],
+        },
         {
           id: 11,
           name:
@@ -203,6 +238,11 @@ export default {
     },
     finishedVotings() {
       return this.votingsList.filter((voting) => voting.status === 'FINISHED');
+    },
+    votingInProgress() {
+      return this.votingsList.filter(
+        (voting) => voting.status === 'DURING_VOTING',
+      );
     },
   },
   components: {

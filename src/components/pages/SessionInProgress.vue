@@ -2,39 +2,34 @@
   <div v-if="activeSession == null">TODO: Probably some error</div>
   <div v-else>
     <div v-if="activeSession.status === 'SUSPENDED'">
-      <button class="btn btn-secondary mb-5">
-        <i class="far fa-arrow-alt-circle-right mr-1"></i
-        >{{ $t('sessionActions.resumeSession') }}
-      </button>
+      <v-btn color="normal" class="mb-5">
+        <v-icon left>mdi-play</v-icon>
+        {{ $t('sessionActions.resumeSession') }}
+      </v-btn>
     </div>
     <div v-else class="d-flex flex-row justify-content-center mb-5">
-      <button class="btn btn-secondary mx-3">
-        <i class="far fa-pause-circle mr-1"></i
-        >{{ $t('sessionActions.suspendSession') }}
-      </button>
-      <button class="btn btn-danger mx-3">
-        <i class="far fa-stop-circle mr-1"></i
-        >{{ $t('sessionActions.finishSession') }}
-      </button>
+      <v-btn class="mx-3">
+        <v-icon left>mdi-pause</v-icon>
+        {{ $t('sessionActions.suspendSession') }}
+      </v-btn>
+      <v-btn color="error" class="mx-3">
+        <v-icon left>mdi-stop</v-icon>
+        {{ $t('sessionActions.finishSession') }}
+      </v-btn>
     </div>
     <v-divider />
-    <button class="btn btn-success my-5" @click="$modal.show('newEditVoting')">
+    <v-btn color="success" class="my-5" @click="$modal.show('newEditVoting')">
       {{ $t('voting.newVoting') }}
-    </button>
+    </v-btn>
     <v-divider />
-    <div v-if="activeSession.status === 'IN_PROGRESS'" class="my-5">
-      <VotingInProgress class="my-5"/>
-      <v-divider class="my-5" :light="true"></v-divider>
-    </div>
-    <NotInProgressVotingsList class="my-5"/>
+    <VotingsTabView class="my-5" :votingTypes="getAllowesVotingTypes()" />
     <NewEditVoting />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import VotingInProgress from '../partials/votings/VotingInProgress.vue';
-import NotInProgressVotingsList from '../partials/votings/NotInProgressVotingsList.vue';
+import VotingsTabView from '../partials/votings/VotingsTabView.vue';
 import NewEditVoting from '../partials/votings/NewEditVoting.vue';
 
 export default {
@@ -42,9 +37,17 @@ export default {
     ...mapGetters('parliamentManagement', ['activeSession']),
   },
   components: {
-    VotingInProgress,
-    NotInProgressVotingsList,
+    VotingsTabView,
     NewEditVoting,
+  },
+  methods: {
+    getAllowesVotingTypes() {
+      if (this.activeSession.status === 'IN_PROGRESS') {
+        return ['NOT_STARTED', 'DURING_VOTING', 'FINISHED'];
+      }
+
+      return ['FINISHED'];
+    },
   },
 };
 </script>
