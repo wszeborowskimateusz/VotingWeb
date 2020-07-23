@@ -7,19 +7,19 @@
       <h1 class="font-weight-bold pb-2">
         {{ $t('parliamentManagement.sessions') }}
       </h1>
-      <button class="btn btn-primary mb-3">
-        <i class="fas fa-upload"></i>
+      <v-btn color="primary" class="mb-3">
+        <v-icon left>mdi-upload</v-icon>
         {{ $t('parliamentManagement.uploadSession') }}
-      </button>
+      </v-btn>
       <div :title="$t('parliamentManagement.thisSessionIsActive')">
-        <img :src="imageGetter.getImgUrl('filled.png')" height="50" />
+        <v-btn fab color="purple" height="40" width="40"></v-btn>
         {{ $t('parliamentManagement.thisSessionIsActive') }}
         <tooltip modalName="changeActiveSessionIconTooltip">
           {{ $t('parliamentManagement.activeSessionDescription') }}
         </tooltip>
       </div>
       <div :title="$t('parliamentManagement.changeToActiveSession')">
-        <img :src="imageGetter.getImgUrl('unfilled.png')" height="50" />
+        <v-btn fab outlined color="purple" height="40" width="40"></v-btn>
         {{ $t('parliamentManagement.changeToActiveSession') }}
       </div>
       <SessionListElement

@@ -1,31 +1,34 @@
 <template>
   <div class="ml-md-auto mr-2 my-4 my-md-0 mx-auto mx-md-2">
     <div v-if="status === 'IN_PREPARTION'">
-      <button class="btn btn-success mr-2">
-        <i class="far fa-play-circle mr-1"></i>{{ $t('sessionActions.start') }}
-      </button>
+      <v-btn color="success" class="mr-2">
+        <v-icon left>mdi-play</v-icon>
+        {{ $t('sessionActions.start') }}
+      </v-btn>
     </div>
     <div v-if="status === 'BEFORE_VOTING'"></div>
     <div v-if="status === 'IN_PROGRESS'">
-      <button class="btn btn-warning mr-2">
-        <i class="far fa-pause-circle mr-1"></i
-        >{{ $t('sessionActions.suspend') }}
-      </button>
-      <button class="btn btn-danger">
-        <i class="far fa-stop-circle mr-1"></i>{{ $t('sessionActions.finish') }}
-      </button>
+      <v-btn color="warning" class="mr-2">
+        <v-icon left>mdi-pause</v-icon>
+        {{ $t('sessionActions.suspend') }}
+      </v-btn>
+      <v-btn color="error">
+        <v-icon left>mdi-stop</v-icon>
+        {{ $t('sessionActions.finish') }}
+      </v-btn>
     </div>
     <div v-if="status === 'SUSPENDED'">
-      <button class="btn btn-secondary">
-        <i class="far fa-arrow-alt-circle-right mr-1"></i
-        >{{ $t('sessionActions.resume') }}
-      </button>
+      <v-btn>
+        <v-icon left>mdi-play</v-icon>
+        {{ $t('sessionActions.resume') }}
+      </v-btn>
     </div>
     <div v-if="status === 'FINISHED'"></div>
     <div v-if="status === 'FINISHED_NOT_SAVED_TO_GLOBAL'">
-      <button class="btn btn-info">
-        <i class="far fa-save mr-1"></i>{{ $t('sessionActions.saveToGlobal') }}
-      </button>
+      <v-btn color="cyan" dark>
+        <v-icon left>mdi-content-save</v-icon>
+        {{ $t('sessionActions.saveToGlobal') }}
+      </v-btn>
     </div>
   </div>
 </template>

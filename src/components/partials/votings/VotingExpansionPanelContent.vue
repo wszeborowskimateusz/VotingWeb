@@ -33,7 +33,13 @@
         >
           <v-icon>mdi-download</v-icon>
         </v-btn>
-        <v-btn v-if="voting.status === 'DURING_VOTING'" text color="primary">
+        <v-btn
+          v-if="voting.status === 'DURING_VOTING'"
+          text
+          color="primary"
+          :link="true"
+          :to="`/already-voted/${activeSession.id}/${voting.id}`"
+        >
           {{ $t('voting.liveVotedList') }}
         </v-btn>
         <v-btn color="error" v-if="voting.status === 'DURING_VOTING'">
@@ -112,6 +118,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import VotingResults from './VotingResults.vue';
 
 export default {
@@ -134,6 +141,9 @@ export default {
       ],
       enumFields: ['status', 'majority', 'cardinality'],
     };
+  },
+  computed: {
+    ...mapGetters('parliamentManagement', ['activeSession']),
   },
   methods: {
     pickStarColor(optionId) {

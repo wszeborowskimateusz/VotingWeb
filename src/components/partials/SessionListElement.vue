@@ -34,7 +34,7 @@
           v-if="session.isActive"
           :title="$t('parliamentManagement.thisSessionIsActive')"
         >
-          <img :src="imageGetter.getImgUrl('filled.png')" height="50" />
+          <v-btn fab color="purple" height="40" width="40"></v-btn>
         </div>
         <div
           class="active_session_badge d-inline"
@@ -42,7 +42,7 @@
           @click="changeActiveSession(session.id)"
           :title="$t('parliamentManagement.changeToActiveSession')"
         >
-          <img :src="imageGetter.getImgUrl('unfilled.png')" height="50" />
+        <v-btn fab outlined color="purple" height="40" width="40"></v-btn>
         </div>
       </div>
       <div class="row">

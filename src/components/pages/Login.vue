@@ -1,37 +1,27 @@
 <template>
   <div class="col-sm-6 offset-sm-3 pt-4">
     <h2>{{ $t('login.login') }}</h2>
-    <form @submit.prevent="handleSubmit">
-      <div class="form-group">
-        <label for="username"> {{ $t('login.username') }}</label>
-        <input
-          type="text"
-          v-model="username"
-          name="username"
-          class="form-control"
-          :class="{ 'is-invalid': submitted && !username }"
-        />
-        <div v-show="submitted && !username" class="invalid-feedback">
-          {{ $t('login.usernameRequired') }}
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="password">{{ $t('login.password') }}</label>
-        <input
-          type="password"
-          v-model="password"
-          name="password"
-          class="form-control"
-          :class="{ 'is-invalid': submitted && !password }"
-        />
-        <div v-show="submitted && !password" class="invalid-feedback">
-          {{ $t('login.passwordRequired') }}
-        </div>
-      </div>
-      <div class="form-group">
-        <button class="btn btn-secondary">{{ $t('login.login') }}</button>
-      </div>
-    </form>
+    <v-form ref="form" class="p-5" v-model="valid">
+      <v-text-field
+        v-model="username"
+        :rules="[(v) => !!v || $t('login.usernameRequired')]"
+        :label="$t('login.username')"
+        required
+      ></v-text-field>
+
+      <v-text-field
+        v-model="password"
+        :rules="[(v) => !!v || $t('login.passwordRequired')]"
+        :label="$t('login.password')"
+        required
+        type="password"
+      ></v-text-field>
+
+      <v-btn class="mt-5" dark @click="handleSubmit">{{
+        $t('login.login')
+      }}</v-btn>
+    </v-form>
+
     <div
       v-if="status.loginInProgress"
       class="d-flex p-2 justify-content-center"
@@ -60,9 +50,9 @@ export default {
   data() {
     return {
       imagesGetter,
+      valid: null,
       username: '',
       password: '',
-      submitted: false,
     };
   },
   computed: {
@@ -71,9 +61,9 @@ export default {
   methods: {
     ...mapActions('userAuthentication', ['login', 'logout']),
     handleSubmit() {
-      this.submitted = true;
-      const { username, password } = this;
-      if (username && password) {
+      this.$refs.form.validate();
+      if (this.valid) {
+        const { username, password } = this;
         this.login({ username, password });
       }
     },

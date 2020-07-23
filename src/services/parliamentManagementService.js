@@ -26,7 +26,7 @@ const dummySessionList = [
     place: 'Kamień',
     electionLead: 'Weronika Truskawka',
     status: 'FINISHED_NOT_SAVED_TO_GLOBAL',
-    isActive: true,
+    isActive: false,
   },
   {
     id: 4,
@@ -44,7 +44,7 @@ const dummySessionList = [
     place: 'Kamień',
     electionLead: 'Weronika Truskawka',
     status: 'IN_PROGRESS',
-    isActive: false,
+    isActive: true,
   },
   {
     id: 6,

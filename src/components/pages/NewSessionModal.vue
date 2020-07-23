@@ -2,129 +2,82 @@
   <common-modal name="newSessionModal" @before-close="beforeClose()">
     <div class="col-sm-6 offset-sm-3 py-5 h-100">
       <h2 class="mb-4">{{ $t('parliamentManagement.createNewSession') }}</h2>
-      <form @submit.prevent="handleSubmit">
-        <div class="form-group" v-for="field in fieldsToDisplay" :key="field">
-          <label :for="field"> {{ $t(`parliamentManagement.${field}`) }}</label>
-          <tooltip
-            v-if="field === 'userFile'"
-            class="ml-2"
-            modalName="userFileTooltip"
-          >
-            {{ $t('parliamentManagement.userFileTooltip') }}
-          </tooltip>
-          <datepicker
-            v-if="field === 'date'"
-            v-model="session.date"
-            :bootstrap-styling="true"
-            :required="true"
-            :clear-button="true"
-            :language="locale"
-            :disabled-dates="disabledDays"
-            :monday-first="true"
-          />
+      <v-form ref="form" v-model="valid">
+        <v-text-field
+          v-model="session.name"
+          :rules="[(v) => !!v || $t('parliamentManagement.nameRequired')]"
+          :label="$t('parliamentManagement.name')"
+          required
+        ></v-text-field>
 
-          <div class="custom-file" v-else-if="field === 'userFile'">
-            <input
-              type="file"
-              lang="pl"
-              class="custom-file-input"
-              v-on:change="onFileInputChange"
-              :name="field"
-              :class="{ 'is-invalid': submitted && !session[field] }"
-            />
-            <label class="custom-file-label text-left">{{ fileLabel }}</label>
-          </div>
+        <v-text-field
+          v-model="session.place"
+          :rules="[(v) => !!v || $t('parliamentManagement.placeRequired')]"
+          :label="$t('parliamentManagement.place')"
+          required
+        ></v-text-field>
 
-          <input
-            v-else
-            type="text"
-            v-model="session[field]"
-            :name="field"
-            class="form-control"
-            :class="{ 'is-invalid': submitted && !session[field] }"
-          />
-          <div
-            v-show="submitted && !session[field]"
-            class="invalid-feedback"
-            :class="{ display: field === 'date' || field === 'userFile' }"
-          >
-            {{ $t(`parliamentManagement.${field}Required`) }}
-          </div>
-        </div>
-        <div class="form-group mt-5 mt-5">
-          <button class="btn btn-primary bottom">
-            <i class="fas fa-plus-square mr-1"></i>{{ $t('common.create') }}
-          </button>
-        </div>
-      </form>
+        <tooltip
+          modalName="userFileTooltip"
+          class=" d-flex justify-content-start mt-2"
+        >
+          {{ $t('parliamentManagement.userFileTooltip') }}
+        </tooltip>
+        <v-file-input
+          class="mb-2"
+          :rules="[(v) => !!v || $t('parliamentManagement.userFileRequired')]"
+          @change="onFileInputChange"
+          :label="$t('parliamentManagement.userFile')"
+        ></v-file-input>
+
+        <v-date-picker
+          v-model="session.date"
+          type="date"
+          :first-day-of-week="1"
+          :locale="$i18n.locale"
+          :allowed-dates="allowedDays"
+          required
+        ></v-date-picker>
+
+        <v-btn color="primary" class="my-5" large @click="handleSubmit">
+          <v-icon left>mdi-plus</v-icon>
+          {{ $t('common.create') }}
+        </v-btn>
+      </v-form>
     </div>
   </common-modal>
 </template>
-<style scoped>
-.display {
-  display: block;
-}
-
-.bottom {
-  height: 60px;
-  width: 200px;
-}
-.custom-file-label::after {
-  content: var(--fileLabel);
-}
-</style>
 <script>
-import Datepicker from 'vuejs-datepicker';
-import { en, pl } from 'vuejs-datepicker/dist/locale';
-
 export default {
-  components: { Datepicker },
   data() {
     return {
-      submitted: false,
+      valid: null,
       session: {
         name: '',
         date: null,
         place: '',
         userFile: null,
       },
-      fieldsToDisplay: ['name', 'date', 'place', 'userFile'],
-      datePickerTranslations: {
-        en,
-        pl,
-      },
     };
   },
-  computed: {
-    locale() {
-      return this.datePickerTranslations[this.$i18n.locale];
+  methods: {
+    handleSubmit() {
+      this.$refs.form.validate();
     },
-    fileLabel() {
-      return this.session.userFile == null
-        ? this.$t('parliamentManagement.chooseAFile')
-        : this.session.userFile.name;
+    beforeClose() {
+      this.$refs.form.reset();
     },
-    disabledDays() {
+    onFileInputChange(file) {
+      this.session.file = file;
+    },
+    allowedDays(day) {
       const today = new Date();
       const yesterday = new Date(today);
       yesterday.setDate(today.getDate() - 1);
 
-      return {
-        to: yesterday,
-      };
-    },
-  },
-  methods: {
-    handleSubmit() {
-      this.submitted = true;
-    },
-    beforeClose() {
-      this.submitted = false;
-    },
-    onFileInputChange(e) {
-      const files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
-      [this.session.userFile] = files;
+      const date = new Date(day);
+
+      return date >= yesterday;
     },
   },
 };

@@ -1,11 +1,18 @@
 <template>
   <div>
     <h3 class="mb-3">{{ $t('voting.votingsList') }}</h3>
-    <div class="mb-3">
-      <v-icon color="grey">mdi-star</v-icon> -
-      {{ $t('voting.votingNotFinished') }}
-      <v-icon color="green">mdi-star</v-icon> - {{ $t('voting.votingPassed') }}
-      <v-icon color="red">mdi-star</v-icon> - {{ $t('voting.votingFailed') }}
+    <div class="mb-3 d-flex justify-content-around">
+      <span>
+        <v-icon color="grey">mdi-star</v-icon>
+        {{ $t('voting.votingNotFinished') }}
+      </span>
+      <span>
+        <v-icon color="green">mdi-star</v-icon>
+        {{ $t('voting.votingPassed') }}
+      </span>
+      <span>
+        <v-icon color="red">mdi-star</v-icon>{{ $t('voting.votingFailed') }}
+      </span>
     </div>
 
     <v-card>

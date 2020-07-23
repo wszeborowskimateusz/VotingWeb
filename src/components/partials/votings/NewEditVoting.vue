@@ -151,7 +151,6 @@ export default {
     },
     submit() {
       this.$refs.form.validate();
-      console.log(this.valid);
     },
   },
 };

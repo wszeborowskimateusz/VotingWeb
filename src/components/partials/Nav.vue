@@ -11,17 +11,23 @@
       <ul v-if="status.loggedIn" class="navbar-nav flex-fill">
         <li class="nav-item">
           <v-btn
-          color="primary"
+            color="primary"
             class="mr-3"
             @click="$modal.show('newSessionModal')"
           >
-          <v-icon left>mdi-plus</v-icon>
+            <v-icon left>mdi-plus</v-icon>
             {{ $t('parliamentManagement.newSession') }}
           </v-btn>
         </li>
         <li class="nav-item align-items-center">
           <router-link to="/" class="nav-link">
             {{ $t('common.mainPage') }}
+          </router-link>
+        </li>
+        <li class="divider-vertical"></li>
+        <li class="nav-item align-items-center">
+          <router-link to="/user-management" class="nav-link">
+            {{ $t('userManagement.users') }}
           </router-link>
         </li>
         <li class="divider-vertical"></li>
