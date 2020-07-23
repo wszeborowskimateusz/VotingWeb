@@ -4,47 +4,6 @@
       class="col-8 offset-2 rounded p-3 shadow main__container"
       :class="[session.isActive ? ['border-success', 'border'] : '']"
     >
-      <div class="action__buttons__section action__button">
-        <v-btn
-          icon
-          v-if="session.status !== 'FINISHED'"
-          @click="editSession(session.id)"
-          :title="$t('common.edit')"
-        >
-          <v-icon>mdi-pencil</v-icon>
-        </v-btn>
-        <v-btn
-          icon
-          v-if="session.status === 'FINISHED'"
-          @click="removeSession(session.id)"
-          :title="$t('common.remove')"
-        >
-          <v-icon>mdi-delete</v-icon>
-        </v-btn>
-        <v-btn
-          icon
-          @click="downloadSession(session.id)"
-          :title="$t('common.download')"
-        >
-          <v-icon>mdi-download</v-icon>
-        </v-btn>
-
-        <div
-          class="active_session_badge d-inline"
-          v-if="session.isActive"
-          :title="$t('parliamentManagement.thisSessionIsActive')"
-        >
-          <v-btn fab color="purple" height="40" width="40"></v-btn>
-        </div>
-        <div
-          class="active_session_badge d-inline"
-          v-else
-          @click="changeActiveSession(session.id)"
-          :title="$t('parliamentManagement.changeToActiveSession')"
-        >
-        <v-btn fab outlined color="purple" height="40" width="40"></v-btn>
-        </div>
-      </div>
       <div class="row">
         <div class="col-12 col-md-6 text-left">
           <h4>{{ session.name }}</h4>
@@ -60,10 +19,60 @@
             >{{ $t('common.more') }}</a
           >
         </div>
-        <SessionActions :status="session.status" class="pb-4" />
+                <SessionActions :session="session" class="pb-4 col-12 col-md-6 text-right" />
+        <div class="col-12 text-right">
+          <v-btn
+            icon
+            v-if="session.status !== 'FINISHED'"
+            @click="editSession(session.id)"
+            :title="$t('common.edit')"
+          >
+            <v-icon>mdi-pencil</v-icon>
+          </v-btn>
+          <v-btn
+            icon
+            v-if="session.status === 'FINISHED'"
+            @click="removeSessionWithConfirmation(session.id)"
+            :title="$t('common.remove')"
+          >
+            <v-icon>mdi-delete</v-icon>
+          </v-btn>
+          <v-btn
+            icon
+            @click="downloadSession(session.id)"
+            :title="$t('common.download')"
+          >
+            <v-icon>mdi-download</v-icon>
+          </v-btn>
+
+          <div
+            class="active_session_badge d-inline"
+            v-if="session.isActive"
+            :title="$t('parliamentManagement.thisSessionIsActive')"
+          >
+            <v-btn fab color="purple" height="40" width="40"></v-btn>
+          </div>
+          <div
+            class="active_session_badge d-inline"
+            v-else
+            @click="changeActiveSession(session.id)"
+            :title="$t('parliamentManagement.changeToActiveSession')"
+          >
+            <v-btn fab outlined color="purple" height="40" width="40"></v-btn>
+          </div>
+        </div>
+
       </div>
     </div>
     <SessionInfoModal :name="sessionModalName" :session="session" />
+    <ConfirmationDialog
+      v-if="showConfirmationDialog"
+      :text="
+        $t('sessionActions.areYouSureToRemove', { sessionName: session.name })
+      "
+      v-model="showConfirmationDialog"
+      @callback="removeSession(session.id)"
+    />
   </div>
 </template>
 <style scoped>
@@ -89,8 +98,6 @@ import imageGetter from '../../utils/imagesGetter';
 import SessionInfoModal from './SessionInfoModal.vue';
 import SessionStatusInfo from './SessionStatusInfo.vue';
 import SessionActions from './SessionActions.vue';
-import bootbox from '../../utils/bootbox';
-import i18n from '../../i18n';
 
 export default {
   props: {
@@ -102,32 +109,28 @@ export default {
   data() {
     return {
       imageGetter,
+      showConfirmationDialog: false,
       sessionModalName: `session${this.session.id}`,
     };
   },
   methods: {
-    ...mapActions('parliamentManagement', ['changeActiveSession']),
+    ...mapActions('parliamentManagement', [
+      'changeActiveSession',
+      'downloadSession',
+      'uploadSession',
+      'removeSession',
+    ]),
     getFormatedDate(date) {
       return moment(date).format('DD.MM.YYYY');
     },
     openInfoModal() {
       this.$modal.show('activeSessionModal');
     },
-    downloadSession(sessionId) {
-      console.log(`Downloading the session with id: ${sessionId}`);
-    },
     editSession(sessionId) {
       console.log(`Editing the session with id: ${sessionId}`);
     },
-    removeSession(sessionId) {
-      bootbox.confirmationDialog(
-        i18n.t('sessionActions.areYouSureToRemove', {
-          sessionName: this.session.name,
-        }),
-        () => {
-          console.log(`Session with id ${sessionId} was removed`);
-        },
-      );
+    removeSessionWithConfirmation() {
+      this.showConfirmationDialog = true;
     },
   },
   components: {

@@ -18,18 +18,24 @@
       <v-icon left>mdi-delete</v-icon>
       {{ $t('sessionActions.removeSession') }}
     </v-btn>
-    <v-divider/>
+    <v-divider />
     <VotingsTabView :votingTypes="['FINISHED']" />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import VotingsTabView from '../partials/votings/VotingsTabView.vue';
 
 export default {
   computed: {
     ...mapGetters('parliamentManagement', ['activeSession']),
+  },
+  methods: {
+    ...mapActions('votingsManagement', ['loadVotings']),
+  },
+  mounted() {
+    this.loadVotings();
   },
   components: {
     VotingsTabView,

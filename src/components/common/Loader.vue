@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isMainPageLoader" class="d-flex justify-content-center pt-5 p-1">
+  <div v-if="isMainPageLoader" class="d-flex justify-content-center p-1">
     <Spinner />
   </div>
   <Spinner v-else />

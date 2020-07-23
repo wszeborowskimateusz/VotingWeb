@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import VotingsTabView from '../partials/votings/VotingsTabView.vue';
 import NewEditVoting from '../partials/votings/NewEditVoting.vue';
 
@@ -36,11 +36,15 @@ export default {
   computed: {
     ...mapGetters('parliamentManagement', ['activeSession']),
   },
+  mounted() {
+    this.loadVotings();
+  },
   components: {
     VotingsTabView,
     NewEditVoting,
   },
   methods: {
+    ...mapActions('votingsManagement', ['loadVotings']),
     getAllowesVotingTypes() {
       if (this.activeSession.status === 'IN_PROGRESS') {
         return ['NOT_STARTED', 'DURING_VOTING', 'FINISHED'];

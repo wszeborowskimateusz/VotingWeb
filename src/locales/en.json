@@ -12,7 +12,18 @@
     "create": "Create",
     "yes": "Yes",
     "no": "No",
-    "save": "Save"
+    "save": "Save",
+    "loading": "Loading...",
+    "areYouSure": "Are you sure ?"
+  },
+  "validation": {
+     "failedToResumeSession": "There was an error while resuming the session, try again.",
+     "failedToSuspendSession": "There was an error while stopping the session, try again.",
+     "failedToStartSession": "There was an error while starting the session, try again.",
+     "failedToFinishSession": "There was an error while finishing the session, try again.",
+     "failedToDownloadSession": "There was an error while downloading the session, try again.",
+     "failedToUploadSession": "There was an error while uploading the session, try again.",
+     "failedToRemoveSession": "There was an error while removing the session, try again."
   },
   "login": {
     "username": "Username",
@@ -87,7 +98,7 @@
     "finish": "Finish",
     "finishSession": "Finish session",
     "start": "Start",
-    "areYouSureToRemove": "Are you sure you want to remove session <b>{sessionName}</b>",
+    "areYouSureToRemove": "Are you sure you want to remove session: {sessionName}",
     "generatePasswords": "Generate passwords",
     "goToVotings": "Go to votings",
     "removeSession": "Remove session"

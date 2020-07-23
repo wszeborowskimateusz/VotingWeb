@@ -12,7 +12,18 @@
     "create": "Utwórz",
     "yes": "Tak",
     "no": "Nie",
-    "save": "Zapisz"
+    "save": "Zapisz",
+    "loading": "Ładuję...",
+    "areYouSure": "Czy na pewno ?"
+  },
+  "validation": {
+     "failedToResumeSession": "Wystąpił problem przy próbie wznowienia sesji, spróbuj ponownie.",
+     "failedToSuspendSession": "Wystąpił problem przy próbie zatrzymanie sesji, spróbuj ponownie.",
+     "failedToStartSession": "Wystąpił problem przy próbie rozpoczęcie sesji, spróbuj ponownie.",
+     "failedToFinishSession": "Wystąpił problem przy próbie zakończenia sesji, spróbuj ponownie.",
+     "failedToDownloadSession": "Wystąpił problem przy próbie pobrania sesji, spróbuj ponownie.",
+     "failedToUploadSession": "Wystąpił problem przy próbie wczytania sesji, spróbuj ponownie.",
+     "failedToRemoveSession": "Wystąpił problem przy próbie usunięcia sesji, spróbuj ponownie."
   },
   "login": {
     "username": "Nazwa użytkownika",
@@ -87,7 +98,7 @@
     "finish": "Zakończ",
     "finishSession": "Zakończ posiedzenie",
     "start": "Rozpocznij",
-    "areYouSureToRemove": "Czy na pewno chcesz usunąć sesję <b>{sessionName}</b>",
+    "areYouSureToRemove": "Czy na pewno chcesz usunąć sesję: {sessionName}",
     "generatePasswords": "Generuj hasła",
     "goToVotings": "Przejdź do głosowań",
     "removeSession": "Usuń posiedzenie"

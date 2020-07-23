@@ -2,7 +2,26 @@ import parliamentManagementService from '@/services/parliamentManagementService'
 import toasts from '@/utils/toasts';
 import i18n from '../i18n';
 
-const parlaimentState = { isLoading: false, sessions: null };
+const parlaimentState = {
+  isLoading: false,
+  sessions: null,
+  isActionPerforming: false,
+};
+
+function handleActionError(action, commit) {
+  commit('stopAction');
+  toasts.errorToast(i18n.tc(`validation.failedTo${action}Session`));
+}
+
+function handleAction(commit, dispatch, sessionId, action, actionName) {
+  commit('actionPerforming');
+  action(sessionId).then(
+    () => dispatch('loadSessions'),
+    () => {
+      handleActionError(actionName, commit);
+    },
+  );
+}
 
 const actions = {
   loadSessions({ commit }) {
@@ -15,26 +34,70 @@ const actions = {
       },
     );
   },
-  finishSession({ dispatch }) {
-    // TODO: Maybe move user to some sessions list screen ?
-    parliamentManagementService.finishSession().then(
-      () => dispatch('loadSessions'),
-      (error) => {
-        toasts.errorToast(`${error}. ${i18n.tc('common.tryAgain')}`);
-      },
+  finishSession({ commit, dispatch }, sessionId) {
+    handleAction(
+      commit,
+      dispatch,
+      sessionId,
+      parliamentManagementService.finishSession,
+      'Finish',
     );
   },
-  suspendSession({ dispatch }) {
-    // TODO: Maybe move user to some sessions list screen ?
-    parliamentManagementService.suspendSession().then(
-      () => dispatch('loadSessions'),
-      (error) => {
-        toasts.errorToast(`${error}. ${i18n.tc('common.tryAgain')}`);
-      },
+  suspendSession({ commit, dispatch }, sessionId) {
+    handleAction(
+      commit,
+      dispatch,
+      sessionId,
+      parliamentManagementService.suspendSession,
+      'Suspend',
+    );
+  },
+  startSession({ commit, dispatch }, sessionId) {
+    handleAction(
+      commit,
+      dispatch,
+      sessionId,
+      parliamentManagementService.startSession,
+      'Start',
+    );
+  },
+  resumeSession({ commit, dispatch }, sessionId) {
+    handleAction(
+      commit,
+      dispatch,
+      sessionId,
+      parliamentManagementService.resumeSession,
+      'Resume',
+    );
+  },
+  removeSession({ commit, dispatch }, sessionId) {
+    handleAction(
+      commit,
+      dispatch,
+      sessionId,
+      parliamentManagementService.removeSession,
+      'Remove',
+    );
+  },
+  downloadSession({ commit, dispatch }, sessionId) {
+    handleAction(
+      commit,
+      dispatch,
+      sessionId,
+      parliamentManagementService.downloadSession,
+      'Download',
+    );
+  },
+  uploadSession({ commit, dispatch }, sessionFile) {
+    handleAction(
+      commit,
+      dispatch,
+      sessionFile,
+      parliamentManagementService.uploadSession,
+      'Upload',
     );
   },
   changeActiveSession({ dispatch }, sessionId) {
-    // TODO: Maybe move user to some sessions list screen ?
     parliamentManagementService.setActiveSession(sessionId).then(
       () => dispatch('loadSessions'),
       (error) => {
@@ -49,13 +112,21 @@ const mutations = {
   loading(state) {
     state.isLoading = true;
   },
+  actionPerforming(state) {
+    state.isActionPerforming = true;
+  },
+  stopAction(state) {
+    state.isActionPerforming = false;
+  },
   loadingSuccess(state, sessions) {
     state.isLoading = false;
     state.sessions = sessions;
+    state.isActionPerforming = false;
   },
   failed(state) {
     state.isLoading = false;
     state.sessions = null;
+    state.isActionPerforming = false;
   },
 };
 /* eslint-enable no-param-reassign */

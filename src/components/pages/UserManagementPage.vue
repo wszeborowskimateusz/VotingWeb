@@ -10,8 +10,9 @@
       ></v-text-field>
     </v-card-title>
     <v-data-table
+      v-if="members != null"
       :headers="headers"
-      :items="voters"
+      :items="members"
       class="elevation-1"
       :search="search"
       :locale="$i18n.locale"
@@ -19,9 +20,15 @@
       hide-default-footer
       multi-sort
       align="center"
+      :loading="isLoading"
+       :loading-text="$t('common.loading')"
     >
       <template v-slot:no-results>
         {{ $t('userManagement.noResults') }}
+      </template>
+
+      <template v-slot:no-data>
+        No results
       </template>
 
       <template v-slot:item.absent="props">
@@ -58,13 +65,18 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState, mapActions } from 'vuex';
 
 export default {
   computed: {
+    ...mapState('membersManagement', ['members', 'isLoading']),
     ...mapGetters('parliamentManagement', ['activeSession']),
   },
+  mounted() {
+    this.loadMembers();
+  },
   methods: {
+    ...mapActions('membersManagement', ['loadMembers']),
     changeUserBlocState(user) {
       console.log(user);
     },
@@ -87,168 +99,6 @@ export default {
         },
         { text: this.$t('userManagement.hasVote'), value: 'hasVote' },
         { text: this.$t('userManagement.actions'), value: 'actions' },
-      ],
-      voters: [
-        {
-          id: '1',
-          fullName: 'Jon Snow',
-          index: '123457',
-          absent: false,
-          isBlocked: false,
-          isElectionLead: false,
-          isInElectionCommittee: false,
-          hasVote: true,
-        },
-        {
-          id: '2',
-          fullName: 'Jon Travolta',
-          index: '123451',
-          absent: true,
-          isBlocked: false,
-          isElectionLead: false,
-          isInElectionCommittee: false,
-          hasVote: true,
-        },
-        {
-          id: '3',
-          fullName: 'Sławomir Mentzen',
-          index: '123487',
-          absent: false,
-          isBlocked: true,
-          isElectionLead: false,
-          isInElectionCommittee: false,
-          hasVote: true,
-        },
-        {
-          id: '4',
-          fullName: 'Borris Johnson',
-          index: '123467',
-          absent: false,
-          isBlocked: false,
-          isElectionLead: false,
-          isInElectionCommittee: false,
-          hasVote: false,
-        },
-        {
-          id: '5',
-          fullName: 'Bill Gates',
-          index: '123434',
-          absent: false,
-          isBlocked: false,
-          isElectionLead: false,
-          isInElectionCommittee: true,
-          hasVote: true,
-        },
-        {
-          id: '6',
-          fullName: 'Melinda Gates',
-          index: '234123',
-          absent: true,
-          isBlocked: true,
-          isElectionLead: false,
-          isInElectionCommittee: false,
-          hasVote: true,
-        },
-        {
-          id: '7',
-          fullName: 'Steven Boris',
-          index: '123452',
-          absent: false,
-          isBlocked: false,
-          isElectionLead: true,
-          isInElectionCommittee: true,
-          hasVote: true,
-        },
-        {
-          id: '8',
-          fullName: 'Bill Gates',
-          index: '123434',
-          absent: false,
-          isBlocked: false,
-          isElectionLead: false,
-          isInElectionCommittee: true,
-          hasVote: true,
-        },
-        {
-          id: '9',
-          fullName: 'Melinda Gates',
-          index: '234123',
-          absent: true,
-          isBlocked: true,
-          isElectionLead: false,
-          isInElectionCommittee: false,
-          hasVote: true,
-        },
-        {
-          id: '10',
-          fullName: 'Steven Boris',
-          index: '123452',
-          absent: false,
-          isBlocked: false,
-          isElectionLead: true,
-          isInElectionCommittee: true,
-          hasVote: true,
-        },
-        {
-          id: '11',
-          fullName: 'Bill Gates',
-          index: '123434',
-          absent: false,
-          isBlocked: false,
-          isElectionLead: false,
-          isInElectionCommittee: true,
-          hasVote: true,
-        },
-        {
-          id: '12',
-          fullName: 'Melinda Gates',
-          index: '234123',
-          absent: true,
-          isBlocked: true,
-          isElectionLead: false,
-          isInElectionCommittee: false,
-          hasVote: true,
-        },
-        {
-          id: '13',
-          fullName: 'Steven Boris',
-          index: '123452',
-          absent: false,
-          isBlocked: false,
-          isElectionLead: true,
-          isInElectionCommittee: true,
-          hasVote: true,
-        },
-        {
-          id: '14',
-          fullName: 'Bill Gates',
-          index: '123434',
-          absent: false,
-          isBlocked: false,
-          isElectionLead: false,
-          isInElectionCommittee: true,
-          hasVote: true,
-        },
-        {
-          id: '15',
-          fullName: 'Melinda Gates',
-          index: '234123',
-          absent: true,
-          isBlocked: true,
-          isElectionLead: false,
-          isInElectionCommittee: false,
-          hasVote: true,
-        },
-        {
-          id: '16',
-          fullName: 'Steven Boris',
-          index: '123452',
-          absent: false,
-          isBlocked: false,
-          isElectionLead: true,
-          isInElectionCommittee: true,
-          hasVote: true,
-        },
       ],
     };
   },

@@ -1,6 +1,5 @@
 import fetchTimeout from 'fetch-timeout';
 import config from '@/../config';
-import download from 'downloadjs';
 import tokenUtils from './tokenUtils';
 
 function refreshToken(refreshedToken) {
@@ -34,6 +33,9 @@ function sendRequest(url, options) {
   const token = JSON.parse(tokenUtils.getToken());
   const reqOptions = options;
   if (token !== null) {
+    if (reqOptions.headers == null) {
+      reqOptions.headers = {};
+    }
     reqOptions.headers.Authorization = `Bearer ${token}`;
   }
 
@@ -66,9 +68,6 @@ export default {
     };
 
     return sendRequest(url, options);
-  },
-  getFile(url) {
-    return download(url);
   },
   put(url, body) {
     const options = {

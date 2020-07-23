@@ -8,6 +8,7 @@ function loadVotersList(votersList) {
   return requestSender.postFile(url, { votersList });
 }
 
+// TODO: This and loadVotersList will probably be merged into a single endpoint
 function setParliamentDetails(parliamentDetails) {
   const url = '/preparations/details';
 
@@ -18,19 +19,6 @@ function generatePasswords() {
   const url = '/preparations/get-pass';
 
   return requestSender.get(url);
-}
-
-function getPreparedSession() {
-  const url = '/preparations/details';
-
-  return requestSender.getFile(url);
-}
-
-// TODO: Handle file sending
-function loadPreparedSession(sessionFile) {
-  const url = '/preparations/upload';
-
-  return requestSender.postFile(url, sessionFile);
 }
 
 function editParliamentDetails(parliamentDetails) {

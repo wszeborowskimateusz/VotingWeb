@@ -1,23 +1,23 @@
 <template>
-  <div class="ml-md-auto mr-2 my-4 my-md-0 mx-auto mx-md-2">
+  <div>
     <div v-if="status === 'IN_PREPARTION'">
-      <v-btn color="success" class="mr-2">
+      <v-btn color="success" class="mr-2" @click="startSession">
         <v-icon left>mdi-play</v-icon>
         {{ $t('sessionActions.start') }}
       </v-btn>
     </div>
     <div v-if="status === 'BEFORE_VOTING'"></div>
     <div v-if="status === 'IN_PROGRESS'">
-      <v-btn color="warning" class="mr-2">
+      <v-btn color="warning" class="mr-2" @click="suspendSession">
         <v-icon left>mdi-pause</v-icon>
         {{ $t('sessionActions.suspend') }}
       </v-btn>
-      <v-btn color="error">
+      <v-btn color="error" @click="finishSession">
         <v-icon left>mdi-stop</v-icon>
         {{ $t('sessionActions.finish') }}
       </v-btn>
     </div>
-    <div v-if="status === 'SUSPENDED'">
+    <div v-if="status === 'SUSPENDED'" @click="resumeSession">
       <v-btn>
         <v-icon left>mdi-play</v-icon>
         {{ $t('sessionActions.resume') }}
@@ -30,15 +30,36 @@
         {{ $t('sessionActions.saveToGlobal') }}
       </v-btn>
     </div>
+    <v-overlay :value="isActionPerforming">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
+
 export default {
   props: {
-    status: {
-      type: String,
+    session: {
+      type: Object,
       required: true,
+    },
+  },
+  methods: {
+    ...mapActions('parliamentManagement', [
+      'finishSession',
+      'suspendSession',
+      'startSession',
+      'resumeSession',
+      'downloadSession',
+      'uploadSession',
+    ]),
+  },
+  computed: {
+    ...mapState('parliamentManagement', ['isActionPerforming']),
+    status() {
+      return this.session.status;
     },
   },
 };

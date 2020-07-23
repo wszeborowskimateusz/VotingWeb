@@ -70,16 +70,46 @@ function getSessionsList() {
   // return requestSender.get(url);
 }
 
-function finishSession() {
-  const url = '/parliament/finish';
+function finishSession(sessionId) {
+  const url = `/parliament/${sessionId}/finish`;
 
   return requestSender.put(url, {});
 }
 
-function suspendSession() {
-  const url = '/parliament/suspend';
+function startSession(sessionId) {
+  const url = `/parliament/${sessionId}/start`;
 
   return requestSender.put(url, {});
+}
+
+function suspendSession(sessionId) {
+  const url = `/parliament/${sessionId}/suspend`;
+
+  return requestSender.put(url, {});
+}
+
+function resumeSession(sessionId) {
+  const url = `/parliament/${sessionId}/resume`;
+
+  return requestSender.put(url, {});
+}
+
+function removeSession(sessionId) {
+  const url = `/parliament/${sessionId}/remove`;
+
+  return requestSender.put(url, {});
+}
+
+function downloadSession(sessionId) {
+  const url = `/parliament/${sessionId}/download`;
+
+  return requestSender.put(url, {});
+}
+
+function uploadSession(sessionFile) {
+  const url = '/parliament/upload';
+
+  return requestSender.postFile(url, sessionFile);
 }
 
 /* eslint-disable no-param-reassign */
@@ -100,5 +130,10 @@ export default {
   getSessionsList,
   finishSession,
   suspendSession,
+  startSession,
+  resumeSession,
+  removeSession,
+  downloadSession,
+  uploadSession,
   setActiveSession,
 };
