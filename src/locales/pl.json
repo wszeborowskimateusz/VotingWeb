@@ -39,6 +39,7 @@
   "parliamentManagement": {
     "newSession": "Nowe posiedzenie",
     "createNewSession": "Utwórz nowe posiedzenie",
+    "editSession": "Edytuj posiedzenie",
     "changeActiveSession": "Zmień aktywne posiedzenie",
     "activeSession": "Aktywne posiedzenie",
     "sessionInfo": "Informacje o sesji",
@@ -84,7 +85,7 @@
       "name": "Przed głosowaniem",
       "description": "Sesja jest w trakcie przygotowań, wszystkie konieczne dane zostały wypełnione i sesja może być rozpoczęta"
     },
-    "IN_PREPARTION": {
+    "IN_PREPARATION": {
       "name": "W przygotowaniu",
       "description": "Sesja jest w trakcie przygotowań, ale nie wszystkie konieczne dane zostały wypełnione i sesja nie może być rozpoczęta"
     }
@@ -107,7 +108,8 @@
   "session": {
     "enterCommitee": "Podaj skład komisji skrutacyjnej",
     "electionLead": "Przewodniczący komisji skrutacyjnej",
-    "committeeMembers": "Skład komisji skrutacyjnej (bez przewodniczącego)",
+    "committeeMembers": "Skład komisji skrutacyjnej",
+    "committeeMembersNoLead": "Skład komisji skrutacyjnej (bez przewodniczącego)",
     "pickElectionLead": "Wybierz przewodniczącego",
     "pickCommitteeMembers": "Wybierz skład",
     "electionLeadIsRequired": "Przewodniczący komisji jest wymagany",

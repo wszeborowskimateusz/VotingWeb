@@ -39,6 +39,7 @@
   "parliamentManagement": {
     "newSession": "New session",
     "createNewSession": "Create new session",
+    "editSession": "Edit session",
     "changeActiveSession": "Change active session",
     "activeSession": "Active session",
     "sessionInfo": "Session info",
@@ -84,7 +85,7 @@
       "name": "In preparations, ready to start",
       "description": "The session is in preparations, all necessary data have been provided and session can be started"
     },
-    "IN_PREPARTION":    {
+    "IN_PREPARATION":    {
       "name": "In preparations",
       "description": "The session is is preparations but not all necessary data have been provided, so the session cannot be started"
     }
@@ -107,7 +108,8 @@
   "session": {
     "enterCommitee": "Enter election committee",
     "electionLead": "Election lead",
-    "committeeMembers": "Committee members (without election lead)",
+    "committeeMembers": "Committee members",
+    "committeeMembersNoLead": "Committee members (without election lead)",
     "pickElectionLead": "Pick election lead",
     "pickCommitteeMembers": "Pick committee members",
     "electionLeadIsRequired": "Election lead is required",

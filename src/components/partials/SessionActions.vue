@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="status === 'IN_PREPARTION'">
+    <div v-if="status === 'IN_PREPARATION'">
       <v-btn color="success" class="mr-2" @click="startSession">
         <v-icon left>mdi-play</v-icon>
         {{ $t('sessionActions.start') }}

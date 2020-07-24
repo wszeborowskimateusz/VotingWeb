@@ -7,10 +7,21 @@
       <h1 class="font-weight-bold pb-2">
         {{ $t('parliamentManagement.sessions') }}
       </h1>
-      <v-btn color="primary" class="mb-3">
+      <v-btn
+        color="primary"
+        class="mb-3"
+        :loading="isSelectingFile"
+        @click="pickFile"
+      >
         <v-icon left>mdi-upload</v-icon>
         {{ $t('parliamentManagement.uploadSession') }}
       </v-btn>
+      <input
+        ref="uploader"
+        class="d-none"
+        type="file"
+        @change="onFileChanged"
+      />
       <div :title="$t('parliamentManagement.thisSessionIsActive')">
         <v-btn fab color="purple" height="40" width="40"></v-btn>
         {{ $t('parliamentManagement.thisSessionIsActive') }}
@@ -34,6 +45,7 @@
         {{ $t('parliamentManagement.noSessionsDisclaimer') }}
       </div>
     </div>
+    <EditSessionModal />
   </div>
 </template>
 <style scoped>
@@ -48,22 +60,45 @@
 <script>
 import { mapActions, mapState } from 'vuex';
 import SessionListElement from '../partials/SessionListElement.vue';
+import EditSessionModal from '../partials/EditSessionModal.vue';
 import imageGetter from '../../utils/imagesGetter';
 
 export default {
   components: {
     SessionListElement,
+    EditSessionModal,
   },
   data() {
     return {
       imageGetter,
+      selectedFile: null,
+      isSelectingFile: false,
     };
+  },
+  mounted() {
+    this.loadMembers();
   },
   computed: {
     ...mapState('parliamentManagement', ['isLoading', 'sessions']),
   },
   methods: {
+    ...mapActions('membersManagement', ['loadMembers']),
     ...mapActions('parliamentManagement', ['changeActiveSession']),
+    pickFile() {
+      this.isSelectingFile = true;
+      window.addEventListener(
+        'focus',
+        () => {
+          this.isSelectingFile = false;
+        },
+        { once: true },
+      );
+
+      this.$refs.uploader.click();
+    },
+    onFileChanged(event) {
+      [this.selectedFile] = event.target.files;
+    },
   },
 };
 </script>

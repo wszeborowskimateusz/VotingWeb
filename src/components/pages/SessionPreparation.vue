@@ -3,7 +3,7 @@
     TODO: Handle Mistake ?
   </div>
   <div
-    v-else-if="activeSession.status === 'IN_PREPARTION'"
+    v-else-if="activeSession.status === 'IN_PREPARATION'"
     class="justify-content-center d-flex flex-column"
   >
     <div>
@@ -25,65 +25,50 @@
   </div>
   <div v-else>
     <h3 class="mb-5">{{ $t('session.enterCommitee') }}</h3>
-    <form @submit.prevent="handleSubmit">
-      <div class="form-group">
-        <label>{{ $t('session.electionLead') }}</label>
-        <multiselect
-          v-model="electionLead"
-          :options="users"
-          :searchable="true"
-          :close-on-select="true"
-          :show-labels="false"
-          :placeholder="$t('session.pickElectionLead')"
-        >
-          <template v-slot:noResult>
-            {{ $t('session.noUserFound') }}
-          </template>
-        </multiselect>
-        <div
-          v-show="submitted && !electionLead"
-          class="invalid-feedback display"
-        >
-          {{ $t(`session.electionLeadIsRequired`) }}
-        </div>
-      </div>
-      <div class="form-group">
-        <label>{{ $t('session.committeeMembers') }}</label>
-        <multiselect
-          v-model="committee"
-          :options="usersWithoutElectionLead"
-          :searchable="true"
-          :close-on-select="false"
-          :show-labels="false"
-          :multiple="true"
-          :placeholder="$t('session.pickCommitteeMembers')"
-        >
-          <template v-slot:noResult>
-            {{ $t('session.noUserFound') }}
-          </template></multiselect
-        >
-        <div
-          v-show="submitted && !isCommitteeBigEnough"
-          class="invalid-feedback display"
-        >
-          {{
-            $t(`session.committeeAtLeastMembers`, {
+    <v-form ref="form" v-model="valid">
+      <v-autocomplete
+        class="mb-2"
+        v-model="electionLead"
+        :items="membersList"
+        :rules="[(v) => !!v || $t('session.electionLeadIsRequired')]"
+        :label="$t('parliamentManagement.electionLead')"
+      >
+        <template v-slot:no-data>
+          {{ $t('userManagement.noResults') }}
+        </template>
+      </v-autocomplete>
+
+      <v-autocomplete
+        v-model="committee"
+        :items="membersList"
+        multiple
+        chips
+        deletable-chips
+        :rules="[
+          (v) =>
+            (!!v && v.length >= minimalNumberOfMembers) ||
+            $t('session.committeeAtLeastMembers', {
               amount: minimalNumberOfMembers,
-            })
-          }}
-        </div>
-      </div>
+            }),
+        ]"
+        :label="$t('session.committeeMembersNoLead')"
+      >
+        <template v-slot:no-data>
+          {{ $t('userManagement.noResults') }}
+        </template>
+      </v-autocomplete>
+
       <div class="flex-row d-flex justify-content-center mt-5">
-        <v-btn color="primary" class="mx-3 shadow" type="button">
+        <v-btn color="primary" class="mx-3 shadow">
           <v-icon left>mdi-file</v-icon>
           {{ $t('sessionActions.generatePasswords') }}
         </v-btn>
-        <v-btn color="success" class="mx-3 shadow" type="submit">
+        <v-btn color="success" class="mx-3 shadow" @click="handleSubmit">
           <v-icon left>mdi-play</v-icon>
           {{ $t('sessionActions.goToVotings') }}
         </v-btn>
       </div>
-    </form>
+    </v-form>
   </div>
 </template>
 <style scoped>
@@ -96,10 +81,8 @@
   display: block;
 }
 </style>
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <script>
-import { mapGetters } from 'vuex';
-import Multiselect from 'vue-multiselect';
+import { mapGetters, mapState } from 'vuex';
 import imagesGetter from '../../utils/imagesGetter';
 
 export default {
@@ -108,22 +91,13 @@ export default {
     return {
       imagesGetter,
       minimalNumberOfMembers: 4,
-      submitted: false,
+      valid: null,
       electionLead: '',
       committee: [],
-      users: [
-        'Marta Kurek',
-        'Robert Biedroń',
-        'Andrzej Duda',
-        'Rafał Trzaskowski',
-        'Szymon Hołownia',
-        'Krzysztof Bosak',
-        'Robert Kubica',
-        'Stanisław Żółtek',
-      ],
     };
   },
   computed: {
+    ...mapState('membersManagement', ['members']),
     ...mapGetters('parliamentManagement', ['activeSession']),
     usersWithoutElectionLead() {
       return this.users.filter((user) => user !== this.electionLead);
@@ -131,14 +105,21 @@ export default {
     isCommitteeBigEnough() {
       return this.committee.length >= this.minimalNumberOfMembers;
     },
+    membersList() {
+      if (!this.members) {
+        return [];
+      }
+
+      return this.members.map((member) => ({
+        text: member.fullName,
+        value: member.id,
+      }));
+    },
   },
   methods: {
     handleSubmit() {
-      this.submitted = true;
+      this.$refs.form.validate();
     },
-  },
-  components: {
-    Multiselect,
   },
 };
 </script>

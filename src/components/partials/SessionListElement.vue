@@ -19,12 +19,18 @@
             >{{ $t('common.more') }}</a
           >
         </div>
-                <SessionActions :session="session" class="pb-4 col-12 col-md-6 text-right" />
+        <SessionActions
+          :session="session"
+          class="pb-4 col-12 col-md-6 text-right"
+        />
         <div class="col-12 text-right">
           <v-btn
             icon
-            v-if="session.status !== 'FINISHED'"
-            @click="editSession(session.id)"
+            v-if="
+              session.status !== 'FINISHED' &&
+                session.status !== 'FINISHED_NOT_SAVED_TO_GLOBAL'
+            "
+            @click="$modal.show('editSessionModal', session)"
             :title="$t('common.edit')"
           >
             <v-icon>mdi-pencil</v-icon>
@@ -61,7 +67,6 @@
             <v-btn fab outlined color="purple" height="40" width="40"></v-btn>
           </div>
         </div>
-
       </div>
     </div>
     <SessionInfoModal :name="sessionModalName" :session="session" />

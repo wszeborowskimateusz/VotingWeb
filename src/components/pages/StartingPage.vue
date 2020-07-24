@@ -49,7 +49,7 @@ export default {
         case 'FINISHED':
           return 'SessionFinished';
         case 'BEFORE_VOTING':
-        case 'IN_PREPARTION':
+        case 'IN_PREPARATION':
           return 'SessionPreparation';
         case 'IN_PROGRESS':
         case 'SUSPENDED':
