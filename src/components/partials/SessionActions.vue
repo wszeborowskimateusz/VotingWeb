@@ -25,7 +25,7 @@
     </div>
     <div v-if="status === 'FINISHED'"></div>
     <div v-if="status === 'FINISHED_NOT_SAVED_TO_GLOBAL'">
-      <v-btn color="cyan" dark>
+      <v-btn color="cyan" dark :title="$t('sessionActions.saveToGlobalTitle')">
         <v-icon left>mdi-content-save</v-icon>
         {{ $t('sessionActions.saveToGlobal') }}
       </v-btn>

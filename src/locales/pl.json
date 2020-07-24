@@ -92,7 +92,8 @@
   "sessionActions": {
     "resume": "Wznów",
     "resumeSession": "Wznów posiedzenie",
-    "saveToGlobal": "Zapisz do globalnej bazy danych",
+    "saveToGlobal": "Zapisz",
+    "saveToGlobalTitle": "Zapisz do globalnej bazy danych",
     "suspend": "Wstrzymaj",
     "suspendSession": "Wstrzymaj posiedzenie",
     "finish": "Zakończ",

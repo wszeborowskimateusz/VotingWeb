@@ -92,7 +92,8 @@
   "sessionActions": {
     "resume": "Resume",
     "resumeSession": "Resume session",
-    "saveToGlobal": "Save to global database",
+    "saveToGlobal": "Save",
+    "saveToGlobalTitle": "Save to global database",
     "suspend": "Suspend",
     "suspendSession": "Suspend session",
     "finish": "Finish",
