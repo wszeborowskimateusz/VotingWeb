@@ -30,11 +30,11 @@
       </v-tabs>
 
       <v-tabs-items v-model="tab">
-        <v-tab-item v-if="votingTypes.includes('NOT_STARTED')">
-          <VotingExpansionTile :votings="beforeVoting" />
-        </v-tab-item>
         <v-tab-item v-if="votingTypes.includes('DURING_VOTING')">
           <VotingExpansionTile :votings="duringVoting" />
+        </v-tab-item>
+        <v-tab-item v-if="votingTypes.includes('NOT_STARTED')">
+          <VotingExpansionTile :votings="beforeVoting" />
         </v-tab-item>
         <v-tab-item v-if="votingTypes.includes('FINISHED')">
           <VotingExpansionTile :votings="finished" />
