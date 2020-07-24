@@ -1,4 +1,7 @@
 module.exports = {
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/VotingWeb/'
+    : '/',
   pluginOptions: {
     i18n: {
       locale: 'en',
