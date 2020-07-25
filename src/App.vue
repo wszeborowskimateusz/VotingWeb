@@ -1,9 +1,15 @@
 <template>
-  <v-app>
+  <v-app class="main-app">
     <div id="app">
-      <Nav id="navigation" />
-      <div class="container__row container pt-2">
-        <router-view :key="$route.path"></router-view>
+      <Nav
+        :style="{
+          'background-color': $vuetify.theme.isDark ? '#121212' : 'white',
+        }"
+      />
+      <div class="container__row">
+        <div class="p-5">
+          <router-view :key="$route.path"></router-view>
+        </div>
       </div>
     </div>
   </v-app>
@@ -11,20 +17,15 @@
 
 <style>
 html {
-  height: 100%;
   margin: 0;
   padding: 0;
+  overflow-x: initial !important;
 }
 
 body {
-  width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
-}
-
-#navigation {
-  background-color: white;
+  overflow-x: initial !important;
 }
 
 #app {
@@ -32,18 +33,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin: 0;
   padding: 0;
-  height: 100%;
-}
-
-.container__row {
-  height: 100%;
-}
-
-.container {
-  min-height: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .modal-open {

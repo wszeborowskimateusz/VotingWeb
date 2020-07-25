@@ -14,7 +14,8 @@
     "no": "Nie",
     "save": "Zapisz",
     "loading": "Ładuję...",
-    "areYouSure": "Czy na pewno ?"
+    "areYouSure": "Czy na pewno ?",
+    "darkTheme": "Tryb ciemny"
   },
   "validation": {
      "failedToResumeSession": "Wystąpił problem przy próbie wznowienia sesji, spróbuj ponownie.",

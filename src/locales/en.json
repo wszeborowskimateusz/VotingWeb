@@ -14,7 +14,8 @@
     "no": "No",
     "save": "Save",
     "loading": "Loading...",
-    "areYouSure": "Are you sure ?"
+    "areYouSure": "Are you sure ?",
+    "darkTheme": "Dark theme"
   },
   "validation": {
      "failedToResumeSession": "There was an error while resuming the session, try again.",

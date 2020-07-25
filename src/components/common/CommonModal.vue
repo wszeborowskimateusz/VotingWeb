@@ -6,6 +6,7 @@
     @before-open="beforeOpen"
     :adaptive="true"
     :max-width="700"
+    :styles="{ 'background-color': $vuetify.theme.isDark ? '#121212' : '' }"
   >
     <a @click="close()" class="close-button">
       <i class="fas fa-times"></i>
@@ -44,6 +45,9 @@ export default {
       required: false,
       default: () => 'auto',
     },
+  },
+  created() {
+    console.log(this.$vuetify);
   },
   methods: {
     close() {

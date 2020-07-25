@@ -1,7 +1,7 @@
 <template>
   <div class="row my-5">
-    <div
-      class="col-8 offset-2 rounded p-3 shadow main__container"
+    <v-card
+      class="col-8 offset-2 rounded p-3"
       :class="[session.isActive ? ['border-success', 'border'] : '']"
     >
       <div class="row">
@@ -68,7 +68,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </v-card>
     <SessionInfoModal :name="sessionModalName" :session="session" />
     <ConfirmationDialog
       v-if="showConfirmationDialog"

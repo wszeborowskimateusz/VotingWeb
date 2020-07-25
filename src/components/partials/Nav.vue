@@ -63,6 +63,24 @@
         <li class="nav-item">
           <LocaleSwitcher />
         </li>
+        <li class="nav-item">
+          <v-menu bottom left class="nav-item">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn icon v-bind="attrs" v-on="on">
+                <v-icon>mdi-dots-vertical</v-icon>
+              </v-btn>
+            </template>
+
+            <v-list>
+              <v-list-item>
+                <v-switch
+                  v-model="$vuetify.theme.isDark"
+                  :label="$t('common.darkTheme')"
+                />
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </li>
       </ul>
       <ActiveSessionModal
         v-if="activeSession"
