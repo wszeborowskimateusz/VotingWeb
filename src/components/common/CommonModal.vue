@@ -24,6 +24,7 @@
   right: 20px;
   top: 10px;
   cursor: pointer;
+  z-index: 9999;
 }
 
 .limit-height {
@@ -45,9 +46,6 @@ export default {
       required: false,
       default: () => 'auto',
     },
-  },
-  created() {
-    console.log(this.$vuetify);
   },
   methods: {
     close() {

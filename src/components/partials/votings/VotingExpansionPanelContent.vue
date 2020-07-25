@@ -95,7 +95,10 @@
           </v-list-item-icon>
         </VotingResults>
         <v-list>
-          <v-list-item v-for="option in voting.options" :key="option.id">
+          <v-list-item
+            v-for="option in optionsSortedByInFavorVotes"
+            :key="option.id"
+          >
             <v-list-item-icon :title="pickStarTitle(option.id)">
               <v-icon :color="pickStarColor(option.id)">mdi-star</v-icon>
             </v-list-item-icon>
@@ -144,6 +147,25 @@ export default {
   },
   computed: {
     ...mapGetters('parliamentManagement', ['activeSession']),
+    optionsSortedByInFavorVotes() {
+      if (
+        !this.voting.results ||
+        this.voting.options == null ||
+        this.voting.options.length <= 0 ||
+        this.voting.cardinality === 'SINGLE_CHOICE'
+      ) {
+        return this.voting.options;
+      }
+
+      const optionsWithResults = Array.from(
+        this.voting.options.map((option) => ({
+          ...option,
+          results: this.voting.results[option.id],
+        })),
+      ).sort((a, b) => b.results.inFavor - a.results.inFavor);
+
+      return optionsWithResults;
+    },
   },
   methods: {
     pickStarColor(optionId) {
