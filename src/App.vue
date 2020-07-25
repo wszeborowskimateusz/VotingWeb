@@ -3,7 +3,7 @@
     <div id="app">
       <Nav
         :style="{
-          'background-color': $vuetify.theme.isDark ? '#121212' : 'white',
+          'background-color': $vuetify.theme.isDark ? '#333333' : 'white',
         }"
       />
       <div class="container__row">
