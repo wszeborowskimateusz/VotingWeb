@@ -1,6 +1,26 @@
 <template>
   <v-container class="pa-4 text-center">
     <h2 class="mb-5">{{ votingName }}</h2>
+    <div class="d-flex justify-content-center mb-2">
+      <div class="d-flex flex-column">
+        <div class="d-flex">
+          <div
+            class="rounded mr-2"
+            style="background-color: #03A9F4; height: 20px; width: 20px;"
+          />
+          {{ $t('voting.alreadyVoted') }}
+        </div>
+
+        <div class="d-flex">
+          <div
+            class="rounded mr-2"
+            style="background-color: #FF9800; height: 20px; width: 20px;"
+          />
+          {{ $t('voting.notVotedYet') }}
+        </div>
+      </div>
+    </div>
+
     <v-row class="fill-height" align="center" justify="center">
       <template v-for="(user, i) in users">
         <v-col :key="i" cols="12" md="2">
@@ -9,9 +29,7 @@
               :elevation="hover ? 12 : 2"
               :class="{ 'on-hover': hover }"
               :style="{
-                'background-color': user.didVote
-                  ? 'rgba(255,0,0,.5)'
-                  : 'rgba(0,255,0,.5)',
+                'background-color': user.didVote ? '#03A9F4' : '#FF9800',
               }"
             >
               <v-card-title class="title ml-2">
