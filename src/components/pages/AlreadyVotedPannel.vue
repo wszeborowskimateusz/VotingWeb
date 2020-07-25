@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pa-4 text-center">
+  <v-container>
     <h2 class="mb-5">{{ votingName }}</h2>
     <div class="d-flex justify-content-center mb-2">
       <div class="d-flex flex-column">
