@@ -2,7 +2,11 @@ import votingsManagementService from '@/services/votingsManagementService';
 import toasts from '@/utils/toasts';
 import i18n from '../i18n';
 
-const votingState = { isLoading: false, votings: null };
+const votingState = {
+  isLoading: false,
+  votings: null,
+  alreadyVotedLists: null,
+};
 
 const actions = {
   loadVotings({ commit }) {
@@ -15,6 +19,21 @@ const actions = {
       },
     );
   },
+  /* eslint-disable implicit-arrow-linebreak */
+  loadAlreadyVotedList({ commit }, votingId) {
+    commit('loading');
+    votingsManagementService.getAlreadyVotedList(votingId).then(
+      (response) => commit('loadingAlreadyVotedListSuccess', {
+        alreadyVotedList: response.voters,
+        votingId,
+      }),
+      (error) => {
+        toasts.errorToast(`${error}. ${i18n.tc('common.tryAgain')}`);
+        commit('loadingAlreadyVotedListFailed');
+      },
+    );
+  },
+  /* eslint-enable implicit-arrow-linebreak */
 };
 
 /* eslint-disable no-param-reassign */
@@ -29,6 +48,17 @@ const mutations = {
   failed(state) {
     state.isLoading = false;
     state.votings = null;
+  },
+  loadingAlreadyVotedListSuccess(state, params) {
+    state.isLoading = false;
+    if (state.alreadyVotedLists == null) {
+      state.alreadyVotedLists = {};
+    }
+
+    state.alreadyVotedLists[`${params.votingId}`] = params.alreadyVotedList;
+  },
+  loadingAlreadyVotedListFailed(state) {
+    state.isLoading = false;
   },
 };
 /* eslint-enable no-param-reassign */

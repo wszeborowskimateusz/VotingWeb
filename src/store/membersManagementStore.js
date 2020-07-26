@@ -56,5 +56,12 @@ export default {
       }
       return state.members.filter((member) => member.isInElectionCommittee);
     },
+    presentVoters(state) {
+      if (state.members == null) {
+        return [];
+      }
+
+      return state.members.filter((member) => member.hasVote && !member.absent);
+    },
   },
 };

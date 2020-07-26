@@ -227,10 +227,17 @@ function getVotingResults(votingId) {
   return requestSender.get(url);
 }
 
-function getAlreadyVotedList(votingId) {
-  const url = `/votings/already-voted/${votingId}`;
+// function getAlreadyVotedList(votingId) {
+function getAlreadyVotedList() {
+  return new Promise((resolve) => {
+    const wait = setTimeout(() => {
+      clearTimeout(wait);
+      resolve({ voters: ['1', '5', '9', '10', '15'] });
+    }, 2000);
+  });
+  // const url = `/votings/already-voted/${votingId}`;
 
-  return requestSender.get(url);
+  // return requestSender.get(url);
 }
 
 export default {
