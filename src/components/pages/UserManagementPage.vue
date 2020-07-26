@@ -28,7 +28,7 @@
       </template>
 
       <template v-slot:no-data>
-        No results
+         {{ $t('userManagement.noResults') }}
       </template>
 
       <template v-slot:item.absent="props">

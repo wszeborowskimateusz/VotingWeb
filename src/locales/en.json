@@ -118,6 +118,7 @@
     "noUserFound": "No user found"
   },
   "voting": {
+    "vote": "Vote",
     "alreadyVoted": "People who already voted",
     "notVotedYet": "Peaople who haven't voted yet",
     "votingInProgress": "Voting in progress",

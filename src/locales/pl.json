@@ -118,6 +118,7 @@
     "noUserFound": "Nie znaleziono użytkownika"
   },
   "voting": {
+    "vote": "Głos",
     "alreadyVoted": "Osoby, które już zagłosowały",
     "notVotedYet": "Osoby, które jeszcze nie zagłosowały",
     "votingInProgress": "Głosowanie w trakcie",

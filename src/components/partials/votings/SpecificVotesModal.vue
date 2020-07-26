@@ -1,35 +1,42 @@
 <template>
   <common-modal :name="modalName" :height="300">
-    <v-virtual-scroll
-      :bench="10"
+    <v-card-title>
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        :label="$t('userManagement.search')"
+        single-line
+        hide-details
+      ></v-text-field>
+    </v-card-title>
+    <v-data-table
+      v-if="specificVotes != null"
+      :headers="headers"
       :items="specificVotes"
-      height="300"
-      item-height="64"
+      class="elevation-1"
+      :search="search"
+      :locale="$i18n.locale"
+      disable-pagination
+      hide-default-footer
+      multi-sort
+      align="center"
     >
-      <template v-slot="{ item }">
-        <v-list-item :key="item"       class="mr-5">
-          <v-list-item-action>
-            <v-img
-              :src="imagesGetter.getImgUrl(getIcon(item.voteType))"
-              height="25"
-              width="25"
-            />
-          </v-list-item-action>
-
-          <v-list-item-content>
-            <v-list-item-title>
-              {{ item.voter.name }}
-            </v-list-item-title>
-          </v-list-item-content>
-
-          <v-list-item-action>
-            {{ item.voter.index }}
-          </v-list-item-action>
-        </v-list-item>
-
-        <v-divider></v-divider>
+      <template v-slot:no-results>
+        {{ $t('userManagement.noResults') }}
       </template>
-    </v-virtual-scroll>
+
+      <template v-slot:no-data>
+        {{ $t('userManagement.noResults') }}
+      </template>
+
+      <template v-slot:item.voteType="props">
+        <v-img
+          :src="imagesGetter.getImgUrl(getIcon(props.item.voteType))"
+          height="25"
+          width="25"
+        />
+      </template>
+    </v-data-table>
   </common-modal>
 </template>
 
@@ -40,6 +47,12 @@ export default {
   data() {
     return {
       imagesGetter,
+      search: '',
+      headers: [
+        { text: this.$t('voting.vote'), value: 'voteType' },
+        { text: this.$t('userManagement.fullName'), value: 'voter.name' },
+        { text: this.$t('userManagement.index'), value: 'voter.index' },
+      ],
     };
   },
   props: {
