@@ -30,14 +30,11 @@
         {{ $t('sessionActions.saveToGlobal') }}
       </v-btn>
     </div>
-    <v-overlay :value="isActionPerforming">
-      <v-progress-circular indeterminate size="64"></v-progress-circular>
-    </v-overlay>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   props: {
@@ -57,7 +54,6 @@ export default {
     ]),
   },
   computed: {
-    ...mapState('parliamentManagement', ['isActionPerforming']),
     status() {
       return this.session.status;
     },

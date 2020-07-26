@@ -17,10 +17,6 @@
         <v-icon left>mdi-file</v-icon>
         {{ $t('sessionActions.generatePasswords') }}
       </v-btn>
-      <v-btn color="success" class="mx-3 shadow">
-        <v-icon left>mdi-play</v-icon>
-        {{ $t('sessionActions.start') }}
-      </v-btn>
     </div>
   </div>
   <div v-else>

@@ -11,6 +11,7 @@
       :status="activeSession.status"
       modalName="homePageActiveSessionStatus"
     />
+    <SessionActions :session="activeSession" class="my-5"/>
     <component
       class="mt-5"
       :is="getComponentByActiveSessionStatus()"
@@ -32,6 +33,7 @@ import SessionInProgress from './SessionInProgress.vue';
 import SessionPreparation from './SessionPreparation.vue';
 import SessionsList from './SessionsList.vue';
 import SessionStatusInfo from '../partials/SessionStatusInfo.vue';
+import SessionActions from '../partials/SessionActions.vue';
 
 export default {
   computed: {
@@ -68,6 +70,7 @@ export default {
     SessionPreparation,
     SessionsList,
     SessionStatusInfo,
+    SessionActions,
   },
 };
 </script>

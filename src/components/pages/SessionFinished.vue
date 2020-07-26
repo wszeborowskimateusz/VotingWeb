@@ -1,15 +1,6 @@
 <template>
   <div>
     <v-btn
-      color="cyan"
-      class="mb-5"
-      dark
-      v-if="activeSession.status === 'FINISHED_NOT_SAVED_TO_GLOBAL'"
-    >
-      <v-icon left>mdi-content-save</v-icon>
-      {{ $t('sessionActions.saveToGlobal') }}
-    </v-btn>
-    <v-btn
       color="error"
       class="mb-5"
       dark

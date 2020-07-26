@@ -1,22 +1,6 @@
 <template>
   <div v-if="activeSession == null">TODO: Probably some error</div>
   <div v-else>
-    <div v-if="activeSession.status === 'SUSPENDED'">
-      <v-btn color="normal" class="mb-5">
-        <v-icon left>mdi-play</v-icon>
-        {{ $t('sessionActions.resumeSession') }}
-      </v-btn>
-    </div>
-    <div v-else class="d-flex flex-row justify-content-center mb-5">
-      <v-btn class="mx-3">
-        <v-icon left>mdi-pause</v-icon>
-        {{ $t('sessionActions.suspendSession') }}
-      </v-btn>
-      <v-btn color="error" class="mx-3">
-        <v-icon left>mdi-stop</v-icon>
-        {{ $t('sessionActions.finishSession') }}
-      </v-btn>
-    </div>
     <v-divider />
     <v-btn color="success" class="my-5" @click="$modal.show('newEditVoting')">
       {{ $t('voting.newVoting') }}

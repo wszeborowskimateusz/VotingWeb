@@ -12,6 +12,9 @@
         </div>
       </div>
     </div>
+    <v-overlay :value="isActionPerforming">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </v-app>
 </template>
 
@@ -49,13 +52,16 @@ body {
 </style>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import Nav from './components/partials/Nav.vue';
 
 export default {
   components: { Nav },
   methods: {
     ...mapActions('parliamentManagement', ['loadSessions']),
+  },
+  computed: {
+    ...mapState('parliamentManagement', ['isActionPerforming']),
   },
   mounted() {
     this.loadSessions();
