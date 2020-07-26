@@ -2,7 +2,7 @@ import requestSender from '@/utils/requestSender';
 
 const demoVotings = [
   {
-    id: 10,
+    id: '10',
     name:
       'Głosowanie ws. wyboru członków Komisji Prawno Rewizyjnej: kandydat(ka)',
     majority: 'ABSOLUTE',
@@ -10,16 +10,16 @@ const demoVotings = [
     secrecy: true,
     status: 'DURING_VOTING',
     threshold: 2,
-    electionLead: 'Zbigniew Stonoga',
+    electionLead: '7',
     options: [
-      { id: 1, name: 'Anna Winiarska' },
-      { id: 2, name: 'Marta Rutkowska' },
-      { id: 3, name: 'Bartosz Nurek' },
-      { id: 4, name: 'Dawid Krefta' },
+      { id: '1', name: 'Anna Winiarska' },
+      { id: '2', name: 'Marta Rutkowska' },
+      { id: '3', name: 'Bartosz Nurek' },
+      { id: '4', name: 'Dawid Krefta' },
     ],
   },
   {
-    id: 11,
+    id: '11',
     name:
       'Głosowanie ws. wyboru członków Komisji Prawno Rewizyjnej: kandydat(ka)',
     majority: 'RELATIVE',
@@ -27,16 +27,16 @@ const demoVotings = [
     secrecy: false,
     status: 'NOT_STARTED',
     threshold: 2,
-    electionLead: 'Zbigniew Stonoga',
+    electionLead: '7',
     options: [
-      { id: 1, name: 'Anna Winiarska' },
-      { id: 2, name: 'Marta Rutkowska' },
-      { id: 3, name: 'Bartosz Nurek' },
-      { id: 4, name: 'Dawid Krefta' },
+      { id: '1', name: 'Anna Winiarska' },
+      { id: '2', name: 'Marta Rutkowska' },
+      { id: '3', name: 'Bartosz Nurek' },
+      { id: '4', name: 'Dawid Krefta' },
     ],
   },
   {
-    id: 12,
+    id: '12',
     name:
       'Głosowanie ws. wyboru członków Komisji Prawno Rewizyjnej: kandydat(ka)',
     majority: 'RELATIVE',
@@ -44,7 +44,7 @@ const demoVotings = [
     secrecy: true,
     status: 'FINISHED',
     threshold: null,
-    electionLead: 'Zbigniew Stonoga',
+    electionLead: '7',
     options: [],
     results: {
       wasSuccessful: false,
@@ -55,19 +55,19 @@ const demoVotings = [
     },
   },
   {
-    id: 13,
+    id: '13',
     name: 'Głosowanie ws. wybory ministrów',
     majority: 'RELATIVE',
     cardinality: 'MULTIPLE_CHOICE',
     secrecy: false,
     status: 'FINISHED',
     threshold: 2,
-    electionLead: 'Zbigniew Stonoga',
+    electionLead: '7',
     options: [
-      { id: 1, name: 'Anna Winiarska' },
-      { id: 2, name: 'Marta Rutkowska' },
-      { id: 3, name: 'Bartosz Nurek' },
-      { id: 4, name: 'Dawid Krefta' },
+      { id: '1', name: 'Anna Winiarska' },
+      { id: '2', name: 'Marta Rutkowska' },
+      { id: '3', name: 'Bartosz Nurek' },
+      { id: '4', name: 'Dawid Krefta' },
     ],
     results: {
       1: {

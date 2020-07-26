@@ -74,6 +74,8 @@
         v-model="voting.electionLead"
         :items="electionCommittee"
         :label="$t('voting.electionLead')"
+        item-text="fullName"
+        item-value="id"
         required
       ></v-select>
 
@@ -93,6 +95,8 @@
 </style>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
   data() {
     return {
@@ -101,17 +105,24 @@ export default {
       voting: this.getClearVoting(),
       all_majorityTypes: ['RELATIVE', 'ABSOLUTE', 'TWO_THIRDS'],
       all_cardinalityTypes: ['SINGLE_CHOICE', 'MULTIPLE_CHOICE'],
-      electionCommittee: [
-        'Robert Lewandowski',
-        'Marcin Prokop',
-        'Zbigniew Stonoga',
-        'Ryszard Petru',
-        'Maciej Wapiński',
-      ],
-      electionLead: 'Zbigniew Stonoga',
+      electionCommittee: [],
+      electionLead: '',
     };
   },
+  mounted() {
+    this.loadMembers().then(() => {
+      this.electionLead = this.initialElectionLead;
+      this.electionCommittee = this.initialElectionCommittee;
+    });
+  },
+  computed: {
+    ...mapGetters('membersManagement', {
+      initialElectionLead: 'electionLead',
+      initialElectionCommittee: 'electionCommittee',
+    }),
+  },
   methods: {
+    ...mapActions('membersManagement', ['loadMembers']),
     beforeOpen(args) {
       if (args.params) {
         this.editMode = true;

@@ -65,6 +65,9 @@
               <span v-else-if="field === 'secrecy'">
                 {{ $t(`common.${voting[field] ? 'yes' : 'no'}`) }}
               </span>
+              <span v-else-if="field === 'electionLead'">
+                {{ electionLeadName }}
+              </span>
               <span v-else>
                 {{ voting[field] }}
               </span>
@@ -147,6 +150,12 @@ export default {
   },
   computed: {
     ...mapGetters('parliamentManagement', ['activeSession']),
+    ...mapGetters('membersManagement', ['electionCommittee']),
+    electionLeadName() {
+      return this.electionCommittee.find(
+        (member) => member.id === this.voting.electionLead,
+      ).fullName;
+    },
     optionsSortedByInFavorVotes() {
       if (
         !this.voting.results ||
