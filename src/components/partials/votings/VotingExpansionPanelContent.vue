@@ -71,7 +71,7 @@
               >
                 <span v-html="$t('voting.thresholdTooltip')"></span>
               </tooltip>
-              :<br />
+              <br />
               <span v-if="enumFields.includes(field)">
                 {{ $t(`voting.${field}Types.${voting[field]}`) }}
               </span>

@@ -52,7 +52,7 @@
     "dateRequired": "Date is required",
     "placeRequired": "Place is required",
     "userFileRequired": "File with users is required",
-    "userFileTooltip": "The file should contain the list of all parliament members.",
+    "userFileTooltip": "File with voters data, uploaded before the start of a parliament.<br><br>Description: Name, Surname, Index_number, Has_vote(yes/no), Mandate_number",
     "chooseAFile": "Choose a file",
     "browse": "Browse",
     "electionLead": "Election lead",
@@ -88,7 +88,7 @@
     },
     "IN_PREPARATION":    {
       "name": "In preparations",
-      "description": "Parliament ready to be started. One can edit the parliament data, the list of members, generate passwords, remove or start the parliament"
+      "description": "Parliament ready to be started. One can edit the parliament data, generate passwords, remove or start the parliament"
     }
   },
   "sessionActions": {

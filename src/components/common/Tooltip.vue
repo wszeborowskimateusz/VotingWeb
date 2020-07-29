@@ -5,7 +5,7 @@
     </a>
     <common-modal :name="modalName" :height="300">
       <div
-        class="p-2 pt-4 d-flex justify-content-center align-items-center h-100"
+        class="p-3 pt-4 d-flex justify-content-center align-items-center h-100"
       >
         <slot></slot>
       </div>

@@ -53,7 +53,7 @@
     "placeRequired": "Miejsce jest wymagane",
     "electionLead": "Przewodniczący komisji",
     "userFileRequired": "Plik z uczestnikami jest wymagany",
-    "userFileTooltip": "Plik powinien zawierać listę wszystkich członków parlamentu",
+    "userFileTooltip": "Plik z danymi o uczestnikach posiedzenia, wprowadzany do systemu przed rozpoczęciem posiedzenia.<br><br>Opis: Imię, Nazwisko, Numer_Indeksu, Czy_ma_głos(tak/nie), Numer_mandatu(jeżeli jest)",
     "chooseAFile": "Wybierz plik",
     "browse": "Przeglądaj",
     "status": "Status",
@@ -88,7 +88,7 @@
     },
     "IN_PREPARATION": {
       "name": "W przygotowaniu",
-      "description": "Posiedzenie gotowe do rozpoczęcia. Możliwa jest edycja danych posiedzenia, listy uczestników, wygenerowanie haseł, usunięcie oraz rozpoczęcie posiedzenia."
+      "description": "Posiedzenie gotowe do rozpoczęcia. Możliwa jest edycja danych posiedzenia, wygenerowanie haseł, usunięcie oraz rozpoczęcie posiedzenia."
     }
   },
   "sessionActions": {

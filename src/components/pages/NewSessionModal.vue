@@ -21,7 +21,7 @@
           modalName="userFileTooltip"
           class=" d-flex justify-content-start mt-2"
         >
-          {{ $t('parliamentManagement.userFileTooltip') }}
+          <span v-html="$t('parliamentManagement.userFileTooltip')"/>
         </tooltip>
         <v-file-input
           class="mb-2"

@@ -1,9 +1,10 @@
 <template>
-  <v-row v-if="votings.length === 0" justify="center">
-    <div class="my-5">{{$t('voting.noVotings')}}</div>
-  </v-row>
-  <v-row v-else justify="center">
-    <v-expansion-panels :focusable="true" :value="initialyExpandedIndex">
+  <v-row justify="center">
+    <loader v-if="isLoading" />
+    <div class="my-5" v-else-if="votings.length === 0">
+      {{ $t('voting.noVotings') }}
+    </div>
+    <v-expansion-panels v-else :focusable="true" :value="initialyExpandedIndex">
       <v-expansion-panel v-for="voting in votings" :key="voting.id">
         <VotingExpansionPanelContent :voting="voting" />
       </v-expansion-panel>
@@ -12,6 +13,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import VotingExpansionPanelContent from './VotingExpansionPanelContent.vue';
 
 export default {
@@ -26,6 +28,9 @@ export default {
         return 0;
       },
     },
+  },
+  computed: {
+    ...mapState('votingsManagement', ['isLoading']),
   },
   components: {
     VotingExpansionPanelContent,
