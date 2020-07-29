@@ -18,13 +18,13 @@
     "darkTheme": "Tryb ciemny"
   },
   "validation": {
-     "failedToResumeSession": "Wystąpił problem przy próbie wznowienia sesji, spróbuj ponownie.",
-     "failedToSuspendSession": "Wystąpił problem przy próbie zatrzymanie sesji, spróbuj ponownie.",
-     "failedToStartSession": "Wystąpił problem przy próbie rozpoczęcie sesji, spróbuj ponownie.",
-     "failedToFinishSession": "Wystąpił problem przy próbie zakończenia sesji, spróbuj ponownie.",
-     "failedToDownloadSession": "Wystąpił problem przy próbie pobrania sesji, spróbuj ponownie.",
-     "failedToUploadSession": "Wystąpił problem przy próbie wczytania sesji, spróbuj ponownie.",
-     "failedToRemoveSession": "Wystąpił problem przy próbie usunięcia sesji, spróbuj ponownie."
+    "failedToResumeSession": "Wystąpił problem przy próbie wznowienia sesji, spróbuj ponownie.",
+    "failedToSuspendSession": "Wystąpił problem przy próbie zatrzymanie sesji, spróbuj ponownie.",
+    "failedToStartSession": "Wystąpił problem przy próbie rozpoczęcie sesji, spróbuj ponownie.",
+    "failedToFinishSession": "Wystąpił problem przy próbie zakończenia sesji, spróbuj ponownie.",
+    "failedToDownloadSession": "Wystąpił problem przy próbie pobrania sesji, spróbuj ponownie.",
+    "failedToUploadSession": "Wystąpił problem przy próbie wczytania sesji, spróbuj ponownie.",
+    "failedToRemoveSession": "Wystąpił problem przy próbie usunięcia sesji, spróbuj ponownie."
   },
   "login": {
     "username": "Nazwa użytkownika",
@@ -62,33 +62,33 @@
     "uploadSession": "Wczytaj posiedzenie",
     "thisSessionIsActive": "To jest aktywna sesja",
     "changeToActiveSession": "Kliknij, aby uczynić sesję aktywną",
-    "activeSessionDescription": "Aktywna sesja to taka, nad którą obecnie pracujesz. Strona główna będzie prezentowana w kontekście aktywnej sesji.",
+    "activeSessionDescription": "Aktywna sesja to taka, nad którą obecnie pracujesz. Strona główna oraz strona z użytkownikami będą prezentowane w kontekście aktywnej sesji.",
     "noSessionsDisclaimer": "Obecnie w historii nie ma żadnych posiedzeń.\nUtwórz nowe przyciskając 'Nowe posiedzenie' na górze strony."
   },
   "sessionStatus": {
     "FINISHED_NOT_SAVED_TO_GLOBAL": {
       "name": "Zakończona, nie zapisana do globalnej",
-      "description": "Zakończona, nie zarchiwizowana w globalnej bazie danych"
+      "description": "Zakończone posiedzenie (po przeprowadzeniu głosowań), czekające na zapis do globalnej bazy danych"
     },
     "FINISHED": {
       "name": "Zakończona",
-      "description": "Zakończona i zarchiwizowana w globalnej bazie danych"
+      "description": "Zakończone posiedzenie (po przeprowadzeniu głosowania), dane zapisane do bazy danych"
     },
     "SUSPENDED": {
       "name": "Zawieszona",
-      "description": "Zawieszona - może zostać wznowiona"
+      "description": "Zawieszone posiedzenie, nie wszystkie głosowania zostały przeprowadzone, czeka na wznowienie"
     },
     "IN_PROGRESS": {
       "name": "W trakcie",
-      "description": "Sesja jest w trakcie"
+      "description": "Trwające posiedzenie, jest możliwe rozpoczęcie głosowania"
     },
     "BEFORE_VOTING": {
       "name": "Przed głosowaniem",
-      "description": "Sesja jest w trakcie przygotowań, wszystkie konieczne dane zostały wypełnione i sesja może być rozpoczęta"
+      "description": "Rozpoczęte posiedzenie, z wprowadzonymi danymi szczegółowymi, czekające na wpisanie komisji skrutacyjnej"
     },
     "IN_PREPARATION": {
       "name": "W przygotowaniu",
-      "description": "Sesja jest w trakcie przygotowań, ale nie wszystkie konieczne dane zostały wypełnione i sesja nie może być rozpoczęta"
+      "description": "Posiedzenie gotowe do rozpoczęcia. Możliwa jest edycja danych posiedzenia, listy uczestników, wygenerowanie haseł, usunięcie oraz rozpoczęcie posiedzenia."
     }
   },
   "sessionActions": {
@@ -145,6 +145,8 @@
     "votingsReadyToStart": "Głosowanie gotowe do rozpoczęcia",
     "finishedVotings": "Głosowania zakończone",
     "noVotings": "Brak głosowań w danej grupie",
+    "thresholdTooltip": "Próg stosowany jest dla głosowań na wiele opcji i mówi ile maksymalnie opcji może zostać przegłosowanych pozytywnie",
+    "cardinalityTooltip": "Liczność pozwala wybrać ilość wariantów znajdujących się pod jednym głosowaniem.<br><br><br><b>Głosowanie na jedną opcję</b> to standardowe głosowanie z możliwością zagłosowania za, przeciw lub wstrzymaniem się.<br><br><b>Głosowanie na wiele opcji</b> pozwala na umieszczenie kilku wariantów pod jednym głosowaniem. Na każdy z wariantów można zagłosować za, przeciw lub się wstrzymać. Przykładowy przypadek użycia dla takiego typu głosowania jest głosowanie w sprawie wyboru członków do jakiejś komisji, gdzie opcjami będą kolejni kandydaci.",
     "majorityTypes": {
       "RELATIVE": "Względna",
       "ABSOLUTE": "Bezwzględna",

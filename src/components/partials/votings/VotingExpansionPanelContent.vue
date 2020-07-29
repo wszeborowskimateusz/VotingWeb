@@ -58,7 +58,20 @@
             class="d-flex flex-row"
           >
             <div v-if="voting[field] != null" class="flex-fill">
-              {{ $t(`voting.${field}`) }}:<br />
+              {{ $t(`voting.${field}`) }}
+              <tooltip
+                v-if="field === 'cardinality'"
+                :modalName="`newEditVotingCardinalityForVoting${voting.id}`"
+              >
+                <span v-html="$t('voting.cardinalityTooltip')"></span>
+              </tooltip>
+              <tooltip
+                v-if="field === 'threshold'"
+                :modalName="`newEditVotingThresholdForVoting${voting.id}`"
+              >
+                <span v-html="$t('voting.thresholdTooltip')"></span>
+              </tooltip>
+              :<br />
               <span v-if="enumFields.includes(field)">
                 {{ $t(`voting.${field}Types.${voting[field]}`) }}
               </span>

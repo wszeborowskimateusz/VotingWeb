@@ -16,6 +16,12 @@
         required
       ></v-select>
 
+      <div class="d-flex flex-fill">
+        <tooltip modalName="newEditVotingCardinality">
+          <span v-html="$t('voting.cardinalityTooltip')"></span>
+        </tooltip>
+      </div>
+
       <v-select
         v-model="voting.cardinality"
         :items="getSelectItems('cardinality')"
@@ -23,6 +29,15 @@
         :label="$t('voting.cardinality')"
         required
       ></v-select>
+
+      <div
+        class="d-flex flex-fill"
+        v-if="voting.cardinality === 'MULTIPLE_CHOICE'"
+      >
+        <tooltip modalName="newEditVotingThreshold">
+          <span v-html="$t('voting.thresholdTooltip')"></span>
+        </tooltip>
+      </div>
 
       <v-text-field
         v-if="voting.cardinality === 'MULTIPLE_CHOICE'"
