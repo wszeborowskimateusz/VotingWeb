@@ -59,8 +59,8 @@
 </style>
 <script>
 import { mapActions, mapState } from 'vuex';
-import SessionListElement from '../partials/SessionListElement.vue';
-import EditSessionModal from '../partials/EditSessionModal.vue';
+import SessionListElement from '../partials/sessions/SessionListElement.vue';
+import EditSessionModal from '../partials/sessions/EditSessionModal.vue';
 import imageGetter from '../../utils/imagesGetter';
 
 export default {

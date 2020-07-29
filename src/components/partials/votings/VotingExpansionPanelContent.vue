@@ -38,7 +38,7 @@
           text
           color="primary"
           :link="true"
-          :to="`/already-voted/${activeSession.id}/${voting.id}`"
+          :to="`/already-voted/${voting.id}`"
         >
           {{ $t('voting.liveVotedList') }}
         </v-btn>

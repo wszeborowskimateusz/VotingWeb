@@ -23,17 +23,18 @@ const routes = [
     component: SessionsList,
   },
   {
-    path: '/already-voted/:sessionId/:votingId',
+    path: '/already-voted/:votingId',
     component: AlreadyVotedPannel,
   },
   {
     path: '/user-management',
     component: UserManagementPage,
   },
+  { path: '*', redirect: '/' },
 ];
 
 const router = new VueRouter({
-  mode: 'hash',
+  mode: 'history',
   base: process.env.BASE_URL,
   routes,
 });

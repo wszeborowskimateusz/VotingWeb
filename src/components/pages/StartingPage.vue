@@ -32,8 +32,8 @@ import SessionFinished from './SessionFinished.vue';
 import SessionInProgress from './SessionInProgress.vue';
 import SessionPreparation from './SessionPreparation.vue';
 import SessionsList from './SessionsList.vue';
-import SessionStatusInfo from '../partials/SessionStatusInfo.vue';
-import SessionActions from '../partials/SessionActions.vue';
+import SessionStatusInfo from '../partials/sessions/SessionStatusInfo.vue';
+import SessionActions from '../partials/sessions/SessionActions.vue';
 
 export default {
   computed: {

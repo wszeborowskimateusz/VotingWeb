@@ -11,7 +11,7 @@
     </v-expansion-panels>
   </v-row>
 </template>
-
+m
 <script>
 import { mapState } from 'vuex';
 import VotingExpansionPanelContent from './VotingExpansionPanelContent.vue';

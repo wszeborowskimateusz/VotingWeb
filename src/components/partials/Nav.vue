@@ -126,8 +126,8 @@
 import { mapState, mapActions, mapGetters } from 'vuex';
 import $ from 'jquery';
 import LocaleSwitcher from './LocaleSwitcher.vue';
-import ActiveSessionModal from './SessionInfoModal.vue';
-import NewSessionModal from '../pages/NewSessionModal.vue';
+import ActiveSessionModal from './sessions/SessionInfoModal.vue';
+import NewSessionModal from './sessions/NewSessionModal.vue';
 
 export default {
   components: {

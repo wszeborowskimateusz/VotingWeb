@@ -99,7 +99,7 @@
 <script>
 import moment from 'moment';
 import { mapActions } from 'vuex';
-import imageGetter from '../../utils/imagesGetter';
+import imageGetter from '@/utils/imagesGetter';
 import SessionInfoModal from './SessionInfoModal.vue';
 import SessionStatusInfo from './SessionStatusInfo.vue';
 import SessionActions from './SessionActions.vue';
