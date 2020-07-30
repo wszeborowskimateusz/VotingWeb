@@ -12,12 +12,6 @@
         :src="imagesGetter.getImgUrl('in_preparation.jpg')"
       />
     </div>
-    <div class="flex-row d-flex justify-content-center">
-      <v-btn color="primary" class="mx-3 shadow">
-        <v-icon left>mdi-file</v-icon>
-        {{ $t('sessionActions.generatePasswords') }}
-      </v-btn>
-    </div>
   </div>
   <div v-else>
     <h3 class="mb-5">{{ $t('session.enterCommitee') }}</h3>
@@ -55,10 +49,6 @@
       </v-autocomplete>
 
       <div class="flex-row d-flex justify-content-center mt-5">
-        <v-btn color="primary" class="mx-3 shadow">
-          <v-icon left>mdi-file</v-icon>
-          {{ $t('sessionActions.generatePasswords') }}
-        </v-btn>
         <v-btn color="success" class="mx-3 shadow" @click="handleSubmit">
           <v-icon left>mdi-play</v-icon>
           {{ $t('sessionActions.goToVotings') }}

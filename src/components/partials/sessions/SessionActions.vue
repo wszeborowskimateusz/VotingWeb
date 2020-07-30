@@ -1,12 +1,24 @@
 <template>
   <div>
-    <div v-if="status === 'IN_PREPARATION'">
-      <v-btn color="success" class="mr-2" @click="startSession">
+    <div>
+      <v-btn
+        color="primary"
+        class="mr-2"
+        v-if="status === 'BEFORE_VOTING' || status === 'IN_PREPARATION'"
+      >
+        <v-icon left>mdi-file</v-icon>
+        {{ $t('sessionActions.generatePasswords') }}
+      </v-btn>
+      <v-btn
+        color="success"
+        @click="startSession"
+        v-if="status === 'IN_PREPARATION'"
+      >
         <v-icon left>mdi-play</v-icon>
         {{ $t('sessionActions.start') }}
       </v-btn>
     </div>
-    <div v-if="status === 'BEFORE_VOTING'"></div>
+
     <div v-if="status === 'IN_PROGRESS'">
       <v-btn color="warning" class="mr-2" @click="suspendSession">
         <v-icon left>mdi-pause</v-icon>
