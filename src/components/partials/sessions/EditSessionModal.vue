@@ -63,7 +63,7 @@
         </v-autocomplete>
 
         <v-btn color="primary" class="my-5" large @click="handleSubmit">
-          <v-icon left>mdi-plus</v-icon>
+          <v-icon left>mdi-content-save</v-icon>
           {{ $t('common.save') }}
         </v-btn>
       </v-form>

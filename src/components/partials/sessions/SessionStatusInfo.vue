@@ -2,7 +2,7 @@
   <div>
     {{ $t(`sessionStatus.${status}.name`) }}
     <tooltip :modalName="modalName">
-         <p>
+      <p>
         <span class="font-weight-bold"
           >{{ $t(`sessionStatus.${status}.name`) }} </span
         >-
