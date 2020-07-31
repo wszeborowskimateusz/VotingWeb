@@ -147,7 +147,7 @@
     "finishedVotings": "Głosowania zakończone",
     "noVotings": "Brak głosowań w danej grupie",
     "thresholdTooltip": "Próg stosowany jest dla głosowań na wiele opcji i mówi ile maksymalnie opcji może zostać przegłosowanych pozytywnie",
-    "cardinalityTooltip": "Liczność pozwala wybrać ilość wariantów znajdujących się pod jednym głosowaniem.<br><br><br><b>Głosowanie na jedną opcję</b> to standardowe głosowanie z możliwością zagłosowania za, przeciw lub wstrzymaniem się.<br><br><b>Głosowanie na wiele opcji</b> pozwala na umieszczenie kilku wariantów pod jednym głosowaniem. Na każdy z wariantów można zagłosować za, przeciw lub się wstrzymać. Przykładowy przypadek użycia dla takiego typu głosowania jest głosowanie w sprawie wyboru członków do jakiejś komisji, gdzie opcjami będą kolejni kandydaci.",
+    "cardinalityTooltip": "Liczność pozwala wybrać ilość wariantów znajdujących się pod jednym głosowaniem.<br><br><br><b>Głosowanie na jedną opcję</b> to standardowe głosowanie z możliwością zagłosowania za, przeciw lub wstrzymaniem się.<br><br><b>Głosowanie na wiele opcji</b> pozwala na umieszczenie kilku wariantów pod jednym głosowaniem. Na każdy z wariantów można zagłosować za, przeciw lub się wstrzymać. Przykładowym przypadkiem użycia dla takiego typu głosowania jest głosowanie w sprawie wyboru członków do jakiejś komisji, gdzie opcjami będą kolejni kandydaci.",
     "majorityTypes": {
       "RELATIVE": "Względna",
       "ABSOLUTE": "Bezwzględna",
