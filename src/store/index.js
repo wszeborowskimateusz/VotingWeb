@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import createPersistedState from 'vuex-persistedstate';
+import createCache from 'vuex-cache';
 
 import userAuthentication from './userAuthenticationStore';
 import localeStore from './localeStore';
@@ -27,5 +28,6 @@ export default new Vuex.Store({
     createPersistedState({
       paths: ['localeStore'],
     }),
+    createCache(),
   ],
 });

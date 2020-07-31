@@ -1,14 +1,44 @@
+import Vue from 'vue';
+
 import membersManagementService from '@/services/membersManagementService';
 import toasts from '@/utils/toasts';
 import i18n from '../i18n';
 
-const membersState = { isLoading: false, members: [] };
+async function getActiveSession(rootGetters, dispatch) {
+  let activeSession = rootGetters['parliamentManagement/activeSession'];
+  if (activeSession == null) {
+    await dispatch('parliamentManagement/loadSessions', null, {
+      root: true,
+    });
+    activeSession = rootGetters['parliamentManagement/activeSession'];
+  }
+
+  return activeSession;
+}
+
+const membersState = { isLoading: false, members: {} };
 
 const actions = {
-  loadMembers({ commit }) {
+  /* eslint-disable object-curly-newline */
+  async loadMembers(
+    { commit, dispatch, rootGetters, state },
+    { sessionIdToLoad = null, takeStateFromCache = false } = {},
+  ) {
     commit('loading');
-    membersManagementService.getVotersList().then(
-      (members) => commit('loadingSuccess', members),
+    let activeSession = null;
+    if (sessionIdToLoad == null) {
+      activeSession = await getActiveSession(rootGetters, dispatch);
+    }
+    const sessionId =
+      sessionIdToLoad != null ? sessionIdToLoad : activeSession.id;
+
+    if (takeStateFromCache && state.members[sessionId] != null) {
+      commit('stopLoading');
+      return;
+    }
+
+    membersManagementService.getVotersList(sessionId).then(
+      (members) => commit('loadingSuccess', { members, sessionId }),
       (error) => {
         toasts.errorToast(`${error}. ${i18n.tc('common.tryAgain')}`);
         commit('failed');
@@ -22,13 +52,16 @@ const mutations = {
   loading(state) {
     state.isLoading = true;
   },
-  loadingSuccess(state, members) {
+  loadingSuccess(state, { members, sessionId }) {
     state.isLoading = false;
-    state.members = members;
+    Vue.set(state.members, sessionId, members);
   },
   failed(state) {
     state.isLoading = false;
-    state.members = null;
+    state.sessionsMembers = null;
+  },
+  stopLoading(state) {
+    state.isLoading = false;
   },
 };
 /* eslint-enable no-param-reassign */
@@ -39,29 +72,51 @@ export default {
   actions,
   mutations,
   getters: {
-    electionLead(state) {
-      if (state.members == null) {
+    activeSessionMembers(state, _, __, rootGetters) {
+      const activeSession = rootGetters['parliamentManagement/activeSession'];
+      if (activeSession == null || state.members[activeSession.id] == null) {
         return [];
       }
 
-      const electionLead = state.members.find(
+      return state.members[activeSession.id];
+    },
+    electionLead(_, getters) {
+      if (getters.activeSessionMembers == null) {
+        return [];
+      }
+
+      const electionLead = getters.activeSessionMembers.find(
         (member) => member.isElectionLead,
       );
 
       return electionLead === undefined ? null : electionLead;
     },
-    electionCommittee(state) {
-      if (state.members == null) {
-        return [];
-      }
-      return state.members.filter((member) => member.isInElectionCommittee);
-    },
-    presentVoters(state) {
-      if (state.members == null) {
+    electionLeadById: (state) => (sessionId) => {
+      const members = state.members[sessionId];
+      if (members == null) {
         return [];
       }
 
-      return state.members.filter((member) => member.hasVote && !member.absent);
+      const electionLead = members.find((member) => member.isElectionLead);
+
+      return electionLead === undefined ? null : electionLead;
+    },
+    electionCommittee(_, getters) {
+      if (getters.activeSessionMembers == null) {
+        return [];
+      }
+      return getters.activeSessionMembers.filter(
+        (member) => member.isInElectionCommittee,
+      );
+    },
+    presentVoters(_, getters) {
+      if (getters.activeSessionMembers == null) {
+        return [];
+      }
+
+      return getters.activeSessionMembers.filter(
+        (member) => member.hasVote && !member.absent,
+      );
     },
   },
 };

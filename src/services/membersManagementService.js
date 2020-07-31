@@ -163,7 +163,8 @@ const demoMembers = [
   },
 ];
 
-function getVotersList() {
+function getVotersList(sessionId) {
+  console.log(`Getting members from server for id: ${sessionId}`);
   return new Promise((resolve) => {
     const wait = setTimeout(() => {
       clearTimeout(wait);

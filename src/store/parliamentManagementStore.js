@@ -13,7 +13,7 @@ function handleActionError(action, commit) {
   toasts.errorToast(i18n.tc(`validation.failedTo${action}Session`));
 }
 
-function handleAction(commit, dispatch, sessionId, action, actionName) {
+function handleAction({ commit, dispatch }, sessionId, action, actionName) {
   commit('actionPerforming');
   action(sessionId).then(
     () => dispatch('loadSessions'),
@@ -24,9 +24,9 @@ function handleAction(commit, dispatch, sessionId, action, actionName) {
 }
 
 const actions = {
-  loadSessions({ commit }) {
+  async loadSessions({ commit }) {
     commit('loading');
-    parliamentManagementService.getSessionsList().then(
+    return parliamentManagementService.getSessionsList().then(
       (sessions) => commit('loadingSuccess', sessions),
       (error) => {
         toasts.errorToast(`${error}. ${i18n.tc('common.tryAgain')}`);
@@ -34,64 +34,57 @@ const actions = {
       },
     );
   },
-  finishSession({ commit, dispatch }, sessionId) {
+  finishSession(args, sessionId) {
     handleAction(
-      commit,
-      dispatch,
+      args,
       sessionId,
       parliamentManagementService.finishSession,
       'Finish',
     );
   },
-  suspendSession({ commit, dispatch }, sessionId) {
+  suspendSession(args, sessionId) {
     handleAction(
-      commit,
-      dispatch,
+      args,
       sessionId,
       parliamentManagementService.suspendSession,
       'Suspend',
     );
   },
-  startSession({ commit, dispatch }, sessionId) {
+  startSession(args, sessionId) {
     handleAction(
-      commit,
-      dispatch,
+      args,
       sessionId,
       parliamentManagementService.startSession,
       'Start',
     );
   },
-  resumeSession({ commit, dispatch }, sessionId) {
+  resumeSession(args, sessionId) {
     handleAction(
-      commit,
-      dispatch,
+      args,
       sessionId,
       parliamentManagementService.resumeSession,
       'Resume',
     );
   },
-  removeSession({ commit, dispatch }, sessionId) {
+  removeSession(args, sessionId) {
     handleAction(
-      commit,
-      dispatch,
+      args,
       sessionId,
       parliamentManagementService.removeSession,
       'Remove',
     );
   },
-  downloadSession({ commit, dispatch }, sessionId) {
+  downloadSession(args, sessionId) {
     handleAction(
-      commit,
-      dispatch,
+      args,
       sessionId,
       parliamentManagementService.downloadSession,
       'Download',
     );
   },
-  uploadSession({ commit, dispatch }, sessionFile) {
+  uploadSession(args, sessionFile) {
     handleAction(
-      commit,
-      dispatch,
+      args,
       sessionFile,
       parliamentManagementService.uploadSession,
       'Upload',

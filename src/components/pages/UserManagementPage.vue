@@ -10,9 +10,9 @@
       ></v-text-field>
     </v-card-title>
     <v-data-table
-      v-if="members != null"
+      v-if="activeSessionMembers != null"
       :headers="headers"
-      :items="members"
+      :items="activeSessionMembers"
       class="elevation-1"
       :search="search"
       :locale="$i18n.locale"
@@ -21,14 +21,14 @@
       multi-sort
       align="center"
       :loading="isLoading"
-       :loading-text="$t('common.loading')"
+      :loading-text="$t('common.loading')"
     >
       <template v-slot:no-results>
         {{ $t('userManagement.noResults') }}
       </template>
 
       <template v-slot:no-data>
-         {{ $t('userManagement.noResults') }}
+        {{ $t('userManagement.noResults') }}
       </template>
 
       <template v-slot:item.absent="props">
@@ -69,8 +69,9 @@ import { mapGetters, mapState, mapActions } from 'vuex';
 
 export default {
   computed: {
-    ...mapState('membersManagement', ['members', 'isLoading']),
+    ...mapState('membersManagement', ['isLoading']),
     ...mapGetters('parliamentManagement', ['activeSession']),
+    ...mapGetters('membersManagement', ['activeSessionMembers']),
   },
   mounted() {
     this.loadMembers();

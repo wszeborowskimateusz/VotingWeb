@@ -71,13 +71,14 @@
   </common-modal>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   data() {
     return {
       valid: null,
       session: {
+        id: null,
         name: '',
         date: null,
         place: '',
@@ -89,22 +90,28 @@ export default {
   computed: {
     ...mapState('membersManagement', ['members']),
     membersList() {
-      if (!this.members) {
+      if (!this.members[this.session.id]) {
         return [];
       }
 
-      return this.members.map((member) => ({
+      return this.members[this.session.id].map((member) => ({
         text: member.fullName,
         value: member.id,
       }));
     },
   },
   methods: {
+    ...mapActions('membersManagement', ['loadMembers']),
     beforeOpen(args) {
       this.session = JSON.parse(JSON.stringify(args.params));
       this.session.date = new Date(this.session.date)
         .toISOString()
         .substring(0, 10);
+
+      this.loadMembers({
+        sessionIdToLoad: this.session.id,
+        takeStateFromCache: true,
+      });
     },
     handleSubmit() {
       this.$refs.form.validate();

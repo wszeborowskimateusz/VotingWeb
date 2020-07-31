@@ -68,7 +68,7 @@
 }
 </style>
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import imagesGetter from '../../utils/imagesGetter';
 
 export default {
@@ -83,7 +83,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('membersManagement', ['members']),
+    ...mapGetters('membersManagement', ['activeSessionMembers']),
     ...mapGetters('parliamentManagement', ['activeSession']),
     usersWithoutElectionLead() {
       return this.users.filter((user) => user !== this.electionLead);
@@ -92,11 +92,11 @@ export default {
       return this.committee.length >= this.minimalNumberOfMembers;
     },
     membersList() {
-      if (!this.members) {
+      if (!this.activeSessionMembers) {
         return [];
       }
 
-      return this.members.map((member) => ({
+      return this.activeSessionMembers.map((member) => ({
         text: member.fullName,
         value: member.id,
       }));
