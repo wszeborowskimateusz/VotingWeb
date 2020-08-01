@@ -30,8 +30,29 @@
         required
       ></v-select>
 
+      <div v-if="voting.cardinality === 'MULTIPLE_CHOICE'">
+        <div class="d-flex flex-fill mb-1 align-center">
+          <span class="text-left">{{ $t('voting.options') }}</span>
+          <v-btn icon class="mr-2" @click="addNewOption">
+            <v-icon>mdi-plus-circle</v-icon>
+          </v-btn>
+        </div>
+        <div class="border rounded p-2 options">
+          <v-text-field
+            v-for="(field, index) in voting.options"
+            :key="`OptionField${index}`"
+            v-model="voting.options[index].name"
+            :rules="[(v) => !!v || $t('voting.optionNotEmpty')]"
+            :label="$t('voting.option')"
+            required
+            :append-icon="'mdi-minus-circle'"
+            @click:append="removeOption(index)"
+          ></v-text-field>
+        </div>
+      </div>
+
       <div
-        class="d-flex flex-fill"
+        class="d-flex flex-fill mt-2"
         v-if="voting.cardinality === 'MULTIPLE_CHOICE'"
       >
         <tooltip modalName="newEditVotingThreshold">
@@ -56,27 +77,6 @@
         ]"
       ></v-text-field>
 
-      <div v-if="voting.cardinality === 'MULTIPLE_CHOICE'">
-        <div class="d-flex flex-fill mb-1 align-center">
-          <span class="text-left">{{ $t('voting.options') }}</span>
-          <v-btn icon class="mr-2" @click="addNewOption">
-            <v-icon>mdi-plus-circle</v-icon>
-          </v-btn>
-        </div>
-        <div class="border rounded p-2 options">
-          <v-text-field
-            v-for="(field, index) in voting.options"
-            :key="`OptionField${index}`"
-            v-model="voting.options[index].name"
-            :rules="[(v) => !!v || $t('voting.optionNotEmpty')]"
-            :label="$t('voting.option')"
-            required
-            :append-icon="'mdi-minus-circle'"
-            @click:append="removeOption(index)"
-          ></v-text-field>
-        </div>
-      </div>
-
       <v-radio-group v-model="voting.secrecy" row>
         <template v-slot:label>
           <div>{{ $t('voting.secrecy') }}</div>
@@ -91,6 +91,7 @@
         :label="$t('voting.electionLead')"
         item-text="fullName"
         item-value="id"
+        :rules="[(v) => !!v || $t('voting.electionLeadRequired')]"
         required
       >
         <template v-slot:no-data>
@@ -125,7 +126,6 @@ export default {
       all_majorityTypes: ['RELATIVE', 'ABSOLUTE', 'TWO_THIRDS'],
       all_cardinalityTypes: ['SINGLE_CHOICE', 'MULTIPLE_CHOICE'],
       electionCommittee: [],
-      electionLead: '',
     };
   },
   mounted() {
@@ -137,13 +137,31 @@ export default {
       initialElectionCommittee: 'electionCommittee',
     }),
   },
+  watch: {
+    initialElectionLead(newValue) {
+      if (
+        (newValue != null &&
+          newValue !== '' &&
+          this.voting.electionLead === '') ||
+        this.voting.electionLead == null
+      ) {
+        this.voting.electionLead = newValue;
+      }
+    },
+    initialElectionCommittee(newValue) {
+      if (
+        this.electionCommittee == null ||
+        this.electionCommittee.length === 0
+      ) {
+        this.electionCommittee = newValue;
+      }
+    },
+  },
   methods: {
     ...mapActions('membersManagement', ['loadMembers']),
     beforeOpen(args) {
       if (args.params) {
         this.editMode = true;
-        this.electionLead = this.initialElectionLead;
-        this.electionCommittee = this.initialElectionCommittee;
         this.voting = JSON.parse(JSON.stringify(args.params));
       } else {
         this.voting = this.getClearVoting();
@@ -171,7 +189,7 @@ export default {
         cardinality: null,
         secrecy: true,
         threshold: null,
-        electionLead: this.electionLead,
+        electionLead: this.initialElectionLead,
         options: [{ id: 0, name: '' }],
       };
     },

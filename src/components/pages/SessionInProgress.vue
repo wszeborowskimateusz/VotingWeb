@@ -2,11 +2,16 @@
   <div v-if="activeSession == null">TODO: Probably some error</div>
   <div v-else>
     <v-divider />
-    <v-btn color="success" class="my-5" @click="$modal.show('newEditVoting')">
+    <v-btn
+      v-if="activeSession.status === 'IN_PROGRESS'"
+      color="success"
+      class="my-5"
+      @click="$modal.show('newEditVoting')"
+    >
       {{ $t('voting.newVoting') }}
     </v-btn>
-    <v-divider />
-    <VotingsTabView class="my-5" :votingTypes="getAllowesVotingTypes()" />
+    <v-divider v-if="activeSession.status === 'IN_PROGRESS'" />
+    <VotingsTabView class="my-5" :votingTypes="getAllowedVotingTypes()" />
     <NewEditVoting />
   </div>
 </template>
@@ -29,7 +34,7 @@ export default {
   },
   methods: {
     ...mapActions('votingsManagement', ['loadVotings']),
-    getAllowesVotingTypes() {
+    getAllowedVotingTypes() {
       if (this.activeSession.status === 'IN_PROGRESS') {
         return ['NOT_STARTED', 'DURING_VOTING', 'FINISHED'];
       }
