@@ -74,6 +74,7 @@ export default {
   getters: {
     activeSessionMembers(state, _, __, rootGetters) {
       const activeSession = rootGetters['parliamentManagement/activeSession'];
+
       if (activeSession == null || state.members[activeSession.id] == null) {
         return [];
       }
