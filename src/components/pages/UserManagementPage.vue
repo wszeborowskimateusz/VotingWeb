@@ -54,6 +54,7 @@
       <template v-slot:item.actions="{ item }">
         <v-icon
           small
+          :color="item.isBlocked ? 'success' : 'error'"
           @click="changeUserBlocState(item)"
           :title="$t(`userManagement.${item.isBlocked ? 'un' : ''}blockUser`)"
         >
