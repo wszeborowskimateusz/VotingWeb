@@ -44,7 +44,7 @@
       </template>
 
       <template v-slot:item.electionCommittee="props">
-        {{ $t(`common.${props.item.electionCommittee ? 'yes' : 'no'}`) }}
+        {{ $t(`common.${props.item.isInElectionCommittee ? 'yes' : 'no'}`) }}
       </template>
 
       <template v-slot:item.hasVote="props">
