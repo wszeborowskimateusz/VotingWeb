@@ -92,7 +92,11 @@
         item-text="fullName"
         item-value="id"
         required
-      ></v-select>
+      >
+        <template v-slot:no-data>
+          {{ $t('userManagement.noResults') }}
+        </template>
+      </v-select>
 
       <v-btn @click="cancel" class="mr-4 mt-4">{{ $t('common.cancel') }}</v-btn>
       <v-btn @click="submit" class="mt-4">{{
@@ -125,10 +129,7 @@ export default {
     };
   },
   mounted() {
-    this.loadMembers().then(() => {
-      this.electionLead = this.initialElectionLead;
-      this.electionCommittee = this.initialElectionCommittee;
-    });
+    this.loadMembers();
   },
   computed: {
     ...mapGetters('membersManagement', {
@@ -141,6 +142,8 @@ export default {
     beforeOpen(args) {
       if (args.params) {
         this.editMode = true;
+        this.electionLead = this.initialElectionLead;
+        this.electionCommittee = this.initialElectionCommittee;
         this.voting = JSON.parse(JSON.stringify(args.params));
       } else {
         this.voting = this.getClearVoting();
