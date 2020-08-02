@@ -19,7 +19,9 @@ const actions = {
     userService.login(username, password).then(
       () => onLoginSuccess(commit),
       (error) => {
-        toasts.errorToast(`${error}. ${i18n.tc('common.tryAgain')}`);
+        toasts.errorToast(
+          `${i18n.t('login.loginFailed')}. ${i18n.t('common.tryAgain')}`,
+        );
         commit('loginFailure', error);
       },
     );

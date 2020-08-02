@@ -34,6 +34,7 @@
     "passwordRequired": "Hasło jest wymagane",
     "login": "Zaloguj się",
     "logout": "Wyloguj się",
+    "loginFailed": "Zła nazwa użytkownika lub hasło",
     "authenticationRequired": "Aby dostać się na tę stronę musisz się zalogować",
     "invalidToken": "Twój token jest nieprawidłowy, dla bezpieczeństwa wylogowano cię z aplikacji",
     "logoutSuccess": "Pomyślnie wylogowano się"

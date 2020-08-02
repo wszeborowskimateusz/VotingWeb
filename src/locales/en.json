@@ -34,6 +34,7 @@
     "passwordRequired": "Password is required",
     "login": "Login",
     "logout": "Logout",
+    "loginFailed": "Incorrect username or password",
     "authenticationRequired": "You need to login to see this page",
     "invalidToken": "Your token is invalid. You have been logged out",
     "logoutSuccess": "You have been logged out successfully"

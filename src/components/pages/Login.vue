@@ -1,29 +1,30 @@
 <template>
   <div class="col-sm-6 offset-sm-3 pt-4">
-    <h2>{{ $t('login.login') }}</h2>
-    <v-form ref="form" class="p-5" v-model="valid">
-      <v-text-field
-        v-model="username"
-        :rules="[(v) => !!v || $t('login.usernameRequired')]"
-        :label="$t('login.username')"
-        required
-        prepend-icon="mdi-account"
-      ></v-text-field>
+    <v-card class="p-2">
+      <h2>{{ $t('login.login') }}</h2>
+      <v-form ref="form" class="p-5" v-model="valid">
+        <v-text-field
+          v-model="username"
+          :rules="[(v) => !!v || $t('login.usernameRequired')]"
+          :label="$t('login.username')"
+          required
+          prepend-icon="mdi-account"
+        ></v-text-field>
 
-      <v-text-field
-        v-model="password"
-        :rules="[(v) => !!v || $t('login.passwordRequired')]"
-        :label="$t('login.password')"
-        required
-        type="password"
-        prepend-icon="mdi-lock"
-      ></v-text-field>
+        <v-text-field
+          v-model="password"
+          :rules="[(v) => !!v || $t('login.passwordRequired')]"
+          :label="$t('login.password')"
+          required
+          type="password"
+          prepend-icon="mdi-lock"
+        ></v-text-field>
 
-      <v-btn class="mt-5" dark @click="handleSubmit">{{
-        $t('login.login')
-      }}</v-btn>
-    </v-form>
-
+        <v-btn class="mt-5" dark @click="handleSubmit">{{
+          $t('login.login')
+        }}</v-btn>
+      </v-form>
+    </v-card>
     <div
       v-if="status.loginInProgress"
       class="d-flex p-2 justify-content-center"
