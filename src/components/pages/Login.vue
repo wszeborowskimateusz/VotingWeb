@@ -7,6 +7,7 @@
         :rules="[(v) => !!v || $t('login.usernameRequired')]"
         :label="$t('login.username')"
         required
+        prepend-icon="mdi-account"
       ></v-text-field>
 
       <v-text-field
@@ -15,6 +16,7 @@
         :label="$t('login.password')"
         required
         type="password"
+        prepend-icon="mdi-lock"
       ></v-text-field>
 
       <v-btn class="mt-5" dark @click="handleSubmit">{{
