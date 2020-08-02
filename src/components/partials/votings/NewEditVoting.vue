@@ -160,11 +160,23 @@ export default {
   methods: {
     ...mapActions('membersManagement', ['loadMembers']),
     beforeOpen(args) {
+      this.setCommitteeAndLeadIfEmpty();
       if (args.params) {
         this.editMode = true;
         this.voting = JSON.parse(JSON.stringify(args.params));
       } else {
         this.voting = this.getClearVoting();
+      }
+    },
+    setCommitteeAndLeadIfEmpty() {
+      if (this.voting.electionLead == null || this.voting.electionLead === '') {
+        this.voting.electionLead = this.initialElectionLead;
+      }
+      if (
+        this.electionCommittee == null ||
+        this.electionCommittee.length === 0
+      ) {
+        this.electionCommittee = this.initialElectionCommittee;
       }
     },
     getSelectItems(field) {

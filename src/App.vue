@@ -1,17 +1,16 @@
 <template>
-  <v-app class="main-app">
-    <div id="app">
-      <Nav
-        :style="{
-          'background-color': $vuetify.theme.isDark ? '#333333' : 'white',
-        }"
-      />
-      <div class="container__row">
-        <div class="p-5">
-          <router-view :key="$route.path"></router-view>
-        </div>
-      </div>
-    </div>
+  <v-app id="app">
+    <Nav
+      :style="{
+        'background-color': $vuetify.theme.isDark ? '#333333' : 'white',
+      }"
+    />
+
+    <v-main>
+      <v-container fluid>
+        <router-view class="px-5" :key="$route.path"></router-view>
+      </v-container>
+    </v-main>
     <v-overlay :value="isActionPerforming">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
@@ -22,13 +21,11 @@
 html {
   margin: 0;
   padding: 0;
-  overflow-x: initial !important;
 }
 
 body {
   margin: 0;
   padding: 0;
-  overflow-x: initial !important;
 }
 
 #app {
@@ -36,18 +33,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.modal-open {
-  overflow: inherit;
 }
 </style>
 

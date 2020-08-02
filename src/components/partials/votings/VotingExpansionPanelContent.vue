@@ -202,7 +202,10 @@ export default {
       return 'red';
     },
     pickStarTitle(optionId) {
-      if (this.voting.status !== 'FINISHED') return '';
+      if (this.voting.status !== 'FINISHED') {
+        return this.$t('voting.votingNotFinished');
+      }
+
       const results =
         optionId == null ? this.voting.results : this.voting.results[optionId];
 

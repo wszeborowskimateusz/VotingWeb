@@ -143,10 +143,12 @@
     "specifyOptions": "Specify options to make use of threshold",
     "electionLead": "Election lead",
     "electionLeadRequired": "Election lead is required",
+    "votingsReadyToStart": "Votings ready to start",
+    "finishedVotings": "Finished votings",
     "downloadVotingRaport": "Download votings report",
     "noVotings": "There are no votings in a given group",
     "thresholdTooltip": "Threshold is used for multiple choice votings. It says how many options can maximaly be voted through.",
-    "cardinalityTooltip": "Liczność pozwala wybrać ilość wariantów znajdujących się pod jednym głosowaniem.<br><br><br><b>Głosowanie na jedną opcję</b> to standardowe głosowanie z możliwością zagłosowania za, przeciw lub wstrzymaniem się.<br><br><b>Głosowanie na wiele opcji</b> pozwala na umieszczenie kilku wariantów pod jednym głosowaniem. Na każdy z wariantów można zagłosować za, przeciw lub się wstrzymać. Przykładowy przypadek użycia dla takiego typu głosowania jest głosowanie w sprawie wyboru członków do jakiejś komisji, gdzie opcjami będą kolejni kandydaci.",
+    "cardinalityTooltip": "Cardinality allows to pick the number of options (variants) included in a single voting.<br><br><br><b>Single choice voting</b> is a standard voting with the possibility to vote for, against or hold.<br><br><b>Multiple choice voting</b> allows to give some options under one voting. Each option can be voted for, against or hold. Example usecase for multiple choice voting would be a voting to choose members for some committee, each option would be a single candidate.",
     "majorityTypes": {
       "RELATIVE": "Relative",
       "ABSOLUTE": "Absolute",
