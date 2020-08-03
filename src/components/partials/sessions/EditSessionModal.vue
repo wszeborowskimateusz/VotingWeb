@@ -35,7 +35,11 @@
           class="mb-2"
           v-model="session.electionLead"
           :items="membersList"
-          :rules="[(v) => !!v || $t('session.electionLeadIsRequired')]"
+          :rules="
+            session.status === 'BEFORE_VOTING'
+              ? []
+              : [(v) => !!v || $t('session.electionLeadIsRequired')]
+          "
           :label="$t('parliamentManagement.electionLead')"
         >
           <template v-slot:no-data>
@@ -50,11 +54,15 @@
           multiple
           chips
           deletable-chips
-          :rules="[
-            (v) =>
-              (!!v && v.length >= 4) ||
-              $t('session.committeeAtLeastMembers', { amount: 4 }),
-          ]"
+          :rules="
+            session.status === 'BEFORE_VOTING'
+              ? []
+              : [
+                  (v) =>
+                    (!!v && v.length >= 4) ||
+                    $t('session.committeeAtLeastMembers', { amount: 4 }),
+                ]
+          "
           :label="$t('session.committeeMembers')"
         >
           <template v-slot:no-data>

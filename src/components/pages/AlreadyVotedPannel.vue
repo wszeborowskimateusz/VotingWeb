@@ -3,7 +3,7 @@
     <h2 class="mb-5" v-if="duringVoting.length > 0">
       {{ duringVoting[0].name }}
     </h2>
-    <div class="d-flex justify-content-center mb-2">
+    <div class="d-flex justify-content-center">
       <div class="d-flex flex-column">
         <div class="d-flex">
           <div
@@ -20,6 +20,11 @@
           />
           {{ $t('voting.notVotedYet') }}
         </div>
+
+        <span class="mt-2 p-2 border rounded"
+          >{{ $t('userManagement.numberInSquare') }} -
+          {{ $t('userManagement.mandateNumber') }}</span
+        >
       </div>
     </div>
 
@@ -31,7 +36,7 @@
 
     <v-row align="center" justify="center">
       <template v-for="(user, i) in votedList">
-        <v-col :key="i" cols="12" md="3">
+        <v-col :key="i" md="1">
           <v-hover v-slot:default="{ hover }">
             <v-card
               :elevation="hover ? 12 : 2"
@@ -40,14 +45,10 @@
                 'background-color': user.didVote ? '#03A9F4' : '#FF9800',
               }"
             >
-              <v-card-title class="title ml-2">
-                <v-row class="fill-height flex-column" justify="space-between">
-                  <p class="mt-4 subheading text-left text-truncate d-block">
-                    {{ user.fullName }}
-                  </p>
-
+              <v-card-title class="title ">
+                <v-row class="fill-height flex-column" justify="start">
                   <p class="body-1 font-weight-bold font-italic text-left">
-                    {{ $t('voting.indexNumber') }}:{{ user.index }}
+                    {{ user.mandateNumber }}
                   </p>
                 </v-row>
               </v-card-title>
@@ -95,7 +96,7 @@ export default {
         );
         return {
           fullName: member.fullName,
-          index: member.index,
+          mandateNumber: member.mandateNumber,
           didVote: inAlreadyVoted != null,
         };
       });

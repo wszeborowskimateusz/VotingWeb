@@ -2,12 +2,12 @@
   <div>
     <h3 class="mb-3">{{ $t('voting.votingsList') }}</h3>
     <loader :style="{visibility: isLoading ? 'visible' : 'hidden' }"/>
-    <div class="mb-3 d-flex justify-content-around">
+    <div class="mb-3 d-flex flex-column">
       <span>
         <v-icon color="grey">mdi-star</v-icon>
         {{ $t('voting.votingNotFinished') }}
       </span>
-      <span>
+      <span class="my-2">
         <v-icon color="green">mdi-star</v-icon>
         {{ $t('voting.votingPassed') }}
       </span>

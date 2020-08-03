@@ -31,6 +31,13 @@
         {{ $t('userManagement.noResults') }}
       </template>
 
+      <template v-slot:item.mandateNumber="props">
+        <span v-if="props.item.mandateNumber">{{
+          props.item.mandateNumber
+        }}</span>
+        <span v-else>-</span>
+      </template>
+
       <template v-slot:item.absent="props">
         {{ $t(`common.${props.item.absent ? 'yes' : 'no'}`) }}
       </template>
@@ -43,23 +50,22 @@
         {{ $t(`common.${props.item.isElectionLead ? 'yes' : 'no'}`) }}
       </template>
 
-      <template v-slot:item.electionCommittee="props">
+      <template v-slot:item.isInElectionCommittee="props">
         {{ $t(`common.${props.item.isInElectionCommittee ? 'yes' : 'no'}`) }}
       </template>
 
-      <template v-slot:item.hasVote="props">
-        {{ $t(`common.${props.item.hasVote ? 'yes' : 'no'}`) }}
-      </template>
-
       <template v-slot:item.actions="{ item }">
-        <v-icon
+        <v-btn
           small
-          :color="item.isBlocked ? 'success' : 'error'"
-          @click="changeUserBlocState(item)"
           :title="$t(`userManagement.${item.isBlocked ? 'un' : ''}blockUser`)"
+          @click="changeUserBlocState(item)"
+          :color="item.isBlocked ? 'success' : 'error'"
         >
-          {{ item.isBlocked ? 'mdi-check-circle' : 'mdi-close-circle' }}
-        </v-icon>
+          <v-icon small left>
+            {{ item.isBlocked ? 'mdi-check-circle' : 'mdi-close-circle' }}
+          </v-icon>
+          {{ $t(`userManagement.${item.isBlocked ? 'un' : ''}block`) }}
+        </v-btn>
       </template>
     </v-data-table>
   </v-card>
@@ -73,6 +79,27 @@ export default {
     ...mapState('membersManagement', ['isLoading']),
     ...mapGetters('parliamentManagement', ['activeSession']),
     ...mapGetters('membersManagement', ['activeSessionMembers']),
+    headers() {
+      return [
+        { text: this.$t('userManagement.fullName'), value: 'fullName' },
+        { text: this.$t('userManagement.index'), value: 'index' },
+        {
+          text: this.$t('userManagement.mandateNumber'),
+          value: 'mandateNumber',
+        },
+        { text: this.$t('userManagement.absent'), value: 'absent' },
+        { text: this.$t('userManagement.blocked'), value: 'isBlocked' },
+        {
+          text: this.$t('userManagement.electionLead'),
+          value: 'isElectionLead',
+        },
+        {
+          text: this.$t('userManagement.electionCommittee'),
+          value: 'isInElectionCommittee',
+        },
+        { text: this.$t('userManagement.actions'), value: 'actions' },
+      ];
+    },
   },
   mounted() {
     this.loadMembers();
@@ -86,22 +113,6 @@ export default {
   data() {
     return {
       search: '',
-      headers: [
-        { text: this.$t('userManagement.fullName'), value: 'fullName' },
-        { text: this.$t('userManagement.index'), value: 'index' },
-        { text: this.$t('userManagement.absent'), value: 'absent' },
-        { text: this.$t('userManagement.blocked'), value: 'isBlocked' },
-        {
-          text: this.$t('userManagement.electionLead'),
-          value: 'isElectionLead',
-        },
-        {
-          text: this.$t('userManagement.electionCommittee'),
-          value: 'electionCommittee',
-        },
-        { text: this.$t('userManagement.hasVote'), value: 'hasVote' },
-        { text: this.$t('userManagement.actions'), value: 'actions' },
-      ],
     };
   },
 };

@@ -136,7 +136,7 @@
     "secrecyRequired": "Secrecy is required",
     "threshold": "Threshold",
     "thresholdRequired": "Threshold is required",
-    "thresholdMustBe": "Threshold must be between {from} to {to}",
+    "thresholdMustBe": "Threshold must be between {from} to {to} (number of options)",
     "options": "Options",
     "option": "Option",
     "optionNotEmpty": "Option cannot be empty",
@@ -182,6 +182,7 @@
     "users": "Users",
     "fullName": "Full name",
     "index": "Index number",
+    "mandateNumber": "Mandate number",
     "absent": "Present",
     "blocked": "Blocked",
     "electionLead": "Election committee",
@@ -191,6 +192,9 @@
     "search": "Search",
     "noResults": "No results found",
     "blockUser": "Block user",
-    "unblockUser": "Unblock user"
+    "unblockUser": "Unblock user",
+    "block": "Block",
+    "unblock": "Unblock",
+    "numberInSquare": "Nummber in square"
   }
 }
