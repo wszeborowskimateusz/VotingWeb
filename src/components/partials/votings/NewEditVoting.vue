@@ -69,9 +69,9 @@
           (v) => !!v || $t('voting.thresholdRequired'),
           (v) => voting.options.length > 0 || $t('voting.specifyOptions'),
           (v) =>
-            (v >= 0 && v <= voting.options.length) ||
+            (v >= 1 && v <= voting.options.length) ||
             $t('voting.thresholdMustBe', {
-              from: 0,
+              from: 1,
               to: voting.options.length,
             }),
         ]"

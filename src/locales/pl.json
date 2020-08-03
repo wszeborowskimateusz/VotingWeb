@@ -135,7 +135,7 @@
     "secrecy": "Tajność",
     "secrecyRequired": "Tajność jest wymagana",
     "threshold": "Próg",
-    "thresholdMustBe": "Próg musi mieścić się pomiędzy {from} a {to}",
+    "thresholdMustBe": "Próg musi mieścić się pomiędzy {from} a {to} (liczba opcji)",
     "thresholdRequired": "Próg jest wymagany",
     "options": "Opcje",
     "option": "Opcja",
@@ -182,6 +182,7 @@
     "users": "Użytkownicy",
     "fullName": "Imię i nazwisko",
     "index": "Numer indeksu",
+    "mandateNumber": "Numer mandatu",
     "absent": "Nieobecny",
     "blocked": "Zablokowany",
     "electionLead": "Przewodniczący komisji",
@@ -191,6 +192,9 @@
     "search": "Szukaj",
     "noResults": "Nie znaleziono rezultatów",
     "blockUser": "Zablokuj użytkownika",
-    "unblockUser": "Odblokuj użytkownika"
+    "unblockUser": "Odblokuj użytkownika",
+    "block": "Zablokuj",
+    "unblock": "Odblokuj",
+    "numberInSquare": "Liczba w kwadracie"
   }
 }

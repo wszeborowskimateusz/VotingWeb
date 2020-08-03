@@ -58,15 +58,17 @@
             class="d-flex flex-row"
           >
             <div v-if="voting[field] != null" class="flex-fill">
-              {{ $t(`voting.${field}`) }}
+              <span class="font-weight-bold">{{ $t(`voting.${field}`) }}</span>
               <tooltip
                 v-if="field === 'cardinality'"
+                class="ml-1"
                 :modalName="`newEditVotingCardinalityForVoting${voting.id}`"
               >
                 <span v-html="$t('voting.cardinalityTooltip')"></span>
               </tooltip>
               <tooltip
                 v-if="field === 'threshold'"
+                class="ml-1"
                 :modalName="`newEditVotingThresholdForVoting${voting.id}`"
               >
                 <span v-html="$t('voting.thresholdTooltip')"></span>
@@ -101,14 +103,16 @@
             voting.status === 'FINISHED' &&
               voting.cardinality === 'SINGLE_CHOICE'
           "
-          class="d-flex justify-content-center"
           :results="voting.results"
           :secret="voting.secrecy"
           :votingKey="`${voting.id}`"
         >
-          <v-list-item-icon :title="pickStarTitle()" class="w-100">
+          <v-list-item-icon :title="pickStarTitle()" class="">
             <v-icon :color="pickStarColor()">mdi-star</v-icon>
           </v-list-item-icon>
+           <v-list-item-content>
+              <v-list-item-title v-text="voting.name"></v-list-item-title>
+            </v-list-item-content>
         </VotingResults>
         <v-list>
           <v-list-item

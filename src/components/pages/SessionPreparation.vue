@@ -82,6 +82,10 @@ export default {
       committee: [],
     };
   },
+  created() {
+    this.electionLead = this.activeSession.electionLead;
+    this.committee = this.activeSession.electionCommittee;
+  },
   computed: {
     ...mapGetters('membersManagement', ['activeSessionMembers']),
     ...mapGetters('parliamentManagement', ['activeSession']),
