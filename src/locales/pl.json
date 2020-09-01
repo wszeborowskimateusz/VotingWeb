@@ -16,7 +16,8 @@
     "loading": "Ładuję...",
     "areYouSure": "Czy na pewno ?",
     "darkTheme": "Tryb ciemny",
-    "ok": "OK"
+    "ok": "OK",
+    "somethingWentWrong": "Coś poszło nie tak. Spróbuj ponownie."
   },
   "validation": {
     "failedToResumeSession": "Wystąpił problem przy próbie wznowienia sesji, spróbuj ponownie.",

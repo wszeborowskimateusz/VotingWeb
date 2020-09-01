@@ -179,17 +179,9 @@ const demoMembers = [
 ];
 
 function getVotersList(sessionId) {
-  console.log(`Getting members from server for id: ${sessionId}`);
-  return new Promise((resolve) => {
-    const wait = setTimeout(() => {
-      clearTimeout(wait);
-      resolve(demoMembers);
-    }, 2000);
-  });
+  const url = `/parliament/${sessionId}/voters`;
 
-  // const url = '/voters';
-
-  // return requestSender.get(url);
+  return requestSender.get(url);
 }
 
 function changeVoterBlockStatus(voterId, isBlocked) {

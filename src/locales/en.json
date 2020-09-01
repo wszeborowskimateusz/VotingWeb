@@ -16,7 +16,8 @@
     "loading": "Loading...",
     "areYouSure": "Are you sure ?",
     "darkTheme": "Dark theme",
-    "ok": "OK"
+    "ok": "OK",
+    "somethingWentWrong": "Something went wrong. Try again."
   },
   "validation": {
      "failedToResumeSession": "There was an error while resuming the session, try again.",

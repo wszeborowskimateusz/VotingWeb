@@ -21,7 +21,7 @@
           modalName="userFileTooltip"
           class=" d-flex justify-content-start mt-2"
         >
-          <span v-html="$t('parliamentManagement.userFileTooltip')"/>
+          <span v-html="$t('parliamentManagement.userFileTooltip')" />
         </tooltip>
         <v-file-input
           class="mb-2"
@@ -48,6 +48,8 @@
   </common-modal>
 </template>
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   data() {
     return {
@@ -56,19 +58,26 @@ export default {
         name: '',
         date: null,
         place: '',
-        userFile: null,
       },
+      userFile: null,
     };
   },
   methods: {
+    ...mapActions('parliamentPreparation', ['setParliamentDetails']),
     handleSubmit() {
       this.$refs.form.validate();
+      if (this.valid) {
+        this.setParliamentDetails({
+          userFile: this.userFile,
+          session: this.session,
+        });
+      }
     },
     beforeClose() {
       this.$refs.form.reset();
     },
     onFileInputChange(file) {
-      this.session.file = file;
+      this.userFile = file;
     },
     allowedDays(day) {
       const today = new Date();

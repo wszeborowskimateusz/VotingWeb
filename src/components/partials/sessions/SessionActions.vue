@@ -5,6 +5,7 @@
         color="primary"
         class="mr-2"
         v-if="status === 'BEFORE_VOTING' || status === 'IN_PREPARATION'"
+        @click="getPasswordsList"
       >
         <v-icon left>mdi-file</v-icon>
         {{ $t('sessionActions.generatePasswords') }}
@@ -61,9 +62,8 @@ export default {
       'suspendSession',
       'startSession',
       'resumeSession',
-      'downloadSession',
-      'uploadSession',
     ]),
+    ...mapActions('parliamentPreparation', ['getPasswordsList']),
   },
   computed: {
     status() {

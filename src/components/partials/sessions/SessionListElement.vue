@@ -122,7 +122,6 @@ export default {
     ...mapActions('parliamentManagement', [
       'changeActiveSession',
       'downloadSession',
-      'uploadSession',
       'removeSession',
     ]),
     getFormatedDate(date) {

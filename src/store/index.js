@@ -6,6 +6,7 @@ import createCache from 'vuex-cache';
 
 import userAuthentication from './userAuthenticationStore';
 import localeStore from './localeStore';
+import parliamentPreparation from './parliamentPreparationStore';
 import parliamentManagement from './parliamentManagementStore';
 import votingsManagement from './votingsManagementStore';
 import membersManagement from './membersManagementStore';
@@ -17,6 +18,7 @@ export default new Vuex.Store({
   modules: {
     userAuthentication,
     localeStore,
+    parliamentPreparation,
     parliamentManagement,
     votingsManagement,
     membersManagement,

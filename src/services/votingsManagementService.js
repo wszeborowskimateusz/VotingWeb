@@ -179,16 +179,9 @@ const demoVotings = [
 ];
 
 function getVotingsList() {
-  // TODO: This is just a demmy return - connect real API when it is ready
-  return new Promise((resolve) => {
-    const wait = setTimeout(() => {
-      clearTimeout(wait);
-      resolve(demoVotings);
-    }, 2000);
-  });
-  // const url = '/votings';
+  const url = '/votings?includeResults=true';
 
-  // return requestSender.get(url);
+  return requestSender.get(url);
 }
 
 function addVoting(voting) {
@@ -227,17 +220,10 @@ function getVotingResults(votingId) {
   return requestSender.get(url);
 }
 
-// function getAlreadyVotedList(votingId) {
-function getAlreadyVotedList() {
-  return new Promise((resolve) => {
-    const wait = setTimeout(() => {
-      clearTimeout(wait);
-      resolve({ voters: ['1', '5', '9', '10', '15'] });
-    }, 2000);
-  });
-  // const url = `/votings/already-voted/${votingId}`;
+function getAlreadyVotedList(votingId) {
+  const url = `/votings/already-voted/${votingId}`;
 
-  // return requestSender.get(url);
+  return requestSender.get(url);
 }
 
 export default {

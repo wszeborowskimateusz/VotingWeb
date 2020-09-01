@@ -83,7 +83,7 @@ export default {
   },
   methods: {
     ...mapActions('membersManagement', ['loadMembers']),
-    ...mapActions('parliamentManagement', ['changeActiveSession']),
+    ...mapActions('parliamentManagement', ['changeActiveSession', 'uploadSession']),
     pickFile() {
       this.isSelectingFile = true;
       window.addEventListener(
@@ -98,6 +98,7 @@ export default {
     },
     onFileChanged(event) {
       [this.selectedFile] = event.target.files;
+      this.uploadSession(this.selectedFile);
     },
   },
 };

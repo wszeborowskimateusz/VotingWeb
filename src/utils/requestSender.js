@@ -61,10 +61,10 @@ export default {
 
     return sendRequest(url, options);
   },
-  postFile(url, file) {
+  postWithFile(url, formData) {
     const options = {
       method: 'POST',
-      body: file,
+      body: formData,
     };
 
     return sendRequest(url, options);

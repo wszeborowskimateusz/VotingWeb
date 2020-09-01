@@ -63,16 +63,9 @@ const dummySessionList = [
 ];
 
 function getSessionsList() {
-  // const url = '/parliament';
+  const url = '/parliament';
 
-  // TODO: This is just a demmy return - connect real API when it is ready
-  return new Promise((resolve) => {
-    const wait = setTimeout(() => {
-      clearTimeout(wait);
-      resolve(dummySessionList);
-    }, 2000);
-  });
-  // return requestSender.get(url);
+  return requestSender.get(url);
 }
 
 function finishSession(sessionId) {
@@ -114,23 +107,15 @@ function downloadSession(sessionId) {
 function uploadSession(sessionFile) {
   const url = '/parliament/upload';
 
-  return requestSender.postFile(url, sessionFile);
+  return requestSender.postWithFile(url, sessionFile);
 }
 
-/* eslint-disable no-param-reassign */
 async function setActiveSession(sessionId) {
-  // const url = '/parliament/set-active-session';
-  // return requestSender.post(url, { sessionId });
-  dummySessionList.forEach((_, index, theArray) => {
-    theArray[index].isActive = false;
-    if (theArray[index].id === sessionId) {
-      theArray[index].isActive = true;
-    }
-  });
+  const url = '/parliament/set-active-session';
 
-  return null;
+  return requestSender.post(url, { sessionId });
 }
-/* eslint-enable no-param-reassign */
+
 export default {
   getSessionsList,
   finishSession,

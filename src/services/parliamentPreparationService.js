@@ -1,18 +1,14 @@
 import requestSender from '@/utils/requestSender';
 
 
-// TODO: Handle sending the file
-function loadVotersList(votersList) {
-  const url = '/preparations/voters-list';
-
-  return requestSender.postFile(url, { votersList });
-}
-
-// TODO: This and loadVotersList will probably be merged into a single endpoint
-function setParliamentDetails(parliamentDetails) {
+function setParliamentDetails(session, userFile) {
   const url = '/preparations/details';
 
-  return requestSender.post(url, parliamentDetails);
+  let body = new FormData();
+  body.append('session', JSON.stringify(session))
+  body.append('userFile', userFile);
+
+  return requestSender.postWithFile(url, body);
 }
 
 function generatePasswords() {
@@ -28,10 +24,7 @@ function editParliamentDetails(parliamentDetails) {
 }
 
 export default {
-  loadVotersList,
   setParliamentDetails,
   generatePasswords,
-  getPreparedSession,
-  loadPreparedSession,
   editParliamentDetails,
 };

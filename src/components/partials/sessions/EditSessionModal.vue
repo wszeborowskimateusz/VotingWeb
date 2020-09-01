@@ -110,6 +110,7 @@ export default {
   },
   methods: {
     ...mapActions('membersManagement', ['loadMembers']),
+    ...mapActions('parliamentPreparation', ['editParliamentDetails']),
     beforeOpen(args) {
       this.session = JSON.parse(JSON.stringify(args.params));
       this.session.date = new Date(this.session.date)
@@ -123,12 +124,12 @@ export default {
     },
     handleSubmit() {
       this.$refs.form.validate();
+      if(this.valid) {
+        this.editParliamentDetails(this.session);
+      }
     },
     beforeClose() {
       this.$refs.form.reset();
-    },
-    onFileInputChange(file) {
-      this.session.file = file;
     },
     allowedDays(day) {
       const today = new Date();
