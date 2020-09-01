@@ -30,7 +30,7 @@ const actions = {
   },
   getPasswordsList({ commit }) {
     commit('loading');
-    //TODO: Make the file autodownload
+    // TODO: Make the file autodownload
     parliamentPreparationService.generatePasswords().then(
       (response) => commit('passwordsFileLoaded', response),
       () => {
