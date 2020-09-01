@@ -1,6 +1,5 @@
 import requestSender from '@/utils/requestSender';
 
-
 function setParliamentDetails(session, userFile) {
   const url = '/preparations/details';
 
