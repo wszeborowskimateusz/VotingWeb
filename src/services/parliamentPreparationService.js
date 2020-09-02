@@ -3,8 +3,8 @@ import requestSender from '@/utils/requestSender';
 function setParliamentDetails(session, userFile) {
   const url = '/preparations/details';
 
-  let body = new FormData();
-  body.append('session', JSON.stringify(session))
+  const body = new FormData();
+  body.append('session', JSON.stringify(session));
   body.append('userFile', userFile);
 
   return requestSender.postWithFile(url, body);

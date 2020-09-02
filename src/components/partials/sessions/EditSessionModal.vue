@@ -124,7 +124,7 @@ export default {
     },
     handleSubmit() {
       this.$refs.form.validate();
-      if(this.valid) {
+      if (this.valid) {
         this.editParliamentDetails(this.session);
       }
     },
