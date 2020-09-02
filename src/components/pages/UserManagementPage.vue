@@ -68,6 +68,14 @@
         </v-btn>
       </template>
     </v-data-table>
+    <div v-if="!activeSession && !isLoading" class="mr-5">
+      <div class="py-5">
+        <span class="h3 mr-2">{{ $t('parliamentManagement.noActiveSession') }}</span>
+        <Tooltip modalName="no active session tooltip - user management">
+          {{ $t('parliamentManagement.noActiveSessionTooltip') }}
+        </Tooltip>
+      </div>
+    </div>
   </v-card>
 </template>
 

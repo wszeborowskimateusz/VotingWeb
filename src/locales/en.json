@@ -46,6 +46,8 @@
     "editSession": "Edit session",
     "changeActiveSession": "Change active session",
     "activeSession": "Active session",
+    "noActiveSession": "No active session",
+    "noActiveSessionTooltip": "In order to set an active session go to sessions list and press the purple dot next to the session you want to make active",
     "sessionInfo": "Session info",
     "name": "Name",
     "date": "Date",

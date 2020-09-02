@@ -46,6 +46,8 @@
     "editSession": "Edytuj posiedzenie",
     "changeActiveSession": "Zmień aktywne posiedzenie",
     "activeSession": "Aktywne posiedzenie",
+    "noActiveSession": "Brak aktywnego posiedzenia",
+    "noActiveSessionTooltip": "Aby ustawić aktywne posiedzenie przejdź do listy posiedzeń i kliknij w fioletowe kółko obok posiedzenia, które chcesz uczynić aktywnym.",
     "sessionInfo": "Informacje o sesji",
     "name": "Nazwa",
     "date": "Data",

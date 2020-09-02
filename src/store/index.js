@@ -4,6 +4,8 @@ import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 import createCache from 'vuex-cache';
 
+import EventBus from '@/utils/eventBus';
+
 import userAuthentication from './userAuthenticationStore';
 import localeStore from './localeStore';
 import parliamentPreparation from './parliamentPreparationStore';
@@ -14,7 +16,8 @@ import tokenUtils from '../utils/tokenUtils';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+
+const store = new Vuex.Store({
   modules: {
     userAuthentication,
     localeStore,
@@ -33,3 +36,9 @@ export default new Vuex.Store({
     createCache(),
   ],
 });
+
+EventBus.$on('logout', () => {
+  store.dispatch('userAuthentication/logout');
+});
+
+export default store;

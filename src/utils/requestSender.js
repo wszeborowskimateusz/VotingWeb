@@ -1,5 +1,8 @@
 import fetchTimeout from 'fetch-timeout';
+import EventBus from '@/utils/eventBus';
 import config from '@/../config';
+import toasts from '@/utils/toasts';
+import i18n from '../i18n';
 import tokenUtils from './tokenUtils';
 
 function refreshToken(refreshedToken) {
@@ -11,7 +14,8 @@ function handleResponse(response) {
     const data = text && JSON.parse(text);
     if (!response.ok) {
       if (response.status === 401) {
-        tokenUtils.removeToken();
+        toasts.errorToast(i18n.tc('login.invalidToken'));
+        EventBus.$emit('logout');
       }
 
       const error = (data && data.message) || response.statusText;

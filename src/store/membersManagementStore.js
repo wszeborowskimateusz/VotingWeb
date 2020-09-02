@@ -4,31 +4,25 @@ import membersManagementService from '@/services/membersManagementService';
 import toasts from '@/utils/toasts';
 import i18n from '../i18n';
 
-async function getActiveSession(rootGetters, dispatch) {
-  let activeSession = rootGetters['parliamentManagement/activeSession'];
-  if (activeSession == null) {
-    await dispatch('parliamentManagement/loadSessions', null, {
-      root: true,
-    });
-    activeSession = rootGetters['parliamentManagement/activeSession'];
-  }
-
-  return activeSession;
-}
-
 const membersState = { isLoading: false, members: {} };
 
 const actions = {
   /* eslint-disable object-curly-newline */
   async loadMembers(
-    { commit, dispatch, rootGetters, state },
+    { commit, rootGetters, state },
     { sessionIdToLoad = null, takeStateFromCache = false } = {},
   ) {
     commit('loading');
     let activeSession = null;
     if (sessionIdToLoad == null) {
-      activeSession = await getActiveSession(rootGetters, dispatch);
+      activeSession = rootGetters['parliamentManagement/activeSession'];
     }
+
+    if (sessionIdToLoad == null && activeSession == null) {
+      commit('stopLoading');
+      return;
+    }
+
     const sessionId =
       sessionIdToLoad != null ? sessionIdToLoad : activeSession.id;
 
