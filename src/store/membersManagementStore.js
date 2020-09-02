@@ -39,8 +39,8 @@ const actions = {
 
     membersManagementService.getVotersList(sessionId).then(
       (members) => commit('loadingSuccess', { members, sessionId }),
-      (error) => {
-        toasts.errorToast(`${error}. ${i18n.tc('common.tryAgain')}`);
+      () => {
+        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
         commit('failed');
       },
     );

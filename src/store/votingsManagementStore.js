@@ -13,8 +13,8 @@ const actions = {
     commit('loading');
     votingsManagementService.getVotingsList().then(
       (votings) => commit('loadingSuccess', votings),
-      (error) => {
-        toasts.errorToast(`${error}. ${i18n.tc('common.tryAgain')}`);
+      () => {
+        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
         commit('failed');
       },
     );
@@ -27,8 +27,8 @@ const actions = {
         alreadyVotedList: response.voters,
         votingId,
       }),
-      (error) => {
-        toasts.errorToast(`${error}. ${i18n.tc('common.tryAgain')}`);
+      () => {
+        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
         commit('loadingAlreadyVotedListFailed');
       },
     );
@@ -40,6 +40,9 @@ const actions = {
 const mutations = {
   loading(state) {
     state.isLoading = true;
+  },
+  loadingFinished(state) {
+    state.isLoading = false;
   },
   loadingSuccess(state, votings) {
     state.isLoading = false;

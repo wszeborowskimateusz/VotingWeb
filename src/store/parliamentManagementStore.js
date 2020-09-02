@@ -28,8 +28,8 @@ const actions = {
     commit('loading');
     return parliamentManagementService.getSessionsList().then(
       (sessions) => commit('loadingSuccess', sessions),
-      (error) => {
-        toasts.errorToast(`${error}. ${i18n.tc('common.tryAgain')}`);
+      () => {
+        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
         commit('failed');
       },
     );
@@ -93,8 +93,8 @@ const actions = {
   changeActiveSession({ dispatch }, sessionId) {
     parliamentManagementService.setActiveSession(sessionId).then(
       () => dispatch('loadSessions'),
-      (error) => {
-        toasts.errorToast(`${error}. ${i18n.tc('common.tryAgain')}`);
+      () => {
+        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
       },
     );
   },
