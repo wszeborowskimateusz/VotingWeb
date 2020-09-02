@@ -195,7 +195,9 @@
     "search": "Szukaj",
     "noResults": "Nie znaleziono rezultatów",
     "blockUser": "Zablokuj użytkownika",
+    "userBlockSuccessfully": "Użytkownik został pomyślnie zablokowany",
     "unblockUser": "Odblokuj użytkownika",
+    "userUnBlockSuccessfully": "Użytkownik został pomyślnie odblokowany",
     "block": "Zablokuj",
     "unblock": "Odblokuj",
     "numberInSquare": "Liczba w kwadracie"

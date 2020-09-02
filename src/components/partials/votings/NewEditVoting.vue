@@ -99,7 +99,9 @@
         </template>
       </v-select>
 
-      <v-btn @click="cancel" class="mr-4 mt-4">{{ $t('common.cancel') }}</v-btn>
+      <v-btn @click="closeModal" class="mr-4 mt-4">{{
+        $t('common.cancel')
+      }}</v-btn>
       <v-btn @click="submit" class="mt-4">{{
         $t(`common.${editMode ? 'save' : 'create'}`)
       }}</v-btn>
@@ -159,6 +161,7 @@ export default {
   },
   methods: {
     ...mapActions('membersManagement', ['loadMembers']),
+    ...mapActions('votingsManagement', ['addVoting', 'editVoting']),
     beforeOpen(args) {
       this.setCommitteeAndLeadIfEmpty();
       if (args.params) {
@@ -205,11 +208,22 @@ export default {
         options: [{ id: 0, name: '' }],
       };
     },
-    cancel() {
+    closeModal() {
       this.$modal.hide('newEditVoting');
     },
     submit() {
       this.$refs.form.validate();
+      if (this.valid) {
+        if (this.editMode) {
+          this.editVoting(this.voting).then(() => {
+            this.closeModal();
+          });
+        } else {
+          this.addVoting(this.voting).then(() => {
+            this.closeModal();
+          });
+        }
+      }
     },
   },
 };

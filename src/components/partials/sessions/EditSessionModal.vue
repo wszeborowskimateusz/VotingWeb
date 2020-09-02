@@ -125,7 +125,9 @@ export default {
     handleSubmit() {
       this.$refs.form.validate();
       if (this.valid) {
-        this.editParliamentDetails(this.session);
+        this.editParliamentDetails(this.session).then(() => {
+          this.$modal.hide('editSessionModal');
+        });
       }
     },
     beforeClose() {

@@ -42,6 +42,12 @@ function getVotingResults(votingId) {
   return requestSender.get(url);
 }
 
+function generateVotingReport(votingId) {
+  const url = `/votings/${votingId}/report`;
+
+  return requestSender.get(url);
+}
+
 function getAlreadyVotedList(votingId) {
   const url = `/votings/already-voted/${votingId}`;
 
@@ -56,5 +62,6 @@ export default {
   openVoting,
   closeVoting,
   getVotingResults,
+  generateVotingReport,
   getAlreadyVotedList,
 };

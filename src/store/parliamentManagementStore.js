@@ -75,6 +75,7 @@ const actions = {
     );
   },
   downloadSession(args, sessionId) {
+    // TODO: Make the file autodownload
     handleAction(
       args,
       sessionId,

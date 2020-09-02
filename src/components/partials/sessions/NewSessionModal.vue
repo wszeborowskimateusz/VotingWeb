@@ -70,6 +70,8 @@ export default {
         this.setParliamentDetails({
           userFile: this.userFile,
           session: this.session,
+        }).then(() => {
+          this.$modal.hide('newSessionModal');
         });
       }
     },

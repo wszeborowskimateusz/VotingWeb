@@ -8,7 +8,7 @@ const membersState = { isLoading: false, members: {} };
 
 const actions = {
   /* eslint-disable object-curly-newline */
-  async loadMembers(
+  loadMembers(
     { commit, rootGetters, state },
     { sessionIdToLoad = null, takeStateFromCache = false } = {},
   ) {
@@ -37,6 +37,20 @@ const actions = {
         toasts.errorToast(i18n.tc('common.somethingWentWrong'));
         commit('failed');
       },
+    );
+  },
+  changeVoterBlockStatus(_, { voterId, isBlocked }) {
+    membersManagementService.changeVoterBlockStatus(voterId, isBlocked).then(
+      () => {
+        if (isBlocked) {
+          toasts.successToast(i18n.tc('userManagement.userBlockSuccessfully'));
+        } else {
+          toasts.successToast(
+            i18n.tc('userManagement.userUnBlockSuccessfully'),
+          );
+        }
+      },
+      () => toasts.errorToast(i18n.tc('common.somethingWentWrong')),
     );
   },
 };

@@ -19,14 +19,67 @@ const actions = {
       },
     );
   },
+  // TODO: Maybe add some loading behaviour - perhaps use home loader
+  addVoting(_, voting) {
+    return votingsManagementService.addVoting(voting).then(
+      () => {},
+      () => {
+        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+        return Promise.reject();
+      },
+    );
+  },
+  editVoting(_, voting) {
+    return votingsManagementService.editVoting(voting.id, voting).then(
+      () => {},
+      () => {
+        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+        return Promise.reject();
+      },
+    );
+  },
+  deleteVoting(_, votingId) {
+    votingsManagementService.deleteVoting(votingId).then(
+      () => {},
+      () => {
+        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+      },
+    );
+  },
+  openVoting(_, votingId) {
+    votingsManagementService.openVoting(votingId).then(
+      () => {},
+      () => {
+        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+      },
+    );
+  },
+  closeVoting(_, votingId) {
+    votingsManagementService.closeVoting(votingId).then(
+      () => {},
+      () => {
+        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+      },
+    );
+  },
+  // TODO: Make the file autodownload
+  generateVotingReport(_, votingId) {
+    votingsManagementService.generateVotingReport(votingId).then(
+      () => {},
+      () => {
+        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+      },
+    );
+  },
   /* eslint-disable implicit-arrow-linebreak */
   loadAlreadyVotedList({ commit }, votingId) {
     commit('loading');
     votingsManagementService.getAlreadyVotedList(votingId).then(
-      (response) => commit('loadingAlreadyVotedListSuccess', {
-        alreadyVotedList: response.voters,
-        votingId,
-      }),
+      (response) =>
+        commit('loadingAlreadyVotedListSuccess', {
+          alreadyVotedList: response.voters,
+          votingId,
+        }),
       () => {
         toasts.errorToast(i18n.tc('common.somethingWentWrong'));
         commit('loadingAlreadyVotedListFailed');

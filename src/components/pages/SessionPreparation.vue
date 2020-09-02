@@ -1,6 +1,6 @@
 <template>
   <div v-if="activeSession == null">
-    TODO: Handle Mistake ?
+    <!-- TODO: Handle Mistake ? -->
   </div>
   <div
     v-else-if="activeSession.status === 'IN_PREPARATION'"

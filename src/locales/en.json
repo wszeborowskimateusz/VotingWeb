@@ -195,7 +195,9 @@
     "search": "Search",
     "noResults": "No results found",
     "blockUser": "Block user",
+    "userBlockSuccessfully": "User was blocked successfully",
     "unblockUser": "Unblock user",
+    "userUnBlockSuccessfully": "User was unblocked successfully",
     "block": "Block",
     "unblock": "Unblock",
     "numberInSquare": "Nummber in square"

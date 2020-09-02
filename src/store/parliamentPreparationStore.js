@@ -10,28 +10,30 @@ const preparationState = {
 const actions = {
   setParliamentDetails({ commit }, { session, userFile }) {
     commit('loading');
-    parliamentPreparationService.setParliamentDetails(session, userFile).then(
+    return parliamentPreparationService.setParliamentDetails(session, userFile).then(
       () => commit('loadingFinished'),
       () => {
         toasts.errorToast(i18n.tc('common.somethingWentWrong'));
         commit('loadingFinished');
+        return Promise.reject();
       },
     );
   },
   editParliamentDetails({ commit }, session) {
     commit('loading');
-    parliamentPreparationService.editParliamentDetails(session).then(
+    return parliamentPreparationService.editParliamentDetails(session).then(
       () => commit('loadingFinished'),
       () => {
         toasts.errorToast(i18n.tc('common.somethingWentWrong'));
         commit('loadingFinished');
+        return Promise.reject();
       },
     );
   },
   getPasswordsList({ commit }) {
     commit('loading');
     // TODO: Make the file autodownload
-    parliamentPreparationService.generatePasswords().then(
+    return parliamentPreparationService.generatePasswords().then(
       (response) => commit('passwordsFileLoaded', response),
       () => {
         toasts.errorToast(i18n.tc('common.somethingWentWrong'));
