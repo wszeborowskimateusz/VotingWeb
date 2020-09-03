@@ -45,7 +45,7 @@ function getVotingResults(votingId) {
 function generateVotingReport(votingId) {
   const url = `/votings/${votingId}/report`;
 
-  return requestSender.get(url);
+  return requestSender.downloadFile(url);
 }
 
 function getAlreadyVotedList(votingId) {

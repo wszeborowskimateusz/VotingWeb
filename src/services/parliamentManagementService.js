@@ -39,7 +39,7 @@ function removeSession(sessionId) {
 function downloadSession(sessionId) {
   const url = `/parliament/${sessionId}/download`;
 
-  return requestSender.put(url, {});
+  return requestSender.downloadFile(url);
 }
 
 function uploadSession(sessionFile) {

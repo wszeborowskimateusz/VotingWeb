@@ -13,7 +13,7 @@ function setParliamentDetails(session, userFile) {
 function generatePasswords() {
   const url = '/preparations/get-pass';
 
-  return requestSender.get(url);
+  return requestSender.downloadFile(url);
 }
 
 function editParliamentDetails(parliamentDetails) {

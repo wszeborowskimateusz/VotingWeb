@@ -8,16 +8,21 @@ const preparationState = {
 };
 
 const actions = {
-  setParliamentDetails({ commit }, { session, userFile }) {
+  setParliamentDetails({ commit, dispatch }, { session, userFile }) {
     commit('loading');
-    return parliamentPreparationService.setParliamentDetails(session, userFile).then(
-      () => commit('loadingFinished'),
-      () => {
-        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
-        commit('loadingFinished');
-        return Promise.reject();
-      },
-    );
+    return parliamentPreparationService
+      .setParliamentDetails(session, userFile)
+      .then(
+        () => {
+          commit('loadingFinished');
+          dispatch('parliamentManagement/loadSessions', null, { root: true });
+        },
+        () => {
+          toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+          commit('loadingFinished');
+          return Promise.reject();
+        },
+      );
   },
   editParliamentDetails({ commit }, session) {
     commit('loading');

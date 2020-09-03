@@ -1,4 +1,5 @@
 import fetchTimeout from 'fetch-timeout';
+import Downloader from 'js-file-downloader';
 import EventBus from '@/utils/eventBus';
 import config from '@/../config';
 import toasts from '@/utils/toasts';
@@ -64,6 +65,13 @@ export default {
     };
 
     return sendRequest(url, options);
+  },
+  downloadFile(url) {
+    const token = JSON.parse(tokenUtils.getToken());
+    return new Downloader({
+      url,
+      headers: [{ name: 'Authorization', value: `Bearer: ${token}` }],
+    });
   },
   postWithFile(url, formData) {
     const options = {
