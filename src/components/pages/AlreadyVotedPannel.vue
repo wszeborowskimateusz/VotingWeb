@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-center">
       <div class="d-flex flex-column ">
         <div class="mb-2 d-block" v-if="amountOfVoters > 0">
-          {{$t('voting.votedAmount', [amountOfAlreadyVoted, amountOfVoters])}}
+          {{ $t('voting.votedAmount', [amountOfAlreadyVoted, amountOfVoters]) }}
         </div>
         <div class="p-4 border rounded">
           <div class="d-flex">
@@ -79,6 +79,12 @@
 import { mapActions, mapState, mapGetters } from 'vuex';
 
 export default {
+  data() {
+    return {
+      refreshTimer: null,
+      refreshTimerInterval: 30000,
+    };
+  },
   computed: {
     ...mapState('votingsManagement', {
       alreadyVotedLists: 'alreadyVotedLists',
@@ -117,6 +123,12 @@ export default {
     this.loadVotings();
     this.loadMembers();
     this.loadAlreadyVotedList(this.$route.params.votingId);
+    this.refreshtTimer = setInterval(() => {
+      this.loadAlreadyVotedList(this.$route.params.votingId);
+    }, this.refreshTimerInterval);
+  },
+  beforeDestroy() {
+    clearInterval(this.refreshtTimer);
   },
   methods: {
     ...mapActions('votingsManagement', ['loadAlreadyVotedList', 'loadVotings']),
