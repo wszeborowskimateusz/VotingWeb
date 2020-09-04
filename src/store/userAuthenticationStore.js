@@ -28,7 +28,6 @@ const actions = {
   },
   logout({ commit }) {
     userService.logout();
-    toasts.successToast(i18n.tc('login.logoutSuccess'));
     commit('logout');
     router.push('/login');
   },
