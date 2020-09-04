@@ -17,8 +17,22 @@ const actions = {
           commit('loadingFinished');
           dispatch('parliamentManagement/loadSessions', null, { root: true });
         },
-        () => {
-          toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+        (error) => {
+          if (error.httpCode === 412) {
+            if (error.errorCode === 'DATA_INCOMPLETE') {
+              toasts.errorToast(
+                i18n.tc('errorMessages.preparation.dataIncomplete'),
+              );
+            } else if (error.errorCode === 'INVALID_FORMAT') {
+              toasts.errorToast(
+                i18n.tc('errorMessages.preparation.invalidFormat'),
+              );
+            } else {
+              toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+            }
+          } else {
+            toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+          }
           commit('loadingFinished');
           return Promise.reject();
         },
@@ -28,8 +42,12 @@ const actions = {
     commit('loading');
     return parliamentPreparationService.editParliamentDetails(session).then(
       () => commit('loadingFinished'),
-      () => {
-        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+      (error) => {
+        if (error.httpCode === 404 && error.errorCode === 'NO_SESSION') {
+          toasts.errorToast(i18n.tc('errorMessages.preparation.noSession'));
+        } else {
+          toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+        }
         commit('loadingFinished');
         return Promise.reject();
       },
@@ -40,8 +58,14 @@ const actions = {
     // TODO: Make the file autodownload
     return parliamentPreparationService.generatePasswords().then(
       (response) => commit('passwordsFileLoaded', response),
-      () => {
-        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+      (error) => {
+        if (error.httpCode === 412) {
+          toasts.errorToast(
+            i18n.tc('errorMessages.preparation.noUserFileLoaded'),
+          );
+        } else {
+          toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+        }
         commit('loadingFinished');
       },
     );

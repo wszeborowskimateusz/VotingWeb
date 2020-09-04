@@ -8,17 +8,43 @@ const parlaimentState = {
   isActionPerforming: false,
 };
 
-function handleActionError(action, commit) {
+function handleActionError(action, commit, error) {
+  if (error.httpCode === 404 && error.errorCode === 'NO_SESSION') {
+    toasts.errorToast(i18n.tc('errorMessages.parliamentManagement.noSession'));
+  } else if (error.httpCode === 435) {
+    if (error.errorCode === 'IN_PROGRESS') {
+      toasts.errorToast(
+        i18n.tc('errorMessages.parliamentManagement.notInProgress'),
+      );
+    } else if (error.errorCode === 'IN_PREPARATION') {
+      toasts.errorToast(
+        i18n.tc('errorMessages.parliamentManagement.notInPreparation'),
+      );
+    } else if (error.errorCode === 'SUSPENDED') {
+      toasts.errorToast(
+        i18n.tc('errorMessages.parliamentManagement.notSuspended'),
+      );
+    } else if (error.errorCode === 'FINISHED') {
+      toasts.errorToast(
+        i18n.tc('errorMessages.parliamentManagement.notFinished'),
+      );
+    }
+  } else if (error.httpCode === 412) {
+    toasts.errorToast(
+      i18n.tc('errorMessages.parliamentManagement.fileValidation'),
+    );
+  } else {
+    toasts.errorToast(i18n.tc(`validation.failedTo${action}Session`));
+  }
   commit('stopAction');
-  toasts.errorToast(i18n.tc(`validation.failedTo${action}Session`));
 }
 
 function handleAction({ commit, dispatch }, sessionId, action, actionName) {
   commit('actionPerforming');
   action(sessionId).then(
     () => dispatch('loadSessions'),
-    () => {
-      handleActionError(actionName, commit);
+    (error) => {
+      handleActionError(actionName, commit, error);
     },
   );
 }

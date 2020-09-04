@@ -2,6 +2,21 @@ import votingsManagementService from '@/services/votingsManagementService';
 import toasts from '@/utils/toasts';
 import i18n from '../i18n';
 
+const handleNotStartedAnd404Errors = (
+  error,
+  anotherErrorCheck = () => false,
+) => {
+  if (error.httpCode === 404 && error.errorCode === 'NO_VOTING') {
+    toasts.errorToast(i18n.tc('errorMessages.votings.noVoting'));
+  } else if (error.httpCode === 434 && error.errorCode === 'NOT_STARTED') {
+    toasts.errorToast(i18n.tc('errorMessages.votings.votingNotStarted'));
+  } else if (anotherErrorCheck(error)) {
+    // handled by anotherErrorCheck
+  } else {
+    toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+  }
+};
+
 const votingState = {
   isLoading: false,
   votings: null,
@@ -32,8 +47,8 @@ const actions = {
   editVoting(_, voting) {
     return votingsManagementService.editVoting(voting.id, voting).then(
       () => {},
-      () => {
-        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+      (error) => {
+        handleNotStartedAnd404Errors(error);
         return Promise.reject();
       },
     );
@@ -41,24 +56,41 @@ const actions = {
   deleteVoting(_, votingId) {
     votingsManagementService.deleteVoting(votingId).then(
       () => {},
-      () => {
-        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+      (error) => {
+        handleNotStartedAnd404Errors(error);
       },
     );
   },
   openVoting(_, votingId) {
     votingsManagementService.openVoting(votingId).then(
       () => {},
-      () => {
-        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+      (error) => {
+        handleNotStartedAnd404Errors(error, (e) => {
+          if (e.httpCode === 437 && e.errorCode === 'DURING_VOTING') {
+            toasts.errorToast(
+              i18n.tc('errorMessages.votings.anotherStartedVoting'),
+            );
+            return true;
+          }
+          return false;
+        });
       },
     );
   },
   closeVoting(_, votingId) {
     votingsManagementService.closeVoting(votingId).then(
       () => {},
-      () => {
-        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+      (error) => {
+        if (error.httpCode === 404 && error.errorCode === 'NO_VOTING') {
+          toasts.errorToast(i18n.tc('errorMessages.votings.noVoting'));
+        } else if (
+          error.httpCode === 434 &&
+          error.errorCode === 'DURING_VOTING'
+        ) {
+          toasts.errorToast(i18n.tc('errorMessages.votings.notDuringVoting'));
+        } else {
+          toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+        }
       },
     );
   },
@@ -66,8 +98,14 @@ const actions = {
   generateVotingReport(_, votingId) {
     votingsManagementService.generateVotingReport(votingId).then(
       () => {},
-      () => {
-        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+      (error) => {
+        if (error.httpCode === 404 && error.errorCode === 'NO_VOTING') {
+          toasts.errorToast(i18n.tc('errorMessages.votings.noVoting'));
+        } else if (error.httpCode === 434 && error.errorCode === 'FINISHED') {
+          toasts.errorToast(i18n.tc('errorMessages.votings.notFinished'));
+        } else {
+          toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+        }
       },
     );
   },
@@ -80,8 +118,13 @@ const actions = {
           alreadyVotedList: response.voters,
           votingId,
         }),
-      () => {
-        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+      (error) => {
+        if (error.httpCode === 404 && error.errorCode === 'NO_VOTING') {
+          toasts.errorToast(i18n.tc('errorMessages.votings.noVoting'));
+        } else {
+          toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+        }
+
         commit('loadingAlreadyVotedListFailed');
       },
     );
