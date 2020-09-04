@@ -4,27 +4,32 @@
       {{ duringVoting[0].name }}
     </h2>
     <div class="d-flex justify-content-center">
-      <div class="d-flex flex-column">
-        <div class="d-flex">
-          <div
-            class="rounded mr-2"
-            style="background-color: #03A9F4; height: 20px; width: 20px;"
-          />
-          {{ $t('voting.alreadyVoted') }}
+      <div class="d-flex flex-column ">
+        <div class="mb-2 d-block" v-if="amountOfVoters > 0">
+          {{$t('voting.votedAmount', [amountOfAlreadyVoted, amountOfVoters])}}
         </div>
+        <div class="p-4 border rounded">
+          <div class="d-flex">
+            <div
+              class="rounded mr-2"
+              style="background-color: #03A9F4; height: 20px; width: 20px;"
+            />
+            {{ $t('voting.alreadyVoted') }}
+          </div>
 
-        <div class="d-flex">
-          <div
-            class="rounded mr-2"
-            style="background-color: #FF9800; height: 20px; width: 20px;"
-          />
-          {{ $t('voting.notVotedYet') }}
+          <div class="d-flex mb-5">
+            <div
+              class="rounded mr-2"
+              style="background-color: #FF9800; height: 20px; width: 20px;"
+            />
+            {{ $t('voting.notVotedYet') }}
+          </div>
+
+          <span class="mt-2 p-2 border rounded"
+            >{{ $t('userManagement.numberInSquare') }} -
+            {{ $t('userManagement.mandateNumber') }}</span
+          >
         </div>
-
-        <span class="mt-2 p-2 border rounded"
-          >{{ $t('userManagement.numberInSquare') }} -
-          {{ $t('userManagement.mandateNumber') }}</span
-        >
       </div>
     </div>
 
@@ -100,6 +105,12 @@ export default {
           didVote: inAlreadyVoted != null,
         };
       });
+    },
+    amountOfAlreadyVoted() {
+      return this.votedList.filter((member) => member.didVote).length;
+    },
+    amountOfVoters() {
+      return this.votedList.length;
     },
   },
   mounted() {

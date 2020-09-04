@@ -56,7 +56,7 @@ export default {
       valid: null,
       session: {
         name: '',
-        date: null,
+        date: new Date().toISOString().substr(0, 10),
         place: '',
       },
       userFile: null,

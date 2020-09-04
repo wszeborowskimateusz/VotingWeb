@@ -19,7 +19,10 @@ function handleResponse(response) {
         EventBus.$emit('logout');
       }
 
-      const error = (data && data.message) || response.statusText;
+      const error = {
+        httpCode: response.status,
+        errorCode: response.statusText,
+      };
       return Promise.reject(error);
     }
 

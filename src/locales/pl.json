@@ -126,6 +126,7 @@
     "vote": "Głos",
     "alreadyVoted": "Osoby, które już zagłosowały",
     "notVotedYet": "Osoby, które jeszcze nie zagłosowały",
+    "votedAmount": "Zagłosowało {0} / {1} osób",
     "votingInProgress": "Głosowanie w trakcie",
     "finishVoting": "Zakończ głosowanie",
     "name": "Nazwa",
@@ -201,5 +202,32 @@
     "block": "Zablokuj",
     "unblock": "Odblokuj",
     "numberInSquare": "Liczba w kwadracie"
+  },
+  "errorMessages": {
+    "preparation": {
+      "dataIncomplete": "Przesłane dane są niekompletne. Upewnij się, że wszystkie wymagane pola w podanym pliku zostały poprawnie wypełnione.",
+      "invalidFormat": "Podany plik ma zły format. Upewnij się, że podany plik posiada wszystkie wymagane kolumny i ma właściwe rozszerzenie - csv.",
+      "noUserFileLoaded": "Aby wygenerować hasła musisz załadować plik z uczestnikami.",
+      "noSession": "Posiedzenie, które próbujesz edytować nie istnieje."
+    },
+    "votings": {
+      "noVoting": "Głosowanie, które próbujesz modyfikować nie istnieje.",
+      "votingNotStarted": "Możesz modyfikować/zamykać tylko głosowanie w trakcie.",
+      "anotherStartedVoting": "Tylko jedno głosowanie może być w trakcie w jednym czasie. Zakończ głosowanie, aby móc rozpocząć nowe.",
+      "notDuringVoting": "Możesz zatrzymać tylko głosowanie w trakcie.",
+      "alreadyVotedNoVoting": "Obecne głosowanie zostało już zakończone.",
+      "notFinished": "Możesz wygenerować raport tylko dla zakończonych głosowań."
+    },
+    "members": {
+      "noVoter": "Nie odnaleziono podanego użytkownika."
+    },
+    "parliamentManagement": {
+      "noSession": "Nie odnaleziono podanego posiedzenia.",
+      "notInProgress": "Możesz zakończyć/zawiesić tylko takie posiedzenia, które są w trakcie.",
+      "notInPreparation": "Możesz rozpocząć tylko posiedzenia w przygotowaniu.",
+      "notSuspended": "Możesz wznowić tylko posiedzenia, które są zawieszone.",
+      "notFinished": "Możesz usunąć tylko posiedzenia zakończone i zarchiwizone w globalnej bazie danych.",
+      "fileValidation": "Podany plik ma zły format."
+    }
   }
 }
