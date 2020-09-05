@@ -38,10 +38,13 @@ const actions = {
         },
       );
   },
-  editParliamentDetails({ commit }, session) {
+  editParliamentDetails({ commit, dispatch }, session) {
     commit('loading');
     return parliamentPreparationService.editParliamentDetails(session).then(
-      () => commit('loadingFinished'),
+      () => {
+        commit('loadingFinished');
+        dispatch('parliamentManagement/loadSessions', null, { root: true });
+      },
       (error) => {
         if (error.httpCode === 404 && error.errorCode === 'NO_SESSION') {
           toasts.errorToast(i18n.tc('errorMessages.preparation.noSession'));

@@ -12,7 +12,7 @@
       </v-btn>
       <v-btn
         color="success"
-        @click="startSession"
+        @click="startSession(session.id)"
         v-if="status === 'IN_PREPARATION'"
       >
         <v-icon left>mdi-play</v-icon>
@@ -21,16 +21,16 @@
     </div>
 
     <div v-if="status === 'IN_PROGRESS'">
-      <v-btn color="warning" class="mr-2" @click="suspendSession">
+      <v-btn color="warning" class="mr-2" @click="suspendSession(session.id)">
         <v-icon left>mdi-pause</v-icon>
         {{ $t('sessionActions.suspend') }}
       </v-btn>
-      <v-btn color="error" @click="finishSession">
+      <v-btn color="error" @click="finishSession(session.id)">
         <v-icon left>mdi-stop</v-icon>
         {{ $t('sessionActions.finish') }}
       </v-btn>
     </div>
-    <div v-if="status === 'SUSPENDED'" @click="resumeSession">
+    <div v-if="status === 'SUSPENDED'" @click="resumeSession(session.id)">
       <v-btn>
         <v-icon left>mdi-play</v-icon>
         {{ $t('sessionActions.resume') }}

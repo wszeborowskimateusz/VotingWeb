@@ -42,7 +42,12 @@ function handleActionError(action, commit, error) {
 function handleAction({ commit, dispatch }, sessionId, action, actionName) {
   commit('actionPerforming');
   action(sessionId).then(
-    () => dispatch('loadSessions'),
+    () => {
+      if (actionName === 'Start' || actionName === 'Resume') {
+        dispatch('changeActiveSession', sessionId);
+      }
+      dispatch('loadSessions');
+    },
     (error) => {
       handleActionError(actionName, commit, error);
     },

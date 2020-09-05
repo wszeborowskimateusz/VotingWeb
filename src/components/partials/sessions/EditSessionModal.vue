@@ -113,9 +113,7 @@ export default {
     ...mapActions('parliamentPreparation', ['editParliamentDetails']),
     beforeOpen(args) {
       this.session = JSON.parse(JSON.stringify(args.params));
-      this.session.date = new Date(this.session.date)
-        .toISOString()
-        .substring(0, 10);
+      this.session.date = args.params.date.substring(0, 10);
 
       this.loadMembers({
         sessionIdToLoad: this.session.id,
