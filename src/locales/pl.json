@@ -23,6 +23,7 @@
     "failedToResumeSession": "Wystąpił problem przy próbie wznowienia sesji, spróbuj ponownie.",
     "failedToSuspendSession": "Wystąpił problem przy próbie zatrzymanie sesji, spróbuj ponownie.",
     "failedToStartSession": "Wystąpił problem przy próbie rozpoczęcie sesji, spróbuj ponownie.",
+    "failedToReadySession": "Wystąpił problem przy próbie rozpoczęcie sesji, spróbuj ponownie.",
     "failedToFinishSession": "Wystąpił problem przy próbie zakończenia sesji, spróbuj ponownie.",
     "failedToDownloadSession": "Wystąpił problem przy próbie pobrania sesji, spróbuj ponownie.",
     "failedToUploadSession": "Wystąpił problem przy próbie wczytania sesji, spróbuj ponownie.",
@@ -225,6 +226,8 @@
       "noSession": "Nie odnaleziono podanego posiedzenia.",
       "notInProgress": "Możesz zakończyć/zawiesić tylko takie posiedzenia, które są w trakcie.",
       "notInPreparation": "Możesz rozpocząć tylko posiedzenia w przygotowaniu.",
+      "notBeforeVoting": "Możesz rozpocząć tylko posiedzenia, które są w statusie 'przed głosowaniem'. Upewnij się ponadto, że została wprowadzona komisja skrótacyjna.",
+      "alreadyOneInProgress": "Nie możesz rozpocząć posiedzenia - tylko jedno posiedzenie może być w trakcie w jednym czasie.",
       "notSuspended": "Możesz wznowić tylko posiedzenia, które są zawieszone.",
       "notFinished": "Możesz usunąć tylko posiedzenia zakończone i zarchiwizone w globalnej bazie danych.",
       "fileValidation": "Podany plik ma zły format."

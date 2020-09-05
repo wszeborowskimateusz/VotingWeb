@@ -20,6 +20,10 @@ function handleActionError(action, commit, error) {
       toasts.errorToast(
         i18n.tc('errorMessages.parliamentManagement.notInPreparation'),
       );
+    } else if (error.errorCode === 'BEFORE_VOTING') {
+      toasts.errorToast(
+        i18n.tc('errorMessages.parliamentManagement.notBeforeVoting'),
+      );
     } else if (error.errorCode === 'SUSPENDED') {
       toasts.errorToast(
         i18n.tc('errorMessages.parliamentManagement.notSuspended'),
@@ -29,6 +33,10 @@ function handleActionError(action, commit, error) {
         i18n.tc('errorMessages.parliamentManagement.notFinished'),
       );
     }
+  } else if (error.httpCode === 437 && error.errorCode === 'IN_PROGRESS') {
+    toasts.errorToast(
+      i18n.tc('errorMessages.parliamentManagement.alreadyOneInProgress'),
+    );
   } else if (error.httpCode === 412) {
     toasts.errorToast(
       i18n.tc('errorMessages.parliamentManagement.fileValidation'),
@@ -43,7 +51,11 @@ function handleAction({ commit, dispatch }, sessionId, action, actionName) {
   commit('actionPerforming');
   action(sessionId).then(
     () => {
-      if (actionName === 'Start' || actionName === 'Resume') {
+      if (
+        actionName === 'Ready' ||
+        actionName === 'Start' ||
+        actionName === 'Resume'
+      ) {
         dispatch('changeActiveSession', sessionId);
       }
       dispatch('loadSessions');
@@ -88,6 +100,9 @@ const actions = {
       parliamentManagementService.startSession,
       'Start',
     );
+  },
+  readySession(args, sessionId) {
+    handleAction(args, sessionId, parliamentManagementService.ready, 'Ready');
   },
   resumeSession(args, sessionId) {
     handleAction(

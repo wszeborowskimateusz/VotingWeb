@@ -1,5 +1,7 @@
 <template>
-  <div v-if="activeSession == null">TODO: Probably some error</div>
+  <div v-if="activeSession == null">
+    <!-- TODO: Probably some error -->
+  </div>
   <div v-else>
     <v-divider />
     <v-btn

@@ -12,7 +12,7 @@
       </v-btn>
       <v-btn
         color="success"
-        @click="startSession(session.id)"
+        @click="readySession(session.id)"
         v-if="status === 'IN_PREPARATION'"
       >
         <v-icon left>mdi-play</v-icon>
@@ -60,7 +60,7 @@ export default {
     ...mapActions('parliamentManagement', [
       'finishSession',
       'suspendSession',
-      'startSession',
+      'readySession',
       'resumeSession',
     ]),
     ...mapActions('parliamentPreparation', ['getPasswordsList']),

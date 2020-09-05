@@ -12,6 +12,12 @@ function finishSession(sessionId) {
   return requestSender.put(url, {});
 }
 
+function readySession(sessionId) {
+  const url = `/parliament/${sessionId}/ready`;
+
+  return requestSender.put(url, {});
+}
+
 function startSession(sessionId) {
   const url = `/parliament/${sessionId}/start`;
 
@@ -58,6 +64,7 @@ export default {
   getSessionsList,
   finishSession,
   suspendSession,
+  readySession,
   startSession,
   resumeSession,
   removeSession,

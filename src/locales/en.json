@@ -23,6 +23,7 @@
      "failedToResumeSession": "There was an error while resuming the session, try again.",
      "failedToSuspendSession": "There was an error while stopping the session, try again.",
      "failedToStartSession": "There was an error while starting the session, try again.",
+     "failedToReadySession": "There was an error while starting the session, try again.",
      "failedToFinishSession": "There was an error while finishing the session, try again.",
      "failedToDownloadSession": "There was an error while downloading the session, try again.",
      "failedToUploadSession": "There was an error while uploading the session, try again.",
@@ -225,6 +226,8 @@
       "noSession": "There is no such parliament.",
       "notInProgress": "You can only finish/suspend a parliament that is in progress.",
       "notInPreparation": "You can only start a parliament that is in preparations.",
+      "notBeforeVoting": "You can only start a parliament that is in a 'before voting' status.",
+      "alreadyOneInProgress": "You cannot start a parliament - only one parliament can be in progress at a time.",
       "notSuspended": "You can only resume a parliament that is suspended.",
       "notFinished": "You can only delete a parliament that is finished and archived to global database",
       "fileValidation": "The file you provided is in a wrong format."

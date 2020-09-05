@@ -68,7 +68,7 @@
 }
 </style>
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import imagesGetter from '../../utils/imagesGetter';
 
 export default {
@@ -107,8 +107,16 @@ export default {
     },
   },
   methods: {
+    ...mapActions('parliamentPreparation', ['editParliamentDetails']),
+    ...mapActions('parliamentManagement', ['startSession']),
     handleSubmit() {
       this.$refs.form.validate();
+      if (this.valid) {
+        this.editParliamentDetails({
+          electionLeadId: this.electionLead,
+          electionCommittee: this.electionCommittee,
+        }).then(() => this.startSession(this.activeSession.id));
+      }
     },
   },
 };
