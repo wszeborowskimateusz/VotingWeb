@@ -2,10 +2,12 @@ import parliamentPreparationService from '@/services/parliamentPreparationServic
 import toasts from '@/utils/toasts';
 import i18n from '../i18n';
 
-const preparationState = {
+const getDefaultState = () => ({
   isLoading: false,
   passwordsFile: null,
-};
+});
+
+const preparationState = getDefaultState();
 
 const actions = {
   setParliamentDetails({ commit, dispatch }, { session, userFile }) {
@@ -73,6 +75,9 @@ const actions = {
       },
     );
   },
+  resetState({ commit }) {
+    commit('resetState');
+  },
 };
 
 /* eslint-disable no-param-reassign */
@@ -86,6 +91,9 @@ const mutations = {
   passwordsFileLoaded(state, file) {
     state.passwordsFile = file;
     state.isLoading = false;
+  },
+  resetState(state) {
+    Object.assign(state, getDefaultState());
   },
 };
 /* eslint-enable no-param-reassign */

@@ -4,7 +4,12 @@ import membersManagementService from '@/services/membersManagementService';
 import toasts from '@/utils/toasts';
 import i18n from '../i18n';
 
-const membersState = { isLoading: false, members: {} };
+const getDefaultState = () => ({
+  isLoading: false,
+  members: {},
+});
+
+const membersState = getDefaultState();
 
 const actions = {
   /* eslint-disable object-curly-newline */
@@ -53,6 +58,9 @@ const actions = {
       () => toasts.errorToast(i18n.tc('common.somethingWentWrong')),
     );
   },
+  resetState({ commit }) {
+    commit('resetState');
+  },
 };
 
 /* eslint-disable no-param-reassign */
@@ -70,6 +78,9 @@ const mutations = {
   },
   stopLoading(state) {
     state.isLoading = false;
+  },
+  resetState(state) {
+    Object.assign(state, getDefaultState());
   },
 };
 /* eslint-enable no-param-reassign */

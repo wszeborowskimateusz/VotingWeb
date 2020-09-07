@@ -2,6 +2,12 @@ import votingsManagementService from '@/services/votingsManagementService';
 import toasts from '@/utils/toasts';
 import i18n from '../i18n';
 
+const getDefaultState = () => ({
+  isLoading: false,
+  votings: null,
+  alreadyVotedLists: null,
+});
+
 const handleNotStartedAnd404Errors = (
   error,
   anotherErrorCheck = () => false,
@@ -17,11 +23,7 @@ const handleNotStartedAnd404Errors = (
   }
 };
 
-const votingState = {
-  isLoading: false,
-  votings: null,
-  alreadyVotedLists: null,
-};
+const votingState = getDefaultState();
 
 const actions = {
   loadVotings({ commit }) {
@@ -129,6 +131,9 @@ const actions = {
       },
     );
   },
+  resetState({ commit }) {
+    commit('resetState');
+  },
   /* eslint-enable implicit-arrow-linebreak */
 };
 
@@ -158,6 +163,9 @@ const mutations = {
   },
   loadingAlreadyVotedListFailed(state) {
     state.isLoading = false;
+  },
+  resetState(state) {
+    Object.assign(state, getDefaultState());
   },
 };
 /* eslint-enable no-param-reassign */

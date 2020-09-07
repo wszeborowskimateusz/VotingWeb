@@ -26,8 +26,12 @@ const actions = {
       },
     );
   },
-  logout({ commit }) {
+  logout({ commit, dispatch }) {
     userService.logout();
+    dispatch('membersManagement/resetState', null, { root: true });
+    dispatch('parliamentManagement/resetState', null, { root: true });
+    dispatch('parliamentPreparation/resetState', null, { root: true });
+    dispatch('votingsManagement/resetState', null, { root: true });
     commit('logout');
     router.push('/login');
   },

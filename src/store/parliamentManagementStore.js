@@ -2,11 +2,13 @@ import parliamentManagementService from '@/services/parliamentManagementService'
 import toasts from '@/utils/toasts';
 import i18n from '../i18n';
 
-const parlaimentState = {
+const getDefaultState = () => ({
   isLoading: false,
   sessions: null,
   isActionPerforming: false,
-};
+});
+
+const parlaimentState = getDefaultState();
 
 function handleActionError(action, commit, error) {
   if (error.httpCode === 404 && error.errorCode === 'NO_SESSION') {
@@ -145,6 +147,9 @@ const actions = {
       },
     );
   },
+  resetState({ commit }) {
+    commit('resetState');
+  },
 };
 
 /* eslint-disable no-param-reassign */
@@ -167,6 +172,9 @@ const mutations = {
     state.isLoading = false;
     state.sessions = null;
     state.isActionPerforming = false;
+  },
+  resetState(state) {
+    Object.assign(state, getDefaultState());
   },
 };
 /* eslint-enable no-param-reassign */
