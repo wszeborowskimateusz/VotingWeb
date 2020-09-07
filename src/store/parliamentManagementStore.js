@@ -104,7 +104,7 @@ const actions = {
     );
   },
   readySession(args, sessionId) {
-    handleAction(args, sessionId, parliamentManagementService.ready, 'Ready');
+    handleAction(args, sessionId, parliamentManagementService.readySession, 'Ready');
   },
   resumeSession(args, sessionId) {
     handleAction(
