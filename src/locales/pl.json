@@ -116,7 +116,7 @@
     "enterCommitee": "Podaj skład komisji skrutacyjnej",
     "electionLead": "Przewodniczący komisji skrutacyjnej",
     "committeeMembers": "Skład komisji skrutacyjnej",
-    "committeeMembersNoLead": "Skład komisji skrutacyjnej (bez przewodniczącego)",
+    "committeeMembersNoLead": "Skład komisji skrutacyjnej",
     "pickElectionLead": "Wybierz przewodniczącego",
     "pickCommitteeMembers": "Wybierz skład",
     "electionLeadIsRequired": "Przewodniczący komisji jest wymagany",

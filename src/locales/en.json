@@ -116,7 +116,7 @@
     "enterCommitee": "Enter election committee",
     "electionLead": "Election lead",
     "committeeMembers": "Committee members",
-    "committeeMembersNoLead": "Committee members (without election lead)",
+    "committeeMembersNoLead": "Committee members",
     "pickElectionLead": "Pick election lead",
     "pickCommitteeMembers": "Pick committee members",
     "electionLeadIsRequired": "Election lead is required",
