@@ -1,4 +1,5 @@
 import requestSender from '@/utils/requestSender';
+import tokenUtils from '../utils/tokenUtils';
 
 function getSessionsList() {
   const url = '/parliament';
@@ -57,7 +58,11 @@ function uploadSession(sessionFile) {
 async function setActiveSession(sessionId) {
   const url = '/parliament/set-active-session';
 
-  return requestSender.post(url, { sessionId });
+  return requestSender.post(url, { sessionId }).then((response) => {
+    console.log(`got response ${response}`);
+    tokenUtils.setToken(JSON.stringify(response.token));
+    return response;
+  });
 }
 
 export default {

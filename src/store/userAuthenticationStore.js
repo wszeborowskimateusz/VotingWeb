@@ -4,7 +4,8 @@ import toasts from '@/utils/toasts';
 import i18n from '../i18n';
 import tokenUtils from '../utils/tokenUtils';
 
-function onLoginSuccess(commit) {
+function onLoginSuccess(commit, dispatch) {
+  dispatch('parliamentManagement/loadSessions', null, { root: true });
   commit('loginSuccess');
   router.push('/');
 }
@@ -14,10 +15,10 @@ const userToken = JSON.parse(tokenUtils.getToken());
 const userState = userToken ? { status: { loggedIn: true } } : { status: {} };
 
 const actions = {
-  login({ commit }, { username, password }) {
+  login({ commit, dispatch }, { username, password }) {
     commit('loginInProgress');
     userService.login(username, password).then(
-      () => onLoginSuccess(commit),
+      () => onLoginSuccess(commit, dispatch),
       () => {
         toasts.errorToast(
           `${i18n.t('login.loginFailed')}. ${i18n.t('common.tryAgain')}`,
