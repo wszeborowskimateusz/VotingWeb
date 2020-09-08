@@ -74,6 +74,10 @@
           <v-icon left>mdi-content-save</v-icon>
           {{ $t('common.save') }}
         </v-btn>
+
+        <v-overlay :value="isLoading">
+          <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
       </v-form>
     </div>
   </common-modal>
@@ -97,6 +101,7 @@ export default {
   },
   computed: {
     ...mapState('membersManagement', ['members']),
+    ...mapState('parliamentPreparation', ['isLoading']),
     membersList() {
       if (!this.members[this.session.id]) {
         return [];

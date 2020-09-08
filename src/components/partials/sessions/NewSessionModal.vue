@@ -39,16 +39,21 @@
           required
         ></v-date-picker>
 
-        <v-btn color="primary" class="my-5" large @click="handleSubmit">
-          <v-icon left>mdi-plus</v-icon>
-          {{ $t('common.create') }}
-        </v-btn>
+        <div>
+          <v-btn color="primary" class="my-5" large @click="handleSubmit">
+            <v-icon left>mdi-plus</v-icon>
+            {{ $t('common.create') }}
+          </v-btn>
+        </div>
+        <v-overlay :value="isLoading">
+          <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
       </v-form>
     </div>
   </common-modal>
 </template>
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   data() {
@@ -61,6 +66,9 @@ export default {
       },
       userFile: null,
     };
+  },
+  computed: {
+    ...mapState('parliamentPreparation', ['isLoading']),
   },
   methods: {
     ...mapActions('parliamentPreparation', ['setParliamentDetails']),
