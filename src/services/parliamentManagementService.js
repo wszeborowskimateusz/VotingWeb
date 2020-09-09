@@ -59,7 +59,6 @@ async function setActiveSession(sessionId) {
   const url = '/parliament/set-active-session';
 
   return requestSender.post(url, { sessionId }).then((response) => {
-    console.log(`got response ${response}`);
     tokenUtils.setToken(JSON.stringify(response.token));
     return response;
   });

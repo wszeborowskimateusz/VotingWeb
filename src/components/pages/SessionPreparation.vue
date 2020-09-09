@@ -100,6 +100,7 @@ export default {
       }));
     },
     electionLeadPossibilities() {
+      if (this.committee == null) return [];
       return this.committee.map((member) => ({
         text: member.fullName,
         value: member,
