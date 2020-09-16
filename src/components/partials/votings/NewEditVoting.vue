@@ -86,7 +86,7 @@
       </v-radio-group>
 
       <v-select
-        v-model="voting.electionLead"
+        v-model="voting.electionLeadId"
         :items="electionCommittee"
         :label="$t('voting.electionLead')"
         item-text="fullName"
@@ -204,7 +204,8 @@ export default {
         cardinality: null,
         secrecy: true,
         threshold: null,
-        electionLead: this.initialElectionLead,
+        electionLeadId:
+          this.initialElectionLead != null ? this.initialElectionLead.id : null,
         options: [{ id: 0, name: '' }],
       };
     },
@@ -214,6 +215,10 @@ export default {
     submit() {
       this.$refs.form.validate();
       if (this.valid) {
+        if (this.voting.threshold) {
+          this.voting.threshold = parseInt(this.voting.threshold, 10);
+        }
+
         if (this.editMode) {
           this.editVoting(this.voting).then(() => {
             this.closeModal();
