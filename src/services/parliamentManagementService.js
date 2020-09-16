@@ -52,7 +52,10 @@ function downloadSession(sessionId) {
 function uploadSession(sessionFile) {
   const url = '/parliament/upload';
 
-  return requestSender.postWithFile(url, sessionFile);
+  const body = new FormData();
+  body.append('sessionFile', sessionFile);
+
+  return requestSender.postWithFile(url, body);
 }
 
 async function setActiveSession(sessionId) {

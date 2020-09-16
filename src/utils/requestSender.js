@@ -13,6 +13,7 @@ function refreshToken(refreshedToken) {
 function handleResponse(response) {
   return response.text().then((text) => {
     const data = text && JSON.parse(text);
+    console.log(data);
     if (!response.ok) {
       if (response.status === 401) {
         toasts.errorToast(i18n.tc('login.invalidToken'));
@@ -47,6 +48,10 @@ function sendRequest(url, options) {
     reqOptions.headers.Authorization = `Bearer ${token}`;
   }
 
+  if (options.body) {
+    console.log(options.body);
+  }
+
   return fetchTimeout(
     prepareApiUrl(url),
     reqOptions,
@@ -72,7 +77,7 @@ export default {
   downloadFile(url) {
     const token = JSON.parse(tokenUtils.getToken());
     return new Downloader({
-      url,
+      url: prepareApiUrl(url),
       headers: [{ name: 'Authorization', value: `Bearer: ${token}` }],
     });
   },

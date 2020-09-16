@@ -19,6 +19,8 @@ function generatePasswords() {
 function editParliamentDetails(parliamentDetails) {
   const url = '/preparations/details';
 
+  console.log(parliamentDetails);
+
   return requestSender.put(url, parliamentDetails);
 }
 
