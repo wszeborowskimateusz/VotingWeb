@@ -161,16 +161,26 @@ export default {
     },
   },
   data() {
+    const isVotingMultipleChoice =
+      this.voting.cardinality === 'MULTIPLE_CHOICE';
+
+    const fieldsToDisplay = [
+      'status',
+      'majority',
+      'cardinality',
+      'secrecy',
+      'threshold',
+      'electionLead',
+    ];
+
+    if (!isVotingMultipleChoice) {
+      // Remove threshold
+      fieldsToDisplay.splice(4, 1);
+    }
+
     return {
       inEditMode: false,
-      fieldsToDisplay: [
-        'status',
-        'majority',
-        'cardinality',
-        'secrecy',
-        'threshold',
-        'electionLead',
-      ],
+      fieldsToDisplay,
       enumFields: ['status', 'majority', 'cardinality'],
     };
   },

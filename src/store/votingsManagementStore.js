@@ -37,35 +37,35 @@ const actions = {
     );
   },
   // TODO: Maybe add some loading behaviour - perhaps use home loader
-  addVoting(_, voting) {
+  addVoting({ dispatch }, voting) {
     return votingsManagementService.addVoting(voting).then(
-      () => {},
+      () => dispatch('loadVotings'),
       () => {
         toasts.errorToast(i18n.tc('common.somethingWentWrong'));
         return Promise.reject();
       },
     );
   },
-  editVoting(_, voting) {
+  editVoting({ dispatch }, voting) {
     return votingsManagementService.editVoting(voting.id, voting).then(
-      () => {},
+      () => dispatch('loadVotings'),
       (error) => {
         handleNotStartedAnd404Errors(error);
         return Promise.reject();
       },
     );
   },
-  deleteVoting(_, votingId) {
+  deleteVoting({ dispatch }, votingId) {
     votingsManagementService.deleteVoting(votingId).then(
-      () => {},
+      () => dispatch('loadVotings'),
       (error) => {
         handleNotStartedAnd404Errors(error);
       },
     );
   },
-  openVoting(_, votingId) {
+  openVoting({ dispatch }, votingId) {
     votingsManagementService.openVoting(votingId).then(
-      () => {},
+      () => dispatch('loadVotings'),
       (error) => {
         handleNotStartedAnd404Errors(error, (e) => {
           if (e.httpCode === 437 && e.errorCode === 'DURING_VOTING') {
@@ -79,9 +79,9 @@ const actions = {
       },
     );
   },
-  closeVoting(_, votingId) {
+  closeVoting({ dispatch }, votingId) {
     votingsManagementService.closeVoting(votingId).then(
-      () => {},
+      () => dispatch('loadVotings'),
       (error) => {
         if (error.httpCode === 404 && error.errorCode === 'NO_VOTING') {
           toasts.errorToast(i18n.tc('errorMessages.votings.noVoting'));

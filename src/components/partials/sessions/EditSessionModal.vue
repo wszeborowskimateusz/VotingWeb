@@ -32,23 +32,6 @@
 
         <v-autocomplete
           v-if="session.status !== 'IN_PREPARATION'"
-          class="mb-2"
-          v-model="session.electionLead"
-          :items="membersList"
-          :rules="
-            session.status === 'BEFORE_VOTING'
-              ? []
-              : [(v) => !!v || $t('session.electionLeadIsRequired')]
-          "
-          :label="$t('parliamentManagement.electionLead')"
-        >
-          <template v-slot:no-data>
-            {{ $t('userManagement.noResults') }}
-          </template>
-        </v-autocomplete>
-
-        <v-autocomplete
-          v-if="session.status !== 'IN_PREPARATION'"
           v-model="session.electionCommittee"
           :items="membersList"
           multiple
@@ -67,6 +50,23 @@
         >
           <template v-slot:no-data>
             {{ $t('userManagement.noResults') }}
+          </template>
+        </v-autocomplete>
+
+        <v-autocomplete
+          v-if="session.status !== 'IN_PREPARATION'"
+          class="mb-2"
+          v-model="session.electionLead"
+          :items="electionLeadPossibilities"
+          :rules="
+            session.status === 'BEFORE_VOTING'
+              ? []
+              : [(v) => !!v || $t('session.electionLeadIsRequired')]
+          "
+          :label="$t('parliamentManagement.electionLead')"
+        >
+          <template v-slot:no-data>
+            {{ $t('session.pickLeadFromCommittee') }}
           </template>
         </v-autocomplete>
 
@@ -109,7 +109,14 @@ export default {
 
       return this.members[this.session.id].map((member) => ({
         text: member.fullName,
-        value: member.id,
+        value: member,
+      }));
+    },
+    electionLeadPossibilities() {
+      if (this.session.electionCommittee == null) return [];
+      return this.session.electionCommittee.map((member) => ({
+        text: member.fullName,
+        value: member,
       }));
     },
   },
@@ -128,6 +135,9 @@ export default {
     handleSubmit() {
       this.$refs.form.validate();
       if (this.valid) {
+        this.session.electionCommittee = this.session.electionCommittee.map(
+          (member) => member.id,
+        );
         this.editParliamentDetails(this.session).then(() => {
           this.$modal.hide('editSessionModal');
         });

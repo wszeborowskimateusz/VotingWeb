@@ -121,7 +121,8 @@
     "pickCommitteeMembers": "Pick committee members",
     "electionLeadIsRequired": "Election lead is required",
     "committeeAtLeastMembers": "The committee should have at least {amount} members",
-    "noUserFound": "No user found"
+    "noUserFound": "No user found",
+    "pickLeadFromCommittee": "First pick the committee"
   },
   "voting": {
     "vote": "Vote",

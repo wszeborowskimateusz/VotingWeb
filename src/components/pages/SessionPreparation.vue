@@ -44,7 +44,7 @@
         :label="$t('parliamentManagement.electionLead')"
       >
         <template v-slot:no-data>
-          {{ $t('userManagement.noResults') }}
+          {{ $t('session.pickLeadFromCommittee') }}
         </template>
       </v-autocomplete>
 

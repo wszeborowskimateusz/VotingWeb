@@ -121,7 +121,8 @@
     "pickCommitteeMembers": "Wybierz skład",
     "electionLeadIsRequired": "Przewodniczący komisji jest wymagany",
     "committeeAtLeastMembers": "Komisja powinna składać się z przynajmniej {amount} członków",
-    "noUserFound": "Nie znaleziono użytkownika"
+    "noUserFound": "Nie znaleziono użytkownika",
+    "pickLeadFromCommittee": "Najpierw wybierz komisję"
   },
   "voting": {
     "vote": "Głos",
