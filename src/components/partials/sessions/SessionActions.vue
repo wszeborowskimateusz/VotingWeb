@@ -5,7 +5,7 @@
         color="primary"
         class="mr-2"
         v-if="status === 'BEFORE_VOTING' || status === 'IN_PREPARATION'"
-        @click="getPasswordsList"
+        @click="getPasswordsList(session.id)"
       >
         <v-icon left>mdi-file</v-icon>
         {{ $t('sessionActions.generatePasswords') }}

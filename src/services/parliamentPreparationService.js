@@ -10,8 +10,12 @@ function setParliamentDetails(session, userFile) {
   return requestSender.postWithFile(url, body);
 }
 
-function generatePasswords() {
-  const url = '/preparations/get-pass';
+function generatePasswords(sessionId) {
+  let url = '/preparations/passwords';
+
+  if (sessionId != null) {
+    url += `?id=${sessionId}`;
+  }
 
   return requestSender.downloadFile(url);
 }

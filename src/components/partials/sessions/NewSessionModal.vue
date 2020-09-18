@@ -84,6 +84,7 @@ export default {
       }
     },
     beforeClose() {
+      this.session.date = new Date().toISOString().substr(0, 10);
       this.$refs.form.reset();
     },
     onFileInputChange(file) {

@@ -58,10 +58,10 @@ const actions = {
       },
     );
   },
-  getPasswordsList({ commit }) {
+  getPasswordsList({ commit }, sessionId) {
     commit('loading');
     // TODO: Make the file autodownload
-    return parliamentPreparationService.generatePasswords().then(
+    return parliamentPreparationService.generatePasswords(sessionId).then(
       (response) => commit('passwordsFileLoaded', response),
       (error) => {
         if (error.httpCode === 412) {
