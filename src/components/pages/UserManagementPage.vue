@@ -39,7 +39,7 @@
       </template>
 
       <template v-slot:item.absent="props">
-        {{ $t(`common.${props.item.absent ? 'yes' : 'no'}`) }}
+        {{ $t(`common.${!props.item.absent ? 'yes' : 'no'}`) }}
       </template>
 
       <template v-slot:item.isBlocked="props">
@@ -97,7 +97,7 @@ export default {
           text: this.$t('userManagement.mandateNumber'),
           value: 'mandateNumber',
         },
-        { text: this.$t('userManagement.absent'), value: 'absent' },
+        { text: this.$t('userManagement.present'), value: 'absent' },
         { text: this.$t('userManagement.blocked'), value: 'isBlocked' },
         {
           text: this.$t('userManagement.electionLead'),

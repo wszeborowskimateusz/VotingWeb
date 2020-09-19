@@ -189,7 +189,7 @@
     "fullName": "Full name",
     "index": "Index number",
     "mandateNumber": "Mandate number",
-    "absent": "Present",
+    "present": "Present",
     "blocked": "Blocked",
     "electionLead": "Election committee",
     "electionCommittee": "Election committee member",

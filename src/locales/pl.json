@@ -189,7 +189,7 @@
     "fullName": "Imię i nazwisko",
     "index": "Numer indeksu",
     "mandateNumber": "Numer mandatu",
-    "absent": "Nieobecny",
+    "present": "Obecny",
     "blocked": "Zablokowany",
     "electionLead": "Przewodniczący komisji",
     "electionCommittee": "Członek komisji",

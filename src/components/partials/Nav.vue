@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar fixed app hide-on-scroll>
+    <v-app-bar fixed app>
       <v-app-bar-nav-icon
         v-if="status.loggedIn"
         @click="drawer = true"

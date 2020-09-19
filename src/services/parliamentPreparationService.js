@@ -14,7 +14,7 @@ function generatePasswords(sessionId) {
   let url = '/preparations/passwords';
 
   if (sessionId != null) {
-    url += `?id=${sessionId}`;
+    url += `?sessionId=${sessionId}`;
   }
 
   return requestSender.downloadFile(url);
