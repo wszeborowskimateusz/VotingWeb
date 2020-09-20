@@ -44,7 +44,7 @@ const actions = {
       },
     );
   },
-  changeVoterBlockStatus(_, { voterId, isBlocked }) {
+  changeVoterBlockStatus({ dispatch }, { voterId, isBlocked }) {
     membersManagementService.changeVoterBlockStatus(voterId, isBlocked).then(
       () => {
         if (isBlocked) {
@@ -54,6 +54,7 @@ const actions = {
             i18n.tc('userManagement.userUnBlockSuccessfully'),
           );
         }
+        dispatch('loadMembers');
       },
       () => toasts.errorToast(i18n.tc('common.somethingWentWrong')),
     );
