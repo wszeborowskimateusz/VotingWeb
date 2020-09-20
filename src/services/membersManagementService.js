@@ -7,7 +7,7 @@ function getVotersList(sessionId) {
 }
 
 function changeVoterBlockStatus(voterId, isBlocked) {
-  const url = `/voters/block-voter/${voterId}`;
+  const url = `/voters/${voterId}/block-voter`;
 
   return requestSender.put(url, { isBlocked });
 }

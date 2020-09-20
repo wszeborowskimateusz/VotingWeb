@@ -27,7 +27,10 @@ function handleResponse(response) {
       return Promise.reject(error);
     }
 
+    console.log(response);
+
     if (response.headers.get('Refreshed-Jwt-Token')) {
+      console.log(`Refreshed token: ${response.headers.get('Refreshed-Jwt-Token')}`);
       refreshToken(response.headers.get('Refreshed-Jwt-Token'));
     }
     return data;

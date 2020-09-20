@@ -197,7 +197,8 @@ export default {
         !this.voting.results ||
         this.voting.options == null ||
         this.voting.options.length <= 0 ||
-        this.voting.cardinality === 'SINGLE_CHOICE'
+        this.voting.cardinality === 'SINGLE_CHOICE' ||
+        this.voting.status !== 'FINISHED'
       ) {
         return this.voting.options;
       }

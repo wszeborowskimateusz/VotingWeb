@@ -25,19 +25,19 @@ function deleteVoting(votingId) {
 }
 
 function openVoting(votingId) {
-  const url = `/votings/open/${votingId}`;
+  const url = `/votings/${votingId}/open`;
 
   return requestSender.post(url, {});
 }
 
 function closeVoting(votingId) {
-  const url = `/votings/close/${votingId}`;
+  const url = `/votings/${votingId}/close`;
 
   return requestSender.post(url, {});
 }
 
 function getVotingResults(votingId) {
-  const url = `/votings/results/${votingId}`;
+  const url = `/votings/${votingId}/results`;
 
   return requestSender.get(url);
 }
@@ -49,7 +49,7 @@ function generateVotingReport(votingId) {
 }
 
 function getAlreadyVotedList(votingId) {
-  const url = `/votings/already-voted/${votingId}`;
+  const url = `/votings/${votingId}/already-voted`;
 
   return requestSender.get(url);
 }
