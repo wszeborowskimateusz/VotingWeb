@@ -42,9 +42,6 @@ class FileDownloader {
   }
 
   initDonwload(resolve, reject) {
-    console.log('SIEMA');
-    console.log(!('download' in this.link));
-    console.log(this.isMobile());
     // fallback for old browsers
     if (!('download' in this.link) || this.isMobile()) {
       this.link.target = '_blank';
@@ -116,7 +113,7 @@ class FileDownloader {
     }
     request.timeout = this.params.timeout;
     request.withCredentials = this.params.includeCredentials;
-    console.log('SIEMANO CO TAM');
+
     return request;
   }
 
