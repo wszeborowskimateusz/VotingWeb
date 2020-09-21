@@ -17,12 +17,7 @@ function generatePasswords(args) {
     url += `?sessionId=${args.sessionId}`;
   }
 
-  if (args.password != null) {
-    // TODO: Check if this really downloads the file
-    return requestSender.post(url, { password: args.password });
-  }
-
-  return requestSender.downloadFile(url);
+  return requestSender.downloadFile(url, { password: args.password });
 }
 
 function editParliamentDetails(parliamentDetails) {

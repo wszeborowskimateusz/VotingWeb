@@ -64,7 +64,6 @@
 
 <script>
 import { mapActions } from 'vuex';
-import config from '../../../../config';
 
 export default {
   props: {
@@ -88,11 +87,7 @@ export default {
     ]),
     ...mapActions('parliamentPreparation', ['getPasswordsList']),
     onDownloadPasswords() {
-      if (config.isLocalDeployment) {
-        this.isPasswordDialogShown = true;
-      } else {
-        this.getPasswordsList({ sessionId: this.session.id });
-      }
+      this.isPasswordDialogShown = true;
     },
   },
   computed: {

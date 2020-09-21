@@ -238,8 +238,9 @@
       "notBeforeVoting": "You can only start a parliament that is in a 'before voting' status.",
       "alreadyOneInProgress": "You cannot start a parliament - only one parliament can be in progress at a time.",
       "notSuspended": "You can only resume a parliament that is suspended.",
-      "notFinished": "You can only delete a parliament that is finished and archived to global database",
-      "fileValidation": "The file you provided is in a wrong format."
+      "notFinished": "You can only delete a parliament that is finished and archived to global database.",
+      "fileValidation": "The file you provided is in a wrong format.",
+      "passwordGenerationRequired": "In order to start a parliament passwords need to be generated."
     }
   }
 }

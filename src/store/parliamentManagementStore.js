@@ -39,6 +39,13 @@ function handleActionError(action, commit, error) {
     toasts.errorToast(
       i18n.tc('errorMessages.parliamentManagement.alreadyOneInProgress'),
     );
+  } else if (
+    error.httpCode === 412 &&
+    error.errorCode === 'PASSWORDS_GENERATION_REQUIRED'
+  ) {
+    toasts.errorToast(
+      i18n.tc('errorMessages.parliamentManagement.passwordGenerationRequired'),
+    );
   } else if (error.httpCode === 412) {
     toasts.errorToast(
       i18n.tc('errorMessages.parliamentManagement.fileValidation'),
@@ -104,7 +111,12 @@ const actions = {
     );
   },
   readySession(args, sessionId) {
-    handleAction(args, sessionId, parliamentManagementService.readySession, 'Ready');
+    handleAction(
+      args,
+      sessionId,
+      parliamentManagementService.readySession,
+      'Ready',
+    );
   },
   resumeSession(args, sessionId) {
     handleAction(

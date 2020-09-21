@@ -239,7 +239,8 @@
       "alreadyOneInProgress": "Nie możesz rozpocząć posiedzenia - tylko jedno posiedzenie może być w trakcie w jednym czasie.",
       "notSuspended": "Możesz wznowić tylko posiedzenia, które są zawieszone.",
       "notFinished": "Możesz usunąć tylko posiedzenia zakończone i zarchiwizone w globalnej bazie danych.",
-      "fileValidation": "Podany plik ma zły format."
+      "fileValidation": "Podany plik ma zły format.",
+      "passwordGenerationRequired": "Aby rozpocząć sesję należy najpierw wygenerować hasła dla głosujących."
     }
   }
 }

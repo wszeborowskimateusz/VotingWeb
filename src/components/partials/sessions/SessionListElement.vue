@@ -37,7 +37,10 @@
           </v-btn>
           <v-btn
             icon
-            v-if="session.status === 'FINISHED'"
+            v-if="
+              session.status === 'FINISHED' ||
+                session.status === 'IN_PREPARATION'
+            "
             @click="removeSessionWithConfirmation(session.id)"
             :title="$t('common.remove')"
           >
@@ -131,9 +134,6 @@ export default {
       'downloadSession',
       'removeSession',
     ]),
-    print(arg) {
-      console.log(arg);
-    },
     getFormatedDate(date) {
       return moment(date).format('DD.MM.YYYY');
     },

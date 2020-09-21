@@ -1,10 +1,10 @@
 import fetchTimeout from 'fetch-timeout';
-import Downloader from 'js-file-downloader';
 import EventBus from '@/utils/eventBus';
 import config from '@/../config';
 import toasts from '@/utils/toasts';
 import i18n from '../i18n';
 import tokenUtils from './tokenUtils';
+import FileDownloader from '../plugins/file_downloader/fileDownloader';
 
 function refreshToken(refreshedToken) {
   tokenUtils.setToken(JSON.stringify(refreshedToken));
@@ -30,7 +30,9 @@ function handleResponse(response) {
     console.log(response);
 
     if (response.headers.get('Refreshed-Jwt-Token')) {
-      console.log(`Refreshed token: ${response.headers.get('Refreshed-Jwt-Token')}`);
+      console.log(
+        `Refreshed token: ${response.headers.get('Refreshed-Jwt-Token')}`,
+      );
       refreshToken(response.headers.get('Refreshed-Jwt-Token'));
     }
     return data;
@@ -77,11 +79,15 @@ export default {
 
     return sendRequest(url, options);
   },
-  downloadFile(url) {
+  downloadFile(url, body = null) {
     const token = JSON.parse(tokenUtils.getToken());
-    return new Downloader({
+    console.log(body);
+    console.log(body == null ? 'GET' : 'POST');
+    return new FileDownloader({
       url: prepareApiUrl(url),
       headers: [{ name: 'Authorization', value: `Bearer: ${token}` }],
+      method: body == null ? 'GET' : 'POST',
+      body,
     });
   },
   postWithFile(url, formData) {

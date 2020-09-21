@@ -46,9 +46,7 @@ function removeSession(sessionId) {
 function downloadSession(args) {
   const url = `/parliament/${args.sessionId}/download`;
 
-  // TODO: Check if this actually downloads the file properly
-  // return requestSender.downloadFile(url);
-  return requestSender.post(url, { password: args.password });
+  return requestSender.downloadFile(url, { password: args.password });
 }
 
 function uploadSession(args) {

@@ -164,10 +164,11 @@ export default {
     ...mapActions('votingsManagement', ['addVoting', 'editVoting']),
     beforeOpen(args) {
       this.setCommitteeAndLeadIfEmpty();
-      if (args.params) {
+      if (args.params != null) {
         this.editMode = true;
         this.voting = JSON.parse(JSON.stringify(args.params));
       } else {
+        this.editMode = false;
         this.voting = this.getClearVoting();
       }
     },
