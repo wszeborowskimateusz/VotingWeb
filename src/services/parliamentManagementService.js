@@ -43,17 +43,20 @@ function removeSession(sessionId) {
   return requestSender.put(url, {});
 }
 
-function downloadSession(sessionId) {
-  const url = `/parliament/${sessionId}/download`;
+function downloadSession(args) {
+  const url = `/parliament/${args.sessionId}/download`;
 
-  return requestSender.downloadFile(url);
+  // TODO: Check if this actually downloads the file properly
+  // return requestSender.downloadFile(url);
+  return requestSender.post(url, { password: args.password });
 }
 
-function uploadSession(sessionFile) {
+function uploadSession(args) {
   const url = '/parliament/upload';
 
   const body = new FormData();
-  body.append('sessionFile', sessionFile);
+  body.append('sessionFile', args.sessionFile);
+  body.append('password', args.password);
 
   return requestSender.postWithFile(url, body);
 }

@@ -122,19 +122,18 @@ const actions = {
       'Remove',
     );
   },
-  downloadSession(args, sessionId) {
-    // TODO: Make the file autodownload
+  downloadSession(args, downloadArgs) {
     handleAction(
       args,
-      sessionId,
+      downloadArgs,
       parliamentManagementService.downloadSession,
       'Download',
     );
   },
-  uploadSession(args, sessionFile) {
+  uploadSession(args, uploadArgs) {
     handleAction(
       args,
-      sessionFile,
+      uploadArgs,
       parliamentManagementService.uploadSession,
       'Upload',
     );

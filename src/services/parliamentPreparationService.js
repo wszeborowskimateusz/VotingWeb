@@ -10,11 +10,16 @@ function setParliamentDetails(session, userFile) {
   return requestSender.postWithFile(url, body);
 }
 
-function generatePasswords(sessionId) {
+function generatePasswords(args) {
   let url = '/preparations/passwords';
 
-  if (sessionId != null) {
-    url += `?sessionId=${sessionId}`;
+  if (args.sessionId != null) {
+    url += `?sessionId=${args.sessionId}`;
+  }
+
+  if (args.password != null) {
+    // TODO: Check if this really downloads the file
+    return requestSender.post(url, { password: args.password });
   }
 
   return requestSender.downloadFile(url);

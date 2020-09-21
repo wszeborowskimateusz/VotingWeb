@@ -108,9 +108,17 @@
     "finishSession": "Zakończ posiedzenie",
     "start": "Rozpocznij",
     "areYouSureToRemove": "Czy na pewno chcesz usunąć sesję: {sessionName}",
+    "areYouSureToFinish": "Czy na pewno chcesz zakończyć sesję: {sessionName}",
+    "actionIsIrreversible": "Ta akcja jest nieodwracalna.",
     "generatePasswords": "Generuj hasła",
     "goToVotings": "Przejdź do głosowań",
-    "removeSession": "Usuń posiedzenie"
+    "removeSession": "Usuń posiedzenie",
+    "downloadRequiresPassword": "Pobieranie sesji wymaga ustawienia hasła",
+    "downloadRequiresPasswordDisclaimer": "Ustaw hasło, które zosanie użyte do zaszyfrowania pliku. To samo hasło będzie trzeba podać przy załadowaniu pliku posiedzenia.",
+    "uploadRequiresPassword": "Wczytywania sesji wymaga podania hasła",
+    "uploadRequiresPasswordDisclaimer": "Podaj hasło użyte przy pobieraniu pliku posiedzenia.",
+    "downloadPasswordFileRequiresPassword": "Pobranie pliku z hasłami wymaga podania hasła",
+    "downloadPasswordFileRequiresPasswordDisclaimer": "Podaj swoje hasło do konta w celu odszyfrowania pliku z hasłami."
   },
   "session": {
     "enterCommitee": "Podaj skład komisji skrutacyjnej",

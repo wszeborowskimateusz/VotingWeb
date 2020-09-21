@@ -5,7 +5,7 @@
         color="primary"
         class="mr-2"
         v-if="status === 'BEFORE_VOTING' || status === 'IN_PREPARATION'"
-        @click="getPasswordsList(session.id)"
+        @click="onDownloadPasswords"
       >
         <v-icon left>mdi-file</v-icon>
         {{ $t('sessionActions.generatePasswords') }}
@@ -25,7 +25,7 @@
         <v-icon left>mdi-pause</v-icon>
         {{ $t('sessionActions.suspend') }}
       </v-btn>
-      <v-btn color="error" @click="finishSession(session.id)">
+      <v-btn color="error" @click="isConfirmSessionFinishDialogShown = true">
         <v-icon left>mdi-stop</v-icon>
         {{ $t('sessionActions.finish') }}
       </v-btn>
@@ -43,11 +43,28 @@
         {{ $t('sessionActions.saveToGlobal') }}
       </v-btn>
     </div>
+    <ConfirmationDialog
+      :header="
+        $t('sessionActions.areYouSureToFinish', { sessionName: session.name })
+      "
+      :description="$t('sessionActions.actionIsIrreversible')"
+      v-model="isConfirmSessionFinishDialogShown"
+      @callback="finishSession(session.id)"
+    />
+    <PasswordDialog
+      :header="$t('sessionActions.downloadPasswordFileRequiresPassword')"
+      :disclaimer="
+        $t('sessionActions.downloadPasswordFileRequiresPasswordDisclaimer')
+      "
+      v-model="isPasswordDialogShown"
+      @callback="getPasswordsList({ sessionId: session.id, password: $event })"
+    />
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import config from '../../../../config';
 
 export default {
   props: {
@@ -55,6 +72,12 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      isConfirmSessionFinishDialogShown: false,
+      isPasswordDialogShown: false,
+    };
   },
   methods: {
     ...mapActions('parliamentManagement', [
@@ -64,6 +87,13 @@ export default {
       'resumeSession',
     ]),
     ...mapActions('parliamentPreparation', ['getPasswordsList']),
+    onDownloadPasswords() {
+      if (config.isLocalDeployment) {
+        this.isPasswordDialogShown = true;
+      } else {
+        this.getPasswordsList({ sessionId: this.session.id });
+      }
+    },
   },
   computed: {
     status() {

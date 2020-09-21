@@ -108,9 +108,17 @@
     "finishSession": "Finish session",
     "start": "Start",
     "areYouSureToRemove": "Are you sure you want to remove session: {sessionName}",
+    "areYouSureToFinish": "Are you sure you want to finish session: {sessionName}",
+    "actionIsIrreversible": "This action is irreversible",
     "generatePasswords": "Generate passwords",
     "goToVotings": "Go to votings",
-    "removeSession": "Remove session"
+    "removeSession": "Remove session",
+    "downloadRequiresPassword": "Downloading session requires password",
+    "downloadRequiresPasswordDisclaimer": "Set a password that will be used for encrypting the file. The same password must be used to later upload the file.",
+    "uploadRequiresPassword": "Uploading the session requires providing password",
+    "uploadRequiresPasswordDisclaimer": "Provide password that was used while downloading the file.",
+    "downloadPasswordFileRequiresPassword": "Getting password file requires providing a password",
+    "downloadPasswordFileRequiresPasswordDisclaimer": "Provide the password to your account in order to decipher the file."
   },
   "session": {
     "enterCommitee": "Enter election committee",
