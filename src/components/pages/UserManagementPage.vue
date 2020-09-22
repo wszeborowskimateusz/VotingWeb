@@ -31,30 +31,32 @@
         {{ $t('userManagement.noResults') }}
       </template>
 
-      <template v-slot:item.mandateNumber="props">
+      <template v-slot:[`item.mandateNumber`]="props">
         <span v-if="props.item.mandateNumber">{{
           props.item.mandateNumber
         }}</span>
         <span v-else>-</span>
       </template>
 
-      <template v-slot:item.absent="props">
-        {{ $t(`common.${!props.item.absent ? 'yes' : 'no'}`) }}
+      <template
+        v-for="boolField in [
+          'absent',
+          'isBlocked',
+          'isElectionLead',
+          'isInElectionCommittee',
+        ]"
+        v-slot:[getBooleanFieldName(boolField)]="props"
+      >
+        <v-icon
+          small
+          v-bind:key="boolField"
+          :color="getFieldValue(props, boolField) ? 'success' : 'error'"
+        >
+          {{ getFieldValue(props, boolField) ? 'mdi-check' : 'mdi-close' }}
+        </v-icon>
       </template>
 
-      <template v-slot:item.isBlocked="props">
-        <div>{{ $t(`common.${props.item.isBlocked ? 'yes' : 'no'}`) }}</div>
-      </template>
-
-      <template v-slot:item.isElectionLead="props">
-        {{ $t(`common.${props.item.isElectionLead ? 'yes' : 'no'}`) }}
-      </template>
-
-      <template v-slot:item.isInElectionCommittee="props">
-        {{ $t(`common.${props.item.isInElectionCommittee ? 'yes' : 'no'}`) }}
-      </template>
-
-      <template v-slot:item.actions="{ item }">
+      <template v-slot:[`item.actions`]="{ item }">
         <v-btn
           small
           :title="$t(`userManagement.${item.isBlocked ? 'un' : ''}blockUser`)"
@@ -97,17 +99,32 @@ export default {
           text: this.$t('userManagement.mandateNumber'),
           value: 'mandateNumber',
         },
-        { text: this.$t('userManagement.present'), value: 'absent' },
-        { text: this.$t('userManagement.blocked'), value: 'isBlocked' },
+        {
+          text: this.$t('userManagement.present'),
+          value: 'absent',
+          align: 'center',
+        },
+        {
+          text: this.$t('userManagement.blocked'),
+          value: 'isBlocked',
+          align: 'center',
+        },
         {
           text: this.$t('userManagement.electionLead'),
           value: 'isElectionLead',
+          align: 'center',
         },
         {
           text: this.$t('userManagement.electionCommittee'),
           value: 'isInElectionCommittee',
+          align: 'center',
         },
-        { text: this.$t('userManagement.actions'), value: 'actions' },
+        {
+          text: this.$t('userManagement.actions'),
+          value: 'actions',
+          align: 'center',
+          sortable: false,
+        },
       ];
     },
   },
@@ -124,6 +141,16 @@ export default {
         voterId: user.id,
         isBlocked: !user.isBlocked,
       });
+    },
+    getBooleanFieldName(field) {
+      return `item.${field}`;
+    },
+    getFieldValue(props, field) {
+      if (field === 'absent') {
+        return !props.item[field];
+      }
+
+      return props.item[field];
     },
   },
   data() {
