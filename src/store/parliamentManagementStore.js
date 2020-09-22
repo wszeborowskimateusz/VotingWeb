@@ -56,16 +56,16 @@ function handleActionError(action, commit, error) {
   commit('stopAction');
 }
 
-function handleAction({ commit, dispatch }, sessionId, action, actionName) {
+function handleAction({ commit, dispatch }, payload, action, actionName) {
   commit('actionPerforming');
-  action(sessionId).then(
+  action(payload).then(
     () => {
       if (
         actionName === 'Ready' ||
         actionName === 'Start' ||
         actionName === 'Resume'
       ) {
-        dispatch('changeActiveSession', sessionId);
+        dispatch('changeActiveSession', payload);
       }
       dispatch('loadSessions');
     },
