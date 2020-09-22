@@ -15,7 +15,7 @@
         "
       >
         <div v-if="voting.status === 'NOT_STARTED'">
-          <v-btn icon class="mr-2" @click="deleteVoting(voting.id)">
+          <v-btn icon class="mr-2" @click="isDeleteVotingDialogShown = true">
             <v-icon>mdi-delete</v-icon>
           </v-btn>
           <v-btn
@@ -146,6 +146,14 @@
         </v-list>
       </div>
     </v-expansion-panel-content>
+    <ConfirmationDialog
+      :header="
+        $t('voting.areYouSureToRemove', { votingName: voting.name })
+      "
+      :description="$t('sessionActions.actionIsIrreversible')"
+      v-model="isDeleteVotingDialogShown"
+      @callback="deleteVoting(voting.id)"
+    />
   </div>
 </template>
 
@@ -182,6 +190,7 @@ export default {
       inEditMode: false,
       fieldsToDisplay,
       enumFields: ['status', 'majority', 'cardinality'],
+      isDeleteVotingDialogShown: false,
     };
   },
   computed: {

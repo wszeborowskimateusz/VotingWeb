@@ -153,6 +153,7 @@
     "thresholdMustBe": "Threshold must be between {from} to {to} (number of options)",
     "options": "Options",
     "option": "Option",
+    "areYouSureToRemove": "Are you sure you want to remove voting: {votingName}",
     "optionNotEmpty": "Option cannot be empty",
     "specifyOptions": "Specify options to make use of threshold",
     "electionLead": "Election lead",

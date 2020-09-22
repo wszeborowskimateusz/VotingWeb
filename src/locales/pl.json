@@ -153,6 +153,7 @@
     "thresholdRequired": "Próg jest wymagany",
     "options": "Opcje",
     "option": "Opcja",
+    "areYouSureToRemove": "Czy na pewno chcesz usunąć głosowanie: {votingName}",
     "optionNotEmpty": "Opcja nie może być pusta",
     "specifyOptions": "Podaj opcje, aby korzystać z progu",
     "electionLead": "Przewodniczący komisji",
