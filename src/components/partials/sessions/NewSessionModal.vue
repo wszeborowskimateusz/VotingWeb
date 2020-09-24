@@ -1,5 +1,9 @@
 <template>
-  <common-modal name="newSessionModal" @before-close="beforeClose()">
+  <common-modal
+    name="newSessionModal"
+    @before-close="beforeClose()"
+    @before-open="beforeOpen"
+  >
     <div class="col-sm-6 offset-sm-3 py-5 h-100">
       <h2 class="mb-4">{{ $t('parliamentManagement.createNewSession') }}</h2>
       <v-form ref="form" v-model="valid">
@@ -84,8 +88,10 @@ export default {
       }
     },
     beforeClose() {
-      this.session.date = new Date().toISOString().substr(0, 10);
       this.$refs.form.reset();
+    },
+    beforeOpen() {
+      this.session.date = new Date().toISOString().substr(0, 10);
     },
     onFileInputChange(file) {
       this.userFile = file;

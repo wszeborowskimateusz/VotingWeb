@@ -139,6 +139,7 @@
     "votedAmount": "Already {0} / {1} people voted",
     "votingInProgress": "Voting in progress",
     "finishVoting": "Finish voting",
+    "areYouSureToFinish": "Are you sure you want to finish voting: {votingName}",
     "name": "Name",
     "nameRequired": "Name is required",
     "majority": "Majority",

@@ -139,6 +139,7 @@
     "votedAmount": "Zagłosowało {0} / {1} osób",
     "votingInProgress": "Głosowanie w trakcie",
     "finishVoting": "Zakończ głosowanie",
+    "areYouSureToFinish": "Czy na pewno chcesz zakończyć głosowanie: {votingName}",
     "name": "Nazwa",
     "nameRequired": "Nazwa jest wymagana",
     "majority": "Większość",

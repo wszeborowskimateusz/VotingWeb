@@ -101,6 +101,16 @@ export default {
 
       return state.members[activeSession.id];
     },
+    activeSessionMemberById: (_, getters) => (memberId) => {
+      if (getters.activeSessionMembers == null) {
+        return [];
+      }
+      const member = getters.activeSessionMembers.find(
+        (m) => m.id === memberId,
+      );
+
+      return member === undefined ? null : member;
+    },
     electionLead(_, getters) {
       if (getters.activeSessionMembers == null) {
         return [];

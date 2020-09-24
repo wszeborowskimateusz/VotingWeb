@@ -10,9 +10,9 @@
       ></v-text-field>
     </v-card-title>
     <v-data-table
-      v-if="specificVotes != null"
+      v-if="specificVotesWithMembers != null"
       :headers="headers"
-      :items="specificVotes"
+      :items="specificVotesWithMembers"
       class="elevation-1"
       :search="search"
       :locale="$i18n.locale"
@@ -29,7 +29,7 @@
         {{ $t('userManagement.noResults') }}
       </template>
 
-      <template v-slot:item.voteType="props">
+      <template v-slot:[`item.voteType`]="props">
         <v-img
           :src="imagesGetter.getImgUrl(getIcon(props.item.voteType))"
           height="25"
@@ -42,6 +42,7 @@
 
 <script>
 import imagesGetter from '@/utils/imagesGetter';
+import { mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -50,8 +51,8 @@ export default {
       search: '',
       headers: [
         { text: this.$t('voting.vote'), value: 'voteType' },
-        { text: this.$t('userManagement.fullName'), value: 'voter.name' },
-        { text: this.$t('userManagement.index'), value: 'voter.index' },
+        { text: this.$t('userManagement.fullName'), value: 'name' },
+        { text: this.$t('userManagement.index'), value: 'index' },
       ],
     };
   },
@@ -63,6 +64,24 @@ export default {
     specificVotes: {
       type: Array,
       required: true,
+    },
+  },
+  computed: {
+    ...mapGetters('membersManagement', ['activeSessionMemberById']),
+    specificVotesWithMembers() {
+      if (this.specificVotes == null) return null;
+
+      return this.specificVotes
+        .filter((vote) => vote.voteType !== 'NO_VOTE')
+        .map((specificVote) => {
+          const voter = this.activeSessionMemberById(specificVote.voterId);
+
+          return {
+            voteType: specificVote.voteType,
+            name: voter?.fullName ?? '',
+            index: voter?.index ?? '',
+          };
+        });
     },
   },
   methods: {
