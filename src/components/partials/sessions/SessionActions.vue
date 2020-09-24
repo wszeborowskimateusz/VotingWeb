@@ -47,7 +47,7 @@
       :header="
         $t('sessionActions.areYouSureToFinish', { sessionName: session.name })
       "
-      :description="$t('sessionActions.actionIsIrreversible')"
+      :description="$t('sessionActions.actionIsIrreversibleVotingWillBeFinished')"
       v-model="isConfirmSessionFinishDialogShown"
       @callback="finishSession(session.id)"
     />

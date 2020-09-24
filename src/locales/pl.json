@@ -110,6 +110,7 @@
     "areYouSureToRemove": "Czy na pewno chcesz usunąć sesję: {sessionName}",
     "areYouSureToFinish": "Czy na pewno chcesz zakończyć sesję: {sessionName}",
     "actionIsIrreversible": "Ta akcja jest nieodwracalna.",
+    "actionIsIrreversibleVotingWillBeFinished": "Ta akcja jest nieodwracalna. Dodatkowo głosowania w trakcie zostaną zakończone.",
     "generatePasswords": "Generuj hasła",
     "goToVotings": "Przejdź do głosowań",
     "removeSession": "Usuń posiedzenie",

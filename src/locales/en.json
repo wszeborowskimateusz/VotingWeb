@@ -110,6 +110,7 @@
     "areYouSureToRemove": "Are you sure you want to remove session: {sessionName}",
     "areYouSureToFinish": "Are you sure you want to finish session: {sessionName}",
     "actionIsIrreversible": "This action is irreversible",
+    "actionIsIrreversibleVotingWillBeFinished": "This action is irreversible. Moreover votings in progress will be finished.",
     "generatePasswords": "Generate passwords",
     "goToVotings": "Go to votings",
     "removeSession": "Remove session",
