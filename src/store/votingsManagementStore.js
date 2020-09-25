@@ -96,7 +96,6 @@ const actions = {
       },
     );
   },
-  // TODO: Make the file autodownload
   generateVotingReport(_, votingId) {
     votingsManagementService.generateVotingReport(votingId).then(
       () => {},
@@ -117,7 +116,7 @@ const actions = {
     votingsManagementService.getAlreadyVotedList(votingId).then(
       (response) =>
         commit('loadingAlreadyVotedListSuccess', {
-          alreadyVotedList: response.voters,
+          alreadyVotedList: response,
           votingId,
         }),
       (error) => {

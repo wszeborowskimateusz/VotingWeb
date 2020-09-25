@@ -136,7 +136,8 @@
   "voting": {
     "vote": "Vote",
     "alreadyVoted": "People who already voted",
-    "notVotedYet": "Peaople who haven't voted yet",
+    "notVotedYet": "Peaople who haven't voted yet, but are present",
+    "absentAndDidNotVote": "People who are absent and did not vote",
     "votedAmount": "Already {0} / {1} people voted",
     "votingInProgress": "Voting in progress",
     "finishVoting": "Finish voting",

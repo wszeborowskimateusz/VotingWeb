@@ -149,5 +149,12 @@ export default {
         (member) => member.hasVote && !member.absent,
       );
     },
+    membersThatHaveVote(_, getters) {
+      if (getters.activeSessionMembers == null) {
+        return [];
+      }
+
+      return getters.activeSessionMembers.filter((member) => member.hasVote);
+    },
   },
 };

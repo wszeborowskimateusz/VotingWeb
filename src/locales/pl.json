@@ -136,7 +136,8 @@
   "voting": {
     "vote": "Głos",
     "alreadyVoted": "Osoby, które już zagłosowały",
-    "notVotedYet": "Osoby, które jeszcze nie zagłosowały",
+    "notVotedYet": "Osoby, które jeszcze nie zagłosowały, ale są obecne",
+    "absentAndDidNotVote": "Osoby, które są nieobecne i nie zagłosowały",
     "votedAmount": "Zagłosowało {0} / {1} osób",
     "votingInProgress": "Głosowanie w trakcie",
     "finishVoting": "Zakończ głosowanie",
