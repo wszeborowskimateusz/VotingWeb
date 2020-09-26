@@ -62,7 +62,10 @@ function sendRequest(url, options) {
     reqOptions,
     config.requestTimeout,
     'TIMEOUT',
-  ).then((response) => handleResponse(response));
+  ).then(
+    (response) => handleResponse(response),
+    (error) => console.log(error),
+  );
 }
 
 export default {
@@ -81,11 +84,10 @@ export default {
   },
   downloadFile(url, body = null) {
     const token = JSON.parse(tokenUtils.getToken());
-    console.log(body);
-    console.log(body == null ? 'GET' : 'POST');
+
     return new FileDownloader({
       url: prepareApiUrl(url),
-      headers: [{ name: 'Authorization', value: `Bearer: ${token}` }],
+      headers: [{ name: 'Authorization', value: `Bearer ${token}` }],
       method: body == null ? 'GET' : 'POST',
       body,
     });
