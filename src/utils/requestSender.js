@@ -10,12 +10,12 @@ function refreshToken(refreshedToken) {
   tokenUtils.setToken(JSON.stringify(refreshedToken));
 }
 
-function handleResponse(response) {
+function handleResponse(response, url) {
   return response.text().then((text) => {
     const data = text && JSON.parse(text);
     console.log(data);
     if (!response.ok) {
-      if (response.status === 401) {
+      if (response.status === 401 && url !== '/authentication/login') {
         toasts.errorToast(i18n.tc('login.invalidToken'));
         EventBus.$emit('logout');
       }
@@ -63,7 +63,7 @@ function sendRequest(url, options) {
     config.requestTimeout,
     'TIMEOUT',
   ).then(
-    (response) => handleResponse(response),
+    (response) => handleResponse(response, url),
     (error) => console.log(error),
   );
 }
