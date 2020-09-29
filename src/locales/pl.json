@@ -59,7 +59,7 @@
     "placeRequired": "Miejsce jest wymagane",
     "electionLead": "Przewodniczący komisji",
     "userFileRequired": "Plik z uczestnikami jest wymagany",
-    "userFileTooltip": "Plik z danymi o uczestnikach posiedzenia, wprowadzany do systemu przed rozpoczęciem posiedzenia.<br><br>Opis: Imię, Nazwisko, Numer_Indeksu, Czy_ma_głos(tak/nie), Numer_mandatu(jeżeli jest)",
+    "userFileTooltip": "Plik z danymi o uczestnikach posiedzenia, wprowadzany do systemu przed rozpoczęciem posiedzenia.<br><br>Opis: Imię, Nazwisko, Numer_mandatu (tylko dla osób z prawem głosu), Numer_Indeksu, Czy_ma_głos (1/0), Adres email (używany dla posiedzeń zdalnych)",
     "chooseAFile": "Wybierz plik",
     "browse": "Przeglądaj",
     "status": "Status",

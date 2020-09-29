@@ -58,7 +58,7 @@
     "dateRequired": "Date is required",
     "placeRequired": "Place is required",
     "userFileRequired": "File with users is required",
-    "userFileTooltip": "File with voters data, uploaded before the start of a parliament.<br><br>Description: Name, Surname, Index_number, Has_vote(yes/no), Mandate_number",
+    "userFileTooltip": "File with voters data, uploaded before the start of a parliament.<br><br>Description: Name, Surname, Mandate_number (only if member has vote), Index_number, Has_vote (1/0), Email (used for remote sessions)",
     "chooseAFile": "Choose a file",
     "browse": "Browse",
     "electionLead": "Election lead",
