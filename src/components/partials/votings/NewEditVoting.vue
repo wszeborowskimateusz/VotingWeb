@@ -86,7 +86,7 @@
       </v-radio-group>
 
       <v-select
-        v-model="voting.electionLead"
+        v-model="voting.electionLeadId"
         :items="electionCommittee"
         :label="$t('voting.electionLead')"
         item-text="fullName"
@@ -99,7 +99,9 @@
         </template>
       </v-select>
 
-      <v-btn @click="cancel" class="mr-4 mt-4">{{ $t('common.cancel') }}</v-btn>
+      <v-btn @click="closeModal" class="mr-4 mt-4">{{
+        $t('common.cancel')
+      }}</v-btn>
       <v-btn @click="submit" class="mt-4">{{
         $t(`common.${editMode ? 'save' : 'create'}`)
       }}</v-btn>
@@ -159,12 +161,14 @@ export default {
   },
   methods: {
     ...mapActions('membersManagement', ['loadMembers']),
+    ...mapActions('votingsManagement', ['addVoting', 'editVoting']),
     beforeOpen(args) {
       this.setCommitteeAndLeadIfEmpty();
-      if (args.params) {
+      if (args.params != null) {
         this.editMode = true;
         this.voting = JSON.parse(JSON.stringify(args.params));
       } else {
+        this.editMode = false;
         this.voting = this.getClearVoting();
       }
     },
@@ -201,15 +205,31 @@ export default {
         cardinality: null,
         secrecy: true,
         threshold: null,
-        electionLead: this.initialElectionLead,
+        electionLeadId:
+          this.initialElectionLead != null ? this.initialElectionLead.id : null,
         options: [{ id: 0, name: '' }],
       };
     },
-    cancel() {
+    closeModal() {
       this.$modal.hide('newEditVoting');
     },
     submit() {
       this.$refs.form.validate();
+      if (this.valid) {
+        if (this.voting.threshold) {
+          this.voting.threshold = parseInt(this.voting.threshold, 10);
+        }
+
+        if (this.editMode) {
+          this.editVoting(this.voting).then(() => {
+            this.closeModal();
+          });
+        } else {
+          this.addVoting(this.voting).then(() => {
+            this.closeModal();
+          });
+        }
+      }
     },
   },
 };

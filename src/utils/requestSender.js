@@ -1,24 +1,38 @@
 import fetchTimeout from 'fetch-timeout';
+import EventBus from '@/utils/eventBus';
 import config from '@/../config';
+import toasts from '@/utils/toasts';
+import i18n from '../i18n';
 import tokenUtils from './tokenUtils';
+import FileDownloader from '../plugins/file_downloader/fileDownloader';
 
 function refreshToken(refreshedToken) {
   tokenUtils.setToken(JSON.stringify(refreshedToken));
 }
 
-function handleResponse(response) {
+function handleResponse(response, url) {
   return response.text().then((text) => {
     const data = text && JSON.parse(text);
+    console.log(data);
     if (!response.ok) {
-      if (response.status === 401) {
-        tokenUtils.removeToken();
+      if (response.status === 401 && url !== '/authentication/login') {
+        toasts.errorToast(i18n.tc('login.invalidToken'));
+        EventBus.$emit('logout');
       }
 
-      const error = (data && data.message) || response.statusText;
+      const error = {
+        httpCode: response.status,
+        errorCode: response.statusText,
+      };
       return Promise.reject(error);
     }
 
+    console.log(response);
+
     if (response.headers.get('Refreshed-Jwt-Token')) {
+      console.log(
+        `Refreshed token: ${response.headers.get('Refreshed-Jwt-Token')}`,
+      );
       refreshToken(response.headers.get('Refreshed-Jwt-Token'));
     }
     return data;
@@ -39,12 +53,19 @@ function sendRequest(url, options) {
     reqOptions.headers.Authorization = `Bearer ${token}`;
   }
 
+  if (options.body) {
+    console.log(options.body);
+  }
+
   return fetchTimeout(
     prepareApiUrl(url),
     reqOptions,
     config.requestTimeout,
     'TIMEOUT',
-  ).then((response) => handleResponse(response));
+  ).then(
+    (response) => handleResponse(response, url),
+    (error) => console.log(error),
+  );
 }
 
 export default {
@@ -61,10 +82,20 @@ export default {
 
     return sendRequest(url, options);
   },
-  postFile(url, file) {
+  downloadFile(url, body = null) {
+    const token = JSON.parse(tokenUtils.getToken());
+
+    return new FileDownloader({
+      url: prepareApiUrl(url),
+      headers: [{ name: 'Authorization', value: `Bearer ${token}` }],
+      method: body == null ? 'GET' : 'POST',
+      body,
+    });
+  },
+  postWithFile(url, formData) {
     const options = {
       method: 'POST',
-      body: file,
+      body: formData,
     };
 
     return sendRequest(url, options);

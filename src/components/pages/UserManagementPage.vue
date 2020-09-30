@@ -31,30 +31,32 @@
         {{ $t('userManagement.noResults') }}
       </template>
 
-      <template v-slot:item.mandateNumber="props">
+      <template v-slot:[`item.mandateNumber`]="props">
         <span v-if="props.item.mandateNumber">{{
           props.item.mandateNumber
         }}</span>
         <span v-else>-</span>
       </template>
 
-      <template v-slot:item.absent="props">
-        {{ $t(`common.${props.item.absent ? 'yes' : 'no'}`) }}
+      <template
+        v-for="boolField in [
+          'absent',
+          'isBlocked',
+          'isElectionLead',
+          'isInElectionCommittee',
+        ]"
+        v-slot:[getBooleanFieldName(boolField)]="props"
+      >
+        <v-icon
+          small
+          v-bind:key="boolField"
+          :color="getFieldValue(props, boolField) ? 'success' : 'error'"
+        >
+          {{ getFieldValue(props, boolField) ? 'mdi-check' : 'mdi-close' }}
+        </v-icon>
       </template>
 
-      <template v-slot:item.isBlocked="props">
-        <div>{{ $t(`common.${props.item.isBlocked ? 'yes' : 'no'}`) }}</div>
-      </template>
-
-      <template v-slot:item.isElectionLead="props">
-        {{ $t(`common.${props.item.isElectionLead ? 'yes' : 'no'}`) }}
-      </template>
-
-      <template v-slot:item.isInElectionCommittee="props">
-        {{ $t(`common.${props.item.isInElectionCommittee ? 'yes' : 'no'}`) }}
-      </template>
-
-      <template v-slot:item.actions="{ item }">
+      <template v-slot:[`item.actions`]="{ item }">
         <v-btn
           small
           :title="$t(`userManagement.${item.isBlocked ? 'un' : ''}blockUser`)"
@@ -68,6 +70,16 @@
         </v-btn>
       </template>
     </v-data-table>
+    <div v-if="!activeSession && !isLoading" class="mr-5">
+      <div class="py-5">
+        <span class="h3 mr-2">{{
+          $t('parliamentManagement.noActiveSession')
+        }}</span>
+        <Tooltip modalName="no active session tooltip - user management">
+          {{ $t('parliamentManagement.noActiveSessionTooltip') }}
+        </Tooltip>
+      </div>
+    </div>
   </v-card>
 </template>
 
@@ -87,17 +99,32 @@ export default {
           text: this.$t('userManagement.mandateNumber'),
           value: 'mandateNumber',
         },
-        { text: this.$t('userManagement.absent'), value: 'absent' },
-        { text: this.$t('userManagement.blocked'), value: 'isBlocked' },
+        {
+          text: this.$t('userManagement.present'),
+          value: 'absent',
+          align: 'center',
+        },
+        {
+          text: this.$t('userManagement.blocked'),
+          value: 'isBlocked',
+          align: 'center',
+        },
         {
           text: this.$t('userManagement.electionLead'),
           value: 'isElectionLead',
+          align: 'center',
         },
         {
           text: this.$t('userManagement.electionCommittee'),
           value: 'isInElectionCommittee',
+          align: 'center',
         },
-        { text: this.$t('userManagement.actions'), value: 'actions' },
+        {
+          text: this.$t('userManagement.actions'),
+          value: 'actions',
+          align: 'center',
+          sortable: false,
+        },
       ];
     },
   },
@@ -105,9 +132,25 @@ export default {
     this.loadMembers();
   },
   methods: {
-    ...mapActions('membersManagement', ['loadMembers']),
+    ...mapActions('membersManagement', [
+      'loadMembers',
+      'changeVoterBlockStatus',
+    ]),
     changeUserBlocState(user) {
-      console.log(user);
+      this.changeVoterBlockStatus({
+        voterId: user.id,
+        isBlocked: !user.isBlocked,
+      });
+    },
+    getBooleanFieldName(field) {
+      return `item.${field}`;
+    },
+    getFieldValue(props, field) {
+      if (field === 'absent') {
+        return !props.item[field];
+      }
+
+      return props.item[field];
     },
   },
   data() {

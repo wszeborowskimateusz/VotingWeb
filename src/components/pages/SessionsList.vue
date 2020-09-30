@@ -46,6 +46,12 @@
       </div>
     </div>
     <EditSessionModal />
+    <PasswordDialog
+      :header="$t('sessionActions.uploadRequiresPassword')"
+      :disclaimer="$t('sessionActions.uploadRequiresPasswordDisclaimer')"
+      v-model="isUploadPasswordDialogShown"
+      @callback="uploadSession({ sessionFile: selectedFile, password: $event })"
+    />
   </div>
 </template>
 <style scoped>
@@ -73,6 +79,7 @@ export default {
       imageGetter,
       selectedFile: null,
       isSelectingFile: false,
+      isUploadPasswordDialogShown: false,
     };
   },
   mounted() {
@@ -83,7 +90,7 @@ export default {
   },
   methods: {
     ...mapActions('membersManagement', ['loadMembers']),
-    ...mapActions('parliamentManagement', ['changeActiveSession']),
+    ...mapActions('parliamentManagement', ['uploadSession']),
     pickFile() {
       this.isSelectingFile = true;
       window.addEventListener(
@@ -98,6 +105,7 @@ export default {
     },
     onFileChanged(event) {
       [this.selectedFile] = event.target.files;
+      this.isUploadPasswordDialogShown = true;
     },
   },
 };

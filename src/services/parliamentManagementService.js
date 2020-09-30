@@ -1,82 +1,20 @@
 import requestSender from '@/utils/requestSender';
-
-const dummySessionList = [
-  {
-    id: 1,
-    name: 'Sesja testowa',
-    date: Date.now(),
-    place: 'Bieszkowice',
-    electionLead: null,
-    status: 'BEFORE_VOTING',
-    isActive: false,
-    electionCommittee: [],
-  },
-  {
-    id: 2,
-    name: 'Sesja testowa 2',
-    date: Date.now(),
-    place: 'Kamień',
-    electionLead: '4',
-    electionCommittee: ['1', '2', '3', '5'],
-    status: 'FINISHED',
-    isActive: false,
-  },
-  {
-    id: 3,
-    name: 'Sesja testowa 2',
-    date: Date.now(),
-    place: 'Kamień',
-    electionLead: '3',
-    electionCommittee: ['1', '2', '4', '5'],
-    status: 'FINISHED_NOT_SAVED_TO_GLOBAL',
-    isActive: false,
-  },
-  {
-    id: 4,
-    name: 'Sesja testowa 2',
-    date: Date.now(),
-    place: 'Kamień',
-    electionLead: '2',
-    electionCommittee: ['1', '6', '3', '5'],
-    status: 'SUSPENDED',
-    isActive: false,
-  },
-  {
-    id: 5,
-    name: 'Sesja testowa 2',
-    date: Date.now(),
-    place: 'Kamień',
-    electionLead: '1',
-    electionCommittee: ['7', '2', '3', '5'],
-    status: 'IN_PROGRESS',
-    isActive: true,
-  },
-  {
-    id: 6,
-    name: 'Sesja testowa 2',
-    date: Date.now(),
-    place: 'Kamień',
-    electionLead: null,
-    status: 'IN_PREPARATION',
-    isActive: false,
-  },
-];
+import tokenUtils from '../utils/tokenUtils';
 
 function getSessionsList() {
-  // const url = '/parliament';
+  const url = '/parliament';
 
-  // TODO: This is just a demmy return - connect real API when it is ready
-  return new Promise((resolve) => {
-    const wait = setTimeout(() => {
-      clearTimeout(wait);
-      resolve(dummySessionList);
-    }, 2000);
-  });
-  // return requestSender.get(url);
+  return requestSender.get(url);
 }
 
 function finishSession(sessionId) {
   const url = `/parliament/${sessionId}/finish`;
+
+  return requestSender.put(url, {});
+}
+
+function readySession(sessionId) {
+  const url = `/parliament/${sessionId}/ready`;
 
   return requestSender.put(url, {});
 }
@@ -105,36 +43,36 @@ function removeSession(sessionId) {
   return requestSender.put(url, {});
 }
 
-function downloadSession(sessionId) {
-  const url = `/parliament/${sessionId}/download`;
+function downloadSession(args) {
+  const url = `/parliament/${args.sessionId}/download`;
 
-  return requestSender.put(url, {});
+  return requestSender.downloadFile(url, { password: args.password });
 }
 
-function uploadSession(sessionFile) {
+function uploadSession(args) {
   const url = '/parliament/upload';
 
-  return requestSender.postFile(url, sessionFile);
+  const body = new FormData();
+  body.append('sessionFile', args.sessionFile);
+  body.append('password', args.password);
+
+  return requestSender.postWithFile(url, body);
 }
 
-/* eslint-disable no-param-reassign */
 async function setActiveSession(sessionId) {
-  // const url = '/parliament/set-active-session';
-  // return requestSender.post(url, { sessionId });
-  dummySessionList.forEach((_, index, theArray) => {
-    theArray[index].isActive = false;
-    if (theArray[index].id === sessionId) {
-      theArray[index].isActive = true;
-    }
-  });
+  const url = '/parliament/set-active-session';
 
-  return null;
+  return requestSender.post(url, { sessionId }).then((response) => {
+    tokenUtils.setToken(JSON.stringify(response.token));
+    return response;
+  });
 }
-/* eslint-enable no-param-reassign */
+
 export default {
   getSessionsList,
   finishSession,
   suspendSession,
+  readySession,
   startSession,
   resumeSession,
   removeSession,

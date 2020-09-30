@@ -1,6 +1,6 @@
 <template>
   <div v-if="activeSession == null">
-    TODO: Handle Mistake ?
+    <!-- TODO: Handle Mistake ? -->
   </div>
   <div
     v-else-if="activeSession.status === 'IN_PREPARATION'"
@@ -16,18 +16,6 @@
   <div v-else>
     <h3 class="mb-5">{{ $t('session.enterCommitee') }}</h3>
     <v-form ref="form" v-model="valid">
-      <v-autocomplete
-        class="mb-2"
-        v-model="electionLead"
-        :items="membersList"
-        :rules="[(v) => !!v || $t('session.electionLeadIsRequired')]"
-        :label="$t('parliamentManagement.electionLead')"
-      >
-        <template v-slot:no-data>
-          {{ $t('userManagement.noResults') }}
-        </template>
-      </v-autocomplete>
-
       <v-autocomplete
         v-model="committee"
         :items="membersList"
@@ -45,6 +33,18 @@
       >
         <template v-slot:no-data>
           {{ $t('userManagement.noResults') }}
+        </template>
+      </v-autocomplete>
+
+      <v-autocomplete
+        class="mb-2"
+        v-model="electionLead"
+        :items="electionLeadPossibilities"
+        :rules="[(v) => !!v || $t('session.electionLeadIsRequired')]"
+        :label="$t('parliamentManagement.electionLead')"
+      >
+        <template v-slot:no-data>
+          {{ $t('session.pickLeadFromCommittee') }}
         </template>
       </v-autocomplete>
 
@@ -68,7 +68,7 @@
 }
 </style>
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import imagesGetter from '../../utils/imagesGetter';
 
 export default {
@@ -76,7 +76,7 @@ export default {
   data() {
     return {
       imagesGetter,
-      minimalNumberOfMembers: 4,
+      minimalNumberOfMembers: 5,
       valid: null,
       electionLead: '',
       committee: [],
@@ -89,12 +89,6 @@ export default {
   computed: {
     ...mapGetters('membersManagement', ['activeSessionMembers']),
     ...mapGetters('parliamentManagement', ['activeSession']),
-    usersWithoutElectionLead() {
-      return this.users.filter((user) => user !== this.electionLead);
-    },
-    isCommitteeBigEnough() {
-      return this.committee.length >= this.minimalNumberOfMembers;
-    },
     membersList() {
       if (!this.activeSessionMembers) {
         return [];
@@ -102,13 +96,28 @@ export default {
 
       return this.activeSessionMembers.map((member) => ({
         text: member.fullName,
-        value: member.id,
+        value: member,
+      }));
+    },
+    electionLeadPossibilities() {
+      if (this.committee == null) return [];
+      return this.committee.map((member) => ({
+        text: member.fullName,
+        value: member,
       }));
     },
   },
   methods: {
+    ...mapActions('parliamentPreparation', ['editParliamentDetails']),
+    ...mapActions('parliamentManagement', ['startSession']),
     handleSubmit() {
       this.$refs.form.validate();
+      if (this.valid) {
+        this.editParliamentDetails({
+          electionLeadId: this.electionLead.id,
+          electionCommittee: this.committee.map((member) => member.id),
+        }).then(() => this.startSession(this.activeSession.id));
+      }
     },
   },
 };

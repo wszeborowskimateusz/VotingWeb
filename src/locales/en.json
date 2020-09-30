@@ -16,12 +16,14 @@
     "loading": "Loading...",
     "areYouSure": "Are you sure ?",
     "darkTheme": "Dark theme",
-    "ok": "OK"
+    "ok": "OK",
+    "somethingWentWrong": "Something went wrong. Try again."
   },
   "validation": {
      "failedToResumeSession": "There was an error while resuming the session, try again.",
      "failedToSuspendSession": "There was an error while stopping the session, try again.",
      "failedToStartSession": "There was an error while starting the session, try again.",
+     "failedToReadySession": "There was an error while starting the session, try again.",
      "failedToFinishSession": "There was an error while finishing the session, try again.",
      "failedToDownloadSession": "There was an error while downloading the session, try again.",
      "failedToUploadSession": "There was an error while uploading the session, try again.",
@@ -45,6 +47,8 @@
     "editSession": "Edit session",
     "changeActiveSession": "Change active session",
     "activeSession": "Active session",
+    "noActiveSession": "No active session",
+    "noActiveSessionTooltip": "In order to set an active session go to sessions list and press the purple dot next to the session you want to make active",
     "sessionInfo": "Session info",
     "name": "Name",
     "date": "Date",
@@ -54,7 +58,7 @@
     "dateRequired": "Date is required",
     "placeRequired": "Place is required",
     "userFileRequired": "File with users is required",
-    "userFileTooltip": "File with voters data, uploaded before the start of a parliament.<br><br>Description: Name, Surname, Index_number, Has_vote(yes/no), Mandate_number",
+    "userFileTooltip": "File with voters data, uploaded before the start of a parliament.<br><br>Description: Name, Surname, Mandate_number (only if member has vote), Index_number, Has_vote (1/0), Email (used for remote sessions)",
     "chooseAFile": "Choose a file",
     "browse": "Browse",
     "electionLead": "Election lead",
@@ -104,27 +108,40 @@
     "finishSession": "Finish session",
     "start": "Start",
     "areYouSureToRemove": "Are you sure you want to remove session: {sessionName}",
+    "areYouSureToFinish": "Are you sure you want to finish session: {sessionName}",
+    "actionIsIrreversible": "This action is irreversible",
+    "actionIsIrreversibleVotingWillBeFinished": "This action is irreversible. Moreover votings in progress will be finished.",
     "generatePasswords": "Generate passwords",
     "goToVotings": "Go to votings",
-    "removeSession": "Remove session"
+    "removeSession": "Remove session",
+    "downloadRequiresPassword": "Downloading session requires password",
+    "downloadRequiresPasswordDisclaimer": "Set a password that will be used for encrypting the file. The same password must be used to later upload the file.",
+    "uploadRequiresPassword": "Uploading the session requires providing password",
+    "uploadRequiresPasswordDisclaimer": "Provide password that was used while downloading the file.",
+    "downloadPasswordFileRequiresPassword": "Getting password file requires providing a password",
+    "downloadPasswordFileRequiresPasswordDisclaimer": "Provide the password to your account in order to decipher the file."
   },
   "session": {
     "enterCommitee": "Enter election committee",
     "electionLead": "Election lead",
     "committeeMembers": "Committee members",
-    "committeeMembersNoLead": "Committee members (without election lead)",
+    "committeeMembersNoLead": "Committee members",
     "pickElectionLead": "Pick election lead",
     "pickCommitteeMembers": "Pick committee members",
     "electionLeadIsRequired": "Election lead is required",
     "committeeAtLeastMembers": "The committee should have at least {amount} members",
-    "noUserFound": "No user found"
+    "noUserFound": "No user found",
+    "pickLeadFromCommittee": "First pick the committee"
   },
   "voting": {
     "vote": "Vote",
     "alreadyVoted": "People who already voted",
-    "notVotedYet": "Peaople who haven't voted yet",
+    "notVotedYet": "Peaople who haven't voted yet, but are present",
+    "absentAndDidNotVote": "People who are absent and did not vote",
+    "votedAmount": "Already {0} / {1} people voted",
     "votingInProgress": "Voting in progress",
     "finishVoting": "Finish voting",
+    "areYouSureToFinish": "Are you sure you want to finish voting: {votingName}",
     "name": "Name",
     "nameRequired": "Name is required",
     "majority": "Majority",
@@ -139,6 +156,7 @@
     "thresholdMustBe": "Threshold must be between {from} to {to} (number of options)",
     "options": "Options",
     "option": "Option",
+    "areYouSureToRemove": "Are you sure you want to remove voting: {votingName}",
     "optionNotEmpty": "Option cannot be empty",
     "specifyOptions": "Specify options to make use of threshold",
     "electionLead": "Election lead",
@@ -183,7 +201,7 @@
     "fullName": "Full name",
     "index": "Index number",
     "mandateNumber": "Mandate number",
-    "absent": "Present",
+    "present": "Present",
     "blocked": "Blocked",
     "electionLead": "Election committee",
     "electionCommittee": "Election committee member",
@@ -192,9 +210,41 @@
     "search": "Search",
     "noResults": "No results found",
     "blockUser": "Block user",
+    "userBlockSuccessfully": "User was blocked successfully",
     "unblockUser": "Unblock user",
+    "userUnBlockSuccessfully": "User was unblocked successfully",
     "block": "Block",
     "unblock": "Unblock",
     "numberInSquare": "Nummber in square"
+  },
+  "errorMessages": {
+    "preparation": {
+      "dataIncomplete": "The data you have provided is incomplete. Make sure that all the fields in provided file are filled.",
+      "invalidFormat": "The suplied file is in a wrong format. Make sure that the file you provided has all the necessary columns and has a valid extension - csv.",
+      "noUserFileLoaded": "In order to generate passwords the user file must be loaded.",
+      "noSession": "The session you are trying to edit doesn't exist."
+    },
+    "votings": {
+      "noVoting": "The voting you are trying to modify doesn't exist.",
+      "votingNotStarted": "You can only modify/start votings that are not started yet.",
+      "anotherStartedVoting": "Only one voting may be held at a time. Stop the other voting to start a new one.",
+      "notDuringVoting": "You can only stop a voting that is currently held.",
+      "alreadyVotedNoVoting": "Current voting is already stopped.",
+      "notFinished": "You can only get a report from a voting that is finished."
+    },
+    "members": {
+      "noVoter": "There is no such member."
+    },
+    "parliamentManagement": {
+      "noSession": "There is no such parliament.",
+      "notInProgress": "You can only finish/suspend a parliament that is in progress.",
+      "notInPreparation": "You can only start a parliament that is in preparations.",
+      "notBeforeVoting": "You can only start a parliament that is in a 'before voting' status.",
+      "alreadyOneInProgress": "You cannot start a parliament - only one parliament can be in progress at a time.",
+      "notSuspended": "You can only resume a parliament that is suspended.",
+      "notFinished": "You can only delete a parliament that is finished and archived to global database.",
+      "fileValidation": "The file you provided is in a wrong format.",
+      "passwordGenerationRequired": "In order to start a parliament passwords need to be generated."
+    }
   }
 }

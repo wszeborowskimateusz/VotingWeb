@@ -4,7 +4,8 @@ import toasts from '@/utils/toasts';
 import i18n from '../i18n';
 import tokenUtils from '../utils/tokenUtils';
 
-function onLoginSuccess(commit) {
+function onLoginSuccess(commit, dispatch) {
+  dispatch('parliamentManagement/loadSessions', null, { root: true });
   commit('loginSuccess');
   router.push('/');
 }
@@ -14,21 +15,24 @@ const userToken = JSON.parse(tokenUtils.getToken());
 const userState = userToken ? { status: { loggedIn: true } } : { status: {} };
 
 const actions = {
-  login({ commit }, { username, password }) {
+  login({ commit, dispatch }, { username, password }) {
     commit('loginInProgress');
     userService.login(username, password).then(
-      () => onLoginSuccess(commit),
-      (error) => {
+      () => onLoginSuccess(commit, dispatch),
+      () => {
         toasts.errorToast(
           `${i18n.t('login.loginFailed')}. ${i18n.t('common.tryAgain')}`,
         );
-        commit('loginFailure', error);
+        commit('loginFailure');
       },
     );
   },
-  logout({ commit }) {
+  logout({ commit, dispatch }) {
     userService.logout();
-    toasts.successToast(i18n.tc('login.logoutSuccess'));
+    dispatch('membersManagement/resetState', null, { root: true });
+    dispatch('parliamentManagement/resetState', null, { root: true });
+    dispatch('parliamentPreparation/resetState', null, { root: true });
+    dispatch('votingsManagement/resetState', null, { root: true });
     commit('logout');
     router.push('/login');
   },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar fixed app hide-on-scroll>
+    <v-app-bar fixed app>
       <v-app-bar-nav-icon
         v-if="status.loggedIn"
         @click="drawer = true"
@@ -26,6 +26,12 @@
           {{ activeSession.name }}
         </p>
       </a>
+      <div v-else-if="!activeSession && status.loggedIn" class="mr-5">
+        {{$t('parliamentManagement.noActiveSession')}}
+        <Tooltip modalName='no active session tooltip'>
+          {{$t('parliamentManagement.noActiveSessionTooltip')}}
+        </Tooltip>
+      </div>
       <div v-else-if="isLoading" class="mr-4">
         <Loader :isMainPageLoader="false" />
       </div>

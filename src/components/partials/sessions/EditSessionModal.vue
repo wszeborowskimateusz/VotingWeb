@@ -32,23 +32,6 @@
 
         <v-autocomplete
           v-if="session.status !== 'IN_PREPARATION'"
-          class="mb-2"
-          v-model="session.electionLead"
-          :items="membersList"
-          :rules="
-            session.status === 'BEFORE_VOTING'
-              ? []
-              : [(v) => !!v || $t('session.electionLeadIsRequired')]
-          "
-          :label="$t('parliamentManagement.electionLead')"
-        >
-          <template v-slot:no-data>
-            {{ $t('userManagement.noResults') }}
-          </template>
-        </v-autocomplete>
-
-        <v-autocomplete
-          v-if="session.status !== 'IN_PREPARATION'"
           v-model="session.electionCommittee"
           :items="membersList"
           multiple
@@ -70,10 +53,31 @@
           </template>
         </v-autocomplete>
 
+        <v-autocomplete
+          v-if="session.status !== 'IN_PREPARATION'"
+          class="mb-2"
+          v-model="session.electionLead"
+          :items="electionLeadPossibilities"
+          :rules="
+            session.status === 'BEFORE_VOTING'
+              ? []
+              : [(v) => !!v || $t('session.electionLeadIsRequired')]
+          "
+          :label="$t('parliamentManagement.electionLead')"
+        >
+          <template v-slot:no-data>
+            {{ $t('session.pickLeadFromCommittee') }}
+          </template>
+        </v-autocomplete>
+
         <v-btn color="primary" class="my-5" large @click="handleSubmit">
           <v-icon left>mdi-content-save</v-icon>
           {{ $t('common.save') }}
         </v-btn>
+
+        <v-overlay :value="isLoading">
+          <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
       </v-form>
     </div>
   </common-modal>
@@ -97,6 +101,7 @@ export default {
   },
   computed: {
     ...mapState('membersManagement', ['members']),
+    ...mapState('parliamentPreparation', ['isLoading']),
     membersList() {
       if (!this.members[this.session.id]) {
         return [];
@@ -104,17 +109,23 @@ export default {
 
       return this.members[this.session.id].map((member) => ({
         text: member.fullName,
-        value: member.id,
+        value: member,
+      }));
+    },
+    electionLeadPossibilities() {
+      if (this.session.electionCommittee == null) return [];
+      return this.session.electionCommittee.map((member) => ({
+        text: member.fullName,
+        value: member,
       }));
     },
   },
   methods: {
     ...mapActions('membersManagement', ['loadMembers']),
+    ...mapActions('parliamentPreparation', ['editParliamentDetails']),
     beforeOpen(args) {
       this.session = JSON.parse(JSON.stringify(args.params));
-      this.session.date = new Date(this.session.date)
-        .toISOString()
-        .substring(0, 10);
+      this.session.date = args.params.date.substring(0, 10);
 
       this.loadMembers({
         sessionIdToLoad: this.session.id,
@@ -123,12 +134,17 @@ export default {
     },
     handleSubmit() {
       this.$refs.form.validate();
+      if (this.valid) {
+        this.session.electionCommittee = this.session.electionCommittee.map(
+          (member) => member.id,
+        );
+        this.editParliamentDetails(this.session).then(() => {
+          this.$modal.hide('editSessionModal');
+        });
+      }
     },
     beforeClose() {
       this.$refs.form.reset();
-    },
-    onFileInputChange(file) {
-      this.session.file = file;
     },
     allowedDays(day) {
       const today = new Date();

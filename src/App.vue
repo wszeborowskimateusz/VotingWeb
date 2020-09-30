@@ -47,9 +47,12 @@ export default {
   },
   computed: {
     ...mapState('parliamentManagement', ['isActionPerforming']),
+    ...mapState('userAuthentication', ['status']),
   },
   mounted() {
-    this.loadSessions();
+    if (this.status.loggedIn) {
+      this.loadSessions();
+    }
   },
 };
 </script>

@@ -37,7 +37,10 @@
           </v-btn>
           <v-btn
             icon
-            v-if="session.status === 'FINISHED'"
+            v-if="
+              session.status === 'FINISHED' ||
+                session.status === 'IN_PREPARATION'
+            "
             @click="removeSessionWithConfirmation(session.id)"
             :title="$t('common.remove')"
           >
@@ -45,7 +48,7 @@
           </v-btn>
           <v-btn
             icon
-            @click="downloadSession(session.id)"
+            @click="isDownloadPasswordDialogShown = true"
             :title="$t('common.download')"
           >
             <v-icon>mdi-download</v-icon>
@@ -71,12 +74,18 @@
     </v-card>
     <SessionInfoModal :name="sessionModalName" :session="session" />
     <ConfirmationDialog
-      v-if="showConfirmationDialog"
-      :text="
+      :header="
         $t('sessionActions.areYouSureToRemove', { sessionName: session.name })
       "
+      :description="$t('sessionActions.actionIsIrreversible')"
       v-model="showConfirmationDialog"
       @callback="removeSession(session.id)"
+    />
+    <PasswordDialog
+      :header="$t('sessionActions.downloadRequiresPassword')"
+      :disclaimer="$t('sessionActions.downloadRequiresPasswordDisclaimer')"
+      v-model="isDownloadPasswordDialogShown"
+      @callback="downloadSession({ sessionId: session.id, password: $event })"
     />
   </div>
 </template>
@@ -115,6 +124,7 @@ export default {
     return {
       imageGetter,
       showConfirmationDialog: false,
+      isDownloadPasswordDialogShown: false,
       sessionModalName: `session${this.session.id}`,
     };
   },
@@ -122,17 +132,10 @@ export default {
     ...mapActions('parliamentManagement', [
       'changeActiveSession',
       'downloadSession',
-      'uploadSession',
       'removeSession',
     ]),
     getFormatedDate(date) {
       return moment(date).format('DD.MM.YYYY');
-    },
-    openInfoModal() {
-      this.$modal.show('activeSessionModal');
-    },
-    editSession(sessionId) {
-      console.log(`Editing the session with id: ${sessionId}`);
     },
     removeSessionWithConfirmation() {
       this.showConfirmationDialog = true;

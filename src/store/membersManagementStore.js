@@ -4,31 +4,30 @@ import membersManagementService from '@/services/membersManagementService';
 import toasts from '@/utils/toasts';
 import i18n from '../i18n';
 
-async function getActiveSession(rootGetters, dispatch) {
-  let activeSession = rootGetters['parliamentManagement/activeSession'];
-  if (activeSession == null) {
-    await dispatch('parliamentManagement/loadSessions', null, {
-      root: true,
-    });
-    activeSession = rootGetters['parliamentManagement/activeSession'];
-  }
+const getDefaultState = () => ({
+  isLoading: false,
+  members: {},
+});
 
-  return activeSession;
-}
-
-const membersState = { isLoading: false, members: {} };
+const membersState = getDefaultState();
 
 const actions = {
   /* eslint-disable object-curly-newline */
-  async loadMembers(
-    { commit, dispatch, rootGetters, state },
+  loadMembers(
+    { commit, rootGetters, state },
     { sessionIdToLoad = null, takeStateFromCache = false } = {},
   ) {
     commit('loading');
     let activeSession = null;
     if (sessionIdToLoad == null) {
-      activeSession = await getActiveSession(rootGetters, dispatch);
+      activeSession = rootGetters['parliamentManagement/activeSession'];
     }
+
+    if (sessionIdToLoad == null && activeSession == null) {
+      commit('stopLoading');
+      return;
+    }
+
     const sessionId =
       sessionIdToLoad != null ? sessionIdToLoad : activeSession.id;
 
@@ -39,11 +38,29 @@ const actions = {
 
     membersManagementService.getVotersList(sessionId).then(
       (members) => commit('loadingSuccess', { members, sessionId }),
-      (error) => {
-        toasts.errorToast(`${error}. ${i18n.tc('common.tryAgain')}`);
+      () => {
+        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
         commit('failed');
       },
     );
+  },
+  changeVoterBlockStatus({ dispatch }, { voterId, isBlocked }) {
+    membersManagementService.changeVoterBlockStatus(voterId, isBlocked).then(
+      () => {
+        if (isBlocked) {
+          toasts.successToast(i18n.tc('userManagement.userBlockSuccessfully'));
+        } else {
+          toasts.successToast(
+            i18n.tc('userManagement.userUnBlockSuccessfully'),
+          );
+        }
+        dispatch('loadMembers');
+      },
+      () => toasts.errorToast(i18n.tc('common.somethingWentWrong')),
+    );
+  },
+  resetState({ commit }) {
+    commit('resetState');
   },
 };
 
@@ -63,6 +80,9 @@ const mutations = {
   stopLoading(state) {
     state.isLoading = false;
   },
+  resetState(state) {
+    Object.assign(state, getDefaultState());
+  },
 };
 /* eslint-enable no-param-reassign */
 
@@ -80,6 +100,16 @@ export default {
       }
 
       return state.members[activeSession.id];
+    },
+    activeSessionMemberById: (_, getters) => (memberId) => {
+      if (getters.activeSessionMembers == null) {
+        return [];
+      }
+      const member = getters.activeSessionMembers.find(
+        (m) => m.id === memberId,
+      );
+
+      return member === undefined ? null : member;
     },
     electionLead(_, getters) {
       if (getters.activeSessionMembers == null) {
@@ -118,6 +148,13 @@ export default {
       return getters.activeSessionMembers.filter(
         (member) => member.hasVote && !member.absent,
       );
+    },
+    membersThatHaveVote(_, getters) {
+      if (getters.activeSessionMembers == null) {
+        return [];
+      }
+
+      return getters.activeSessionMembers.filter((member) => member.hasVote);
     },
   },
 };

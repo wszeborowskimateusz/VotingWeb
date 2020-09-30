@@ -16,12 +16,14 @@
     "loading": "Ładuję...",
     "areYouSure": "Czy na pewno ?",
     "darkTheme": "Tryb ciemny",
-    "ok": "OK"
+    "ok": "OK",
+    "somethingWentWrong": "Coś poszło nie tak. Spróbuj ponownie."
   },
   "validation": {
     "failedToResumeSession": "Wystąpił problem przy próbie wznowienia sesji, spróbuj ponownie.",
     "failedToSuspendSession": "Wystąpił problem przy próbie zatrzymanie sesji, spróbuj ponownie.",
     "failedToStartSession": "Wystąpił problem przy próbie rozpoczęcie sesji, spróbuj ponownie.",
+    "failedToReadySession": "Wystąpił problem przy próbie rozpoczęcie sesji, spróbuj ponownie.",
     "failedToFinishSession": "Wystąpił problem przy próbie zakończenia sesji, spróbuj ponownie.",
     "failedToDownloadSession": "Wystąpił problem przy próbie pobrania sesji, spróbuj ponownie.",
     "failedToUploadSession": "Wystąpił problem przy próbie wczytania sesji, spróbuj ponownie.",
@@ -45,6 +47,8 @@
     "editSession": "Edytuj posiedzenie",
     "changeActiveSession": "Zmień aktywne posiedzenie",
     "activeSession": "Aktywne posiedzenie",
+    "noActiveSession": "Brak aktywnego posiedzenia",
+    "noActiveSessionTooltip": "Aby ustawić aktywne posiedzenie przejdź do listy posiedzeń i kliknij w fioletowe kółko obok posiedzenia, które chcesz uczynić aktywnym.",
     "sessionInfo": "Informacje o sesji",
     "name": "Nazwa",
     "date": "Data",
@@ -55,7 +59,7 @@
     "placeRequired": "Miejsce jest wymagane",
     "electionLead": "Przewodniczący komisji",
     "userFileRequired": "Plik z uczestnikami jest wymagany",
-    "userFileTooltip": "Plik z danymi o uczestnikach posiedzenia, wprowadzany do systemu przed rozpoczęciem posiedzenia.<br><br>Opis: Imię, Nazwisko, Numer_Indeksu, Czy_ma_głos(tak/nie), Numer_mandatu(jeżeli jest)",
+    "userFileTooltip": "Plik z danymi o uczestnikach posiedzenia, wprowadzany do systemu przed rozpoczęciem posiedzenia.<br><br>Opis: Imię, Nazwisko, Numer_mandatu (tylko dla osób z prawem głosu), Numer_Indeksu, Czy_ma_głos (1/0), Adres email (używany dla posiedzeń zdalnych)",
     "chooseAFile": "Wybierz plik",
     "browse": "Przeglądaj",
     "status": "Status",
@@ -104,27 +108,40 @@
     "finishSession": "Zakończ posiedzenie",
     "start": "Rozpocznij",
     "areYouSureToRemove": "Czy na pewno chcesz usunąć sesję: {sessionName}",
+    "areYouSureToFinish": "Czy na pewno chcesz zakończyć sesję: {sessionName}",
+    "actionIsIrreversible": "Ta akcja jest nieodwracalna.",
+    "actionIsIrreversibleVotingWillBeFinished": "Ta akcja jest nieodwracalna. Dodatkowo głosowania w trakcie zostaną zakończone.",
     "generatePasswords": "Generuj hasła",
     "goToVotings": "Przejdź do głosowań",
-    "removeSession": "Usuń posiedzenie"
+    "removeSession": "Usuń posiedzenie",
+    "downloadRequiresPassword": "Pobieranie sesji wymaga ustawienia hasła",
+    "downloadRequiresPasswordDisclaimer": "Ustaw hasło, które zosanie użyte do zaszyfrowania pliku. To samo hasło będzie trzeba podać przy załadowaniu pliku posiedzenia.",
+    "uploadRequiresPassword": "Wczytywania sesji wymaga podania hasła",
+    "uploadRequiresPasswordDisclaimer": "Podaj hasło użyte przy pobieraniu pliku posiedzenia.",
+    "downloadPasswordFileRequiresPassword": "Pobranie pliku z hasłami wymaga podania hasła",
+    "downloadPasswordFileRequiresPasswordDisclaimer": "Podaj swoje hasło do konta w celu odszyfrowania pliku z hasłami."
   },
   "session": {
     "enterCommitee": "Podaj skład komisji skrutacyjnej",
     "electionLead": "Przewodniczący komisji skrutacyjnej",
     "committeeMembers": "Skład komisji skrutacyjnej",
-    "committeeMembersNoLead": "Skład komisji skrutacyjnej (bez przewodniczącego)",
+    "committeeMembersNoLead": "Skład komisji skrutacyjnej",
     "pickElectionLead": "Wybierz przewodniczącego",
     "pickCommitteeMembers": "Wybierz skład",
     "electionLeadIsRequired": "Przewodniczący komisji jest wymagany",
     "committeeAtLeastMembers": "Komisja powinna składać się z przynajmniej {amount} członków",
-    "noUserFound": "Nie znaleziono użytkownika"
+    "noUserFound": "Nie znaleziono użytkownika",
+    "pickLeadFromCommittee": "Najpierw wybierz komisję"
   },
   "voting": {
     "vote": "Głos",
     "alreadyVoted": "Osoby, które już zagłosowały",
-    "notVotedYet": "Osoby, które jeszcze nie zagłosowały",
+    "notVotedYet": "Osoby, które jeszcze nie zagłosowały, ale są obecne",
+    "absentAndDidNotVote": "Osoby, które są nieobecne i nie zagłosowały",
+    "votedAmount": "Zagłosowało {0} / {1} osób",
     "votingInProgress": "Głosowanie w trakcie",
     "finishVoting": "Zakończ głosowanie",
+    "areYouSureToFinish": "Czy na pewno chcesz zakończyć głosowanie: {votingName}",
     "name": "Nazwa",
     "nameRequired": "Nazwa jest wymagana",
     "majority": "Większość",
@@ -139,6 +156,7 @@
     "thresholdRequired": "Próg jest wymagany",
     "options": "Opcje",
     "option": "Opcja",
+    "areYouSureToRemove": "Czy na pewno chcesz usunąć głosowanie: {votingName}",
     "optionNotEmpty": "Opcja nie może być pusta",
     "specifyOptions": "Podaj opcje, aby korzystać z progu",
     "electionLead": "Przewodniczący komisji",
@@ -183,7 +201,7 @@
     "fullName": "Imię i nazwisko",
     "index": "Numer indeksu",
     "mandateNumber": "Numer mandatu",
-    "absent": "Nieobecny",
+    "present": "Obecny",
     "blocked": "Zablokowany",
     "electionLead": "Przewodniczący komisji",
     "electionCommittee": "Członek komisji",
@@ -192,9 +210,41 @@
     "search": "Szukaj",
     "noResults": "Nie znaleziono rezultatów",
     "blockUser": "Zablokuj użytkownika",
+    "userBlockSuccessfully": "Użytkownik został pomyślnie zablokowany",
     "unblockUser": "Odblokuj użytkownika",
+    "userUnBlockSuccessfully": "Użytkownik został pomyślnie odblokowany",
     "block": "Zablokuj",
     "unblock": "Odblokuj",
     "numberInSquare": "Liczba w kwadracie"
+  },
+  "errorMessages": {
+    "preparation": {
+      "dataIncomplete": "Przesłane dane są niekompletne. Upewnij się, że wszystkie wymagane pola w podanym pliku zostały poprawnie wypełnione.",
+      "invalidFormat": "Podany plik ma zły format. Upewnij się, że podany plik posiada wszystkie wymagane kolumny i ma właściwe rozszerzenie - csv.",
+      "noUserFileLoaded": "Aby wygenerować hasła musisz załadować plik z uczestnikami.",
+      "noSession": "Posiedzenie, które próbujesz edytować nie istnieje."
+    },
+    "votings": {
+      "noVoting": "Głosowanie, które próbujesz modyfikować nie istnieje.",
+      "votingNotStarted": "Możesz modyfikować/zamykać tylko głosowanie w trakcie.",
+      "anotherStartedVoting": "Tylko jedno głosowanie może być w trakcie w jednym czasie. Zakończ głosowanie, aby móc rozpocząć nowe.",
+      "notDuringVoting": "Możesz zatrzymać tylko głosowanie w trakcie.",
+      "alreadyVotedNoVoting": "Obecne głosowanie zostało już zakończone.",
+      "notFinished": "Możesz wygenerować raport tylko dla zakończonych głosowań."
+    },
+    "members": {
+      "noVoter": "Nie odnaleziono podanego użytkownika."
+    },
+    "parliamentManagement": {
+      "noSession": "Nie odnaleziono podanego posiedzenia.",
+      "notInProgress": "Możesz zakończyć/zawiesić tylko takie posiedzenia, które są w trakcie.",
+      "notInPreparation": "Możesz rozpocząć tylko posiedzenia w przygotowaniu.",
+      "notBeforeVoting": "Możesz rozpocząć tylko posiedzenia, które są w statusie 'przed głosowaniem'. Upewnij się ponadto, że została wprowadzona komisja skrótacyjna.",
+      "alreadyOneInProgress": "Nie możesz rozpocząć posiedzenia - tylko jedno posiedzenie może być w trakcie w jednym czasie.",
+      "notSuspended": "Możesz wznowić tylko posiedzenia, które są zawieszone.",
+      "notFinished": "Możesz usunąć tylko posiedzenia zakończone i zarchiwizone w globalnej bazie danych.",
+      "fileValidation": "Podany plik ma zły format.",
+      "passwordGenerationRequired": "Aby rozpocząć sesję należy najpierw wygenerować hasła dla głosujących."
+    }
   }
 }

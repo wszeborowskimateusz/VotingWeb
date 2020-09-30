@@ -1,5 +1,9 @@
 <template>
-  <common-modal name="newSessionModal" @before-close="beforeClose()">
+  <common-modal
+    name="newSessionModal"
+    @before-close="beforeClose()"
+    @before-open="beforeOpen"
+  >
     <div class="col-sm-6 offset-sm-3 py-5 h-100">
       <h2 class="mb-4">{{ $t('parliamentManagement.createNewSession') }}</h2>
       <v-form ref="form" v-model="valid">
@@ -21,7 +25,7 @@
           modalName="userFileTooltip"
           class=" d-flex justify-content-start mt-2"
         >
-          <span v-html="$t('parliamentManagement.userFileTooltip')"/>
+          <span v-html="$t('parliamentManagement.userFileTooltip')" />
         </tooltip>
         <v-file-input
           class="mb-2"
@@ -39,36 +43,58 @@
           required
         ></v-date-picker>
 
-        <v-btn color="primary" class="my-5" large @click="handleSubmit">
-          <v-icon left>mdi-plus</v-icon>
-          {{ $t('common.create') }}
-        </v-btn>
+        <div>
+          <v-btn color="primary" class="my-5" large @click="handleSubmit">
+            <v-icon left>mdi-plus</v-icon>
+            {{ $t('common.create') }}
+          </v-btn>
+        </div>
+        <v-overlay :value="isLoading">
+          <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
       </v-form>
     </div>
   </common-modal>
 </template>
 <script>
+import { mapActions, mapState } from 'vuex';
+
 export default {
   data() {
     return {
       valid: null,
       session: {
         name: '',
-        date: null,
+        date: new Date().toISOString().substr(0, 10),
         place: '',
-        userFile: null,
       },
+      userFile: null,
     };
   },
+  computed: {
+    ...mapState('parliamentPreparation', ['isLoading']),
+  },
   methods: {
+    ...mapActions('parliamentPreparation', ['setParliamentDetails']),
     handleSubmit() {
       this.$refs.form.validate();
+      if (this.valid) {
+        this.setParliamentDetails({
+          userFile: this.userFile,
+          session: this.session,
+        }).then(() => {
+          this.$modal.hide('newSessionModal');
+        });
+      }
     },
     beforeClose() {
       this.$refs.form.reset();
     },
+    beforeOpen() {
+      this.session.date = new Date().toISOString().substr(0, 10);
+    },
     onFileInputChange(file) {
-      this.session.file = file;
+      this.userFile = file;
     },
     allowedDays(day) {
       const today = new Date();

@@ -15,7 +15,7 @@
         "
       >
         <div v-if="voting.status === 'NOT_STARTED'">
-          <v-btn icon class="mr-2">
+          <v-btn icon class="mr-2" @click="isDeleteVotingDialogShown = true">
             <v-icon>mdi-delete</v-icon>
           </v-btn>
           <v-btn
@@ -29,6 +29,7 @@
         <v-btn
           icon
           v-if="voting.status === 'FINISHED'"
+          @click="generateVotingReport(voting.id)"
           :title="$t('voting.downloadVotingRaport')"
         >
           <v-icon>mdi-download</v-icon>
@@ -42,10 +43,18 @@
         >
           {{ $t('voting.liveVotedList') }}
         </v-btn>
-        <v-btn color="error" v-if="voting.status === 'DURING_VOTING'">
+        <v-btn
+          color="error"
+          v-if="voting.status === 'DURING_VOTING'"
+          @click="isFinishVotingDialogShown = true"
+        >
           {{ $t('voting.finishVoting') }}
         </v-btn>
-        <v-btn color="success" v-else-if="voting.status === 'NOT_STARTED'">
+        <v-btn
+          color="success"
+          v-else-if="voting.status === 'NOT_STARTED'"
+          @click="openVoting(voting.id)"
+        >
           {{ $t('voting.startVoting') }}
         </v-btn>
       </div>
@@ -110,9 +119,9 @@
           <v-list-item-icon :title="pickStarTitle()" class="">
             <v-icon :color="pickStarColor()">mdi-star</v-icon>
           </v-list-item-icon>
-           <v-list-item-content>
-              <v-list-item-title v-text="voting.name"></v-list-item-title>
-            </v-list-item-content>
+          <v-list-item-content>
+            <v-list-item-title v-text="voting.name"></v-list-item-title>
+          </v-list-item-content>
         </VotingResults>
         <v-list>
           <v-list-item
@@ -137,11 +146,23 @@
         </v-list>
       </div>
     </v-expansion-panel-content>
+    <ConfirmationDialog
+      :header="$t('voting.areYouSureToRemove', { votingName: voting.name })"
+      :description="$t('sessionActions.actionIsIrreversible')"
+      v-model="isDeleteVotingDialogShown"
+      @callback="deleteVoting(voting.id)"
+    />
+    <ConfirmationDialog
+      :header="$t('voting.areYouSureToFinish', { votingName: voting.name })"
+      :description="$t('sessionActions.actionIsIrreversible')"
+      v-model="isFinishVotingDialogShown"
+      @callback="closeVoting(voting.id)"
+    />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import VotingResults from './VotingResults.vue';
 
 export default {
@@ -152,17 +173,29 @@ export default {
     },
   },
   data() {
+    const isVotingMultipleChoice =
+      this.voting.cardinality === 'MULTIPLE_CHOICE';
+
+    const fieldsToDisplay = [
+      'status',
+      'majority',
+      'cardinality',
+      'secrecy',
+      'threshold',
+      'electionLead',
+    ];
+
+    if (!isVotingMultipleChoice) {
+      // Remove threshold
+      fieldsToDisplay.splice(4, 1);
+    }
+
     return {
       inEditMode: false,
-      fieldsToDisplay: [
-        'status',
-        'majority',
-        'cardinality',
-        'secrecy',
-        'threshold',
-        'electionLead',
-      ],
+      fieldsToDisplay,
       enumFields: ['status', 'majority', 'cardinality'],
+      isDeleteVotingDialogShown: false,
+      isFinishVotingDialogShown: false,
     };
   },
   computed: {
@@ -177,10 +210,10 @@ export default {
       if (
         !this.voting.results ||
         this.voting.options == null ||
-        this.voting.options.length <= 0 ||
+        this.voting.status !== 'FINISHED' ||
         this.voting.cardinality === 'SINGLE_CHOICE'
       ) {
-        return this.voting.options;
+        return [];
       }
 
       const optionsWithResults = Array.from(
@@ -194,10 +227,18 @@ export default {
     },
   },
   methods: {
+    ...mapActions('votingsManagement', [
+      'openVoting',
+      'deleteVoting',
+      'closeVoting',
+      'generateVotingReport',
+    ]),
     pickStarColor(optionId) {
       if (this.voting.status !== 'FINISHED') return 'grey';
       const results =
-        optionId == null ? this.voting.results : this.voting.results[optionId];
+        this.voting.cardinality === 'SINGLE_CHOICE'
+          ? this.voting.results
+          : this.voting.results[optionId];
 
       if (results.wasSuccessful) {
         return 'green';
@@ -211,7 +252,9 @@ export default {
       }
 
       const results =
-        optionId == null ? this.voting.results : this.voting.results[optionId];
+        this.voting.cardinality === 'SINGLE_CHOICE'
+          ? this.voting.results
+          : this.voting.results[optionId];
 
       if (results.wasSuccessful) {
         return this.$t('voting.votingPassed');

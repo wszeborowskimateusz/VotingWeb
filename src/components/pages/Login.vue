@@ -1,8 +1,8 @@
 <template>
   <div class="col-sm-6 offset-sm-3 pt-4">
-    <v-card class="p-2">
+    <v-card class="p-2 pt-5">
       <h2>{{ $t('login.login') }}</h2>
-      <v-form ref="form" class="p-5" v-model="valid">
+      <v-form ref="form" class="p-5" v-model="valid" @submit.prevent="handleSubmit">
         <v-text-field
           v-model="username"
           :rules="[(v) => !!v || $t('login.usernameRequired')]"
@@ -20,7 +20,7 @@
           prepend-icon="mdi-lock"
         ></v-text-field>
 
-        <v-btn class="mt-5" dark @click="handleSubmit">{{
+        <v-btn class="mt-5" type="submit" dark>{{
           $t('login.login')
         }}</v-btn>
       </v-form>

@@ -7,14 +7,26 @@
   >
     <v-card>
       <v-card-title class="headline">
-        <v-avatar color="error" class="mx-auto mb-3">
+        <v-avatar class="mx-auto mb-3">
           <v-icon large>
-            mdi-exclamation
+            mdi-lock
           </v-icon>
         </v-avatar>
         {{ header }}</v-card-title
       >
-      <v-card-text>{{ description }}</v-card-text>
+      <v-card-text>
+        {{ disclaimer }}
+        <v-form ref="form" class="p-5" v-model="valid">
+          <v-text-field
+            :label="$t('login.password')"
+            :type="isPasswordVisible ? 'text' : 'password'"
+            v-model="password"
+            required
+            :rules="[(v) => !!v || $t('login.passwordRequired')]"
+            :append-icon="isPasswordVisible ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="isPasswordVisible = !isPasswordVisible"
+          ></v-text-field></v-form
+      ></v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn @click="closeDialog">
@@ -46,17 +58,30 @@ export default {
       type: String,
       required: true,
     },
-    description: {
+    disclaimer: {
       type: String,
       default: () => '',
     },
   },
+  data() {
+    return {
+      isPasswordVisible: false,
+      password: '',
+      valid: null,
+    };
+  },
   methods: {
     success() {
-      this.$emit('callback');
-      this.closeDialog();
+      this.$refs.form.validate();
+      if (this.valid) {
+        this.$emit('callback', this.password);
+        this.closeDialog();
+      }
     },
     closeDialog() {
+      this.password = '';
+      this.valid = null;
+      this.isPasswordVisible = false;
       this.$emit('input', false);
     },
   },

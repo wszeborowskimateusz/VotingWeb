@@ -2,23 +2,75 @@ import parliamentManagementService from '@/services/parliamentManagementService'
 import toasts from '@/utils/toasts';
 import i18n from '../i18n';
 
-const parlaimentState = {
+const getDefaultState = () => ({
   isLoading: false,
   sessions: null,
   isActionPerforming: false,
-};
+});
 
-function handleActionError(action, commit) {
+const parlaimentState = getDefaultState();
+
+function handleActionError(action, commit, error) {
+  if (error.httpCode === 404 && error.errorCode === 'NO_SESSION') {
+    toasts.errorToast(i18n.tc('errorMessages.parliamentManagement.noSession'));
+  } else if (error.httpCode === 435) {
+    if (error.errorCode === 'IN_PROGRESS') {
+      toasts.errorToast(
+        i18n.tc('errorMessages.parliamentManagement.notInProgress'),
+      );
+    } else if (error.errorCode === 'IN_PREPARATION') {
+      toasts.errorToast(
+        i18n.tc('errorMessages.parliamentManagement.notInPreparation'),
+      );
+    } else if (error.errorCode === 'BEFORE_VOTING') {
+      toasts.errorToast(
+        i18n.tc('errorMessages.parliamentManagement.notBeforeVoting'),
+      );
+    } else if (error.errorCode === 'SUSPENDED') {
+      toasts.errorToast(
+        i18n.tc('errorMessages.parliamentManagement.notSuspended'),
+      );
+    } else if (error.errorCode === 'FINISHED') {
+      toasts.errorToast(
+        i18n.tc('errorMessages.parliamentManagement.notFinished'),
+      );
+    }
+  } else if (error.httpCode === 437 && error.errorCode === 'IN_PROGRESS') {
+    toasts.errorToast(
+      i18n.tc('errorMessages.parliamentManagement.alreadyOneInProgress'),
+    );
+  } else if (
+    error.httpCode === 412 &&
+    error.errorCode === 'PASSWORDS_GENERATION_REQUIRED'
+  ) {
+    toasts.errorToast(
+      i18n.tc('errorMessages.parliamentManagement.passwordGenerationRequired'),
+    );
+  } else if (error.httpCode === 412) {
+    toasts.errorToast(
+      i18n.tc('errorMessages.parliamentManagement.fileValidation'),
+    );
+  } else {
+    toasts.errorToast(i18n.tc(`validation.failedTo${action}Session`));
+  }
   commit('stopAction');
-  toasts.errorToast(i18n.tc(`validation.failedTo${action}Session`));
 }
 
-function handleAction({ commit, dispatch }, sessionId, action, actionName) {
+function handleAction({ commit, dispatch }, payload, action, actionName) {
   commit('actionPerforming');
-  action(sessionId).then(
-    () => dispatch('loadSessions'),
+  action(payload).then(
     () => {
-      handleActionError(actionName, commit);
+      if (
+        actionName === 'Ready' ||
+        actionName === 'Start' ||
+        actionName === 'Resume'
+      ) {
+        dispatch('changeActiveSession', payload);
+      }
+      dispatch('loadSessions');
+    },
+    (error) => {
+      handleActionError(actionName, commit, error);
     },
   );
 }
@@ -28,8 +80,8 @@ const actions = {
     commit('loading');
     return parliamentManagementService.getSessionsList().then(
       (sessions) => commit('loadingSuccess', sessions),
-      (error) => {
-        toasts.errorToast(`${error}. ${i18n.tc('common.tryAgain')}`);
+      () => {
+        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
         commit('failed');
       },
     );
@@ -58,6 +110,14 @@ const actions = {
       'Start',
     );
   },
+  readySession(args, sessionId) {
+    handleAction(
+      args,
+      sessionId,
+      parliamentManagementService.readySession,
+      'Ready',
+    );
+  },
   resumeSession(args, sessionId) {
     handleAction(
       args,
@@ -74,18 +134,18 @@ const actions = {
       'Remove',
     );
   },
-  downloadSession(args, sessionId) {
+  downloadSession(args, downloadArgs) {
     handleAction(
       args,
-      sessionId,
+      downloadArgs,
       parliamentManagementService.downloadSession,
       'Download',
     );
   },
-  uploadSession(args, sessionFile) {
+  uploadSession(args, uploadArgs) {
     handleAction(
       args,
-      sessionFile,
+      uploadArgs,
       parliamentManagementService.uploadSession,
       'Upload',
     );
@@ -93,10 +153,13 @@ const actions = {
   changeActiveSession({ dispatch }, sessionId) {
     parliamentManagementService.setActiveSession(sessionId).then(
       () => dispatch('loadSessions'),
-      (error) => {
-        toasts.errorToast(`${error}. ${i18n.tc('common.tryAgain')}`);
+      () => {
+        toasts.errorToast(i18n.tc('common.somethingWentWrong'));
       },
     );
+  },
+  resetState({ commit }) {
+    commit('resetState');
   },
 };
 
@@ -120,6 +183,9 @@ const mutations = {
     state.isLoading = false;
     state.sessions = null;
     state.isActionPerforming = false;
+  },
+  resetState(state) {
+    Object.assign(state, getDefaultState());
   },
 };
 /* eslint-enable no-param-reassign */

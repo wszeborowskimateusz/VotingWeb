@@ -5,6 +5,7 @@
       class="mb-5"
       dark
       v-if="activeSession.status === 'FINISHED'"
+      @click="removeSession(activeSession.id)"
     >
       <v-icon left>mdi-delete</v-icon>
       {{ $t('sessionActions.removeSession') }}
@@ -24,6 +25,7 @@ export default {
   },
   methods: {
     ...mapActions('votingsManagement', ['loadVotings']),
+    ...mapActions('parliamentManagement', ['removeSession']),
   },
   mounted() {
     this.loadVotings();
