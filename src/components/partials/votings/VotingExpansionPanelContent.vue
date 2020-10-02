@@ -107,22 +107,6 @@
         </div>
 
         <v-divider />
-        <VotingResults
-          v-if="
-            voting.status === 'FINISHED' &&
-              voting.cardinality === 'SINGLE_CHOICE'
-          "
-          :results="voting.results"
-          :secret="voting.secrecy"
-          :votingKey="`${voting.id}`"
-        >
-          <v-list-item-icon :title="pickStarTitle()" class="">
-            <v-icon :color="pickStarColor()">mdi-star</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title v-text="voting.name"></v-list-item-title>
-          </v-list-item-content>
-        </VotingResults>
         <v-list>
           <v-list-item
             v-for="option in optionsSortedByInFavorVotes"
@@ -137,7 +121,7 @@
 
             <v-list-item-action v-if="voting.status === 'FINISHED'">
               <VotingResults
-                :results="voting.results[option.id]"
+                :results="getResults(option.id)"
                 :secret="voting.secrecy"
                 :votingKey="`${voting.id}|${option.id}`"
               />
@@ -207,13 +191,16 @@ export default {
       ).fullName;
     },
     optionsSortedByInFavorVotes() {
-      if (
-        !this.voting.results ||
-        this.voting.options == null ||
-        this.voting.status !== 'FINISHED' ||
-        this.voting.cardinality === 'SINGLE_CHOICE'
-      ) {
+      if (this.voting.options == null) {
         return [];
+      }
+
+      if (this.voting.cardinality === 'SINGLE_CHOICE') {
+        return [{ name: this.voting.name }];
+      }
+
+      if (this.voting.status !== 'FINISHED') {
+        return this.voting.options;
       }
 
       const optionsWithResults = Array.from(
@@ -233,12 +220,18 @@ export default {
       'closeVoting',
       'generateVotingReport',
     ]),
+    getResults(optionId) {
+      if (this.voting.status !== 'FINISHED') {
+        return null;
+      }
+
+      return this.voting.cardinality === 'SINGLE_CHOICE'
+        ? this.voting.results
+        : this.voting.results[optionId];
+    },
     pickStarColor(optionId) {
       if (this.voting.status !== 'FINISHED') return 'grey';
-      const results =
-        this.voting.cardinality === 'SINGLE_CHOICE'
-          ? this.voting.results
-          : this.voting.results[optionId];
+      const results = this.getResults(optionId);
 
       if (results.wasSuccessful) {
         return 'green';
@@ -251,10 +244,7 @@ export default {
         return this.$t('voting.votingNotFinished');
       }
 
-      const results =
-        this.voting.cardinality === 'SINGLE_CHOICE'
-          ? this.voting.results
-          : this.voting.results[optionId];
+      const results = this.getResults(optionId);
 
       if (results.wasSuccessful) {
         return this.$t('voting.votingPassed');
