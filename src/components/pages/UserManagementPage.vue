@@ -1,6 +1,11 @@
 <template>
-  <v-card>
-    <v-card-title>
+  <v-card class="pb-5">
+    <v-card-title
+      class="sticky"
+      :style="{
+        'background-color': isDarkTheme ? '#212121' : '#ffffff',
+      }"
+    >
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -83,6 +88,31 @@
   </v-card>
 </template>
 
+<style scoped>
+.sticky {
+  position: sticky;
+  top: 64px;
+  z-index: 2;
+}
+.v-data-table /deep/ .sticky-header {
+  position: sticky;
+  top: 140px;
+  z-index: 2;
+}
+
+.v-data-table /deep/ .v-data-table__wrapper {
+  overflow: unset;
+}
+
+.v-data-table /deep/ .dark-background {
+  background-color: #212121;
+}
+
+.v-data-table /deep/ .light-background {
+  background-color: white;
+}
+</style>
+
 <script>
 import { mapGetters, mapState, mapActions } from 'vuex';
 
@@ -93,39 +123,61 @@ export default {
     ...mapGetters('membersManagement', ['activeSessionMembers']),
     headers() {
       return [
-        { text: this.$t('userManagement.fullName'), value: 'fullName' },
-        { text: this.$t('userManagement.index'), value: 'index' },
+        {
+          text: this.$t('userManagement.fullName'),
+          value: 'fullName',
+          class: this.stickyHeaders,
+        },
+        {
+          text: this.$t('userManagement.index'),
+          value: 'index',
+          class: this.stickyHeaders,
+        },
         {
           text: this.$t('userManagement.mandateNumber'),
           value: 'mandateNumber',
+          class: this.stickyHeaders,
         },
         {
           text: this.$t('userManagement.present'),
           value: 'absent',
           align: 'center',
+          class: this.stickyHeaders,
         },
         {
           text: this.$t('userManagement.blocked'),
           value: 'isBlocked',
           align: 'center',
+          class: this.stickyHeaders,
         },
         {
           text: this.$t('userManagement.electionLead'),
           value: 'isElectionLead',
           align: 'center',
+          class: this.stickyHeaders,
         },
         {
           text: this.$t('userManagement.electionCommittee'),
           value: 'isInElectionCommittee',
           align: 'center',
+          class: this.stickyHeaders,
         },
         {
           text: this.$t('userManagement.actions'),
           value: 'actions',
           align: 'center',
           sortable: false,
+          class: this.stickyHeaders,
         },
       ];
+    },
+    stickyHeaders() {
+      return `sticky-header ${
+        this.isDarkTheme ? 'dark-background' : 'light-background'
+      }`;
+    },
+    isDarkTheme() {
+      return this.$vuetify.theme.isDark;
     },
   },
   mounted() {
