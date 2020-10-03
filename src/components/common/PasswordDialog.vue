@@ -82,6 +82,7 @@ export default {
       this.password = '';
       this.valid = null;
       this.isPasswordVisible = false;
+      this.$emit('cancel');
       this.$emit('input', false);
     },
   },

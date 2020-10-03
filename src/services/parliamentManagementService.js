@@ -40,7 +40,7 @@ function resumeSession(sessionId) {
 function removeSession(sessionId) {
   const url = `/parliament/${sessionId}/remove`;
 
-  return requestSender.put(url, {});
+  return requestSender.delete(url, {});
 }
 
 function downloadSession(args) {

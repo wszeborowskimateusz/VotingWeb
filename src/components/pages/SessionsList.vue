@@ -51,6 +51,7 @@
       :disclaimer="$t('sessionActions.uploadRequiresPasswordDisclaimer')"
       v-model="isUploadPasswordDialogShown"
       @callback="uploadSession({ sessionFile: selectedFile, password: $event })"
+      @cancel="cancelPasswordDialog()"
     />
   </div>
 </template>
@@ -106,6 +107,10 @@ export default {
     onFileChanged(event) {
       [this.selectedFile] = event.target.files;
       this.isUploadPasswordDialogShown = true;
+    },
+    cancelPasswordDialog() {
+      this.selectedFile = null;
+      this.$refs.uploader.value = null;
     },
   },
 };
