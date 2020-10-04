@@ -27,13 +27,13 @@ function deleteVoting(votingId) {
 function openVoting(votingId) {
   const url = `/votings/${votingId}/open`;
 
-  return requestSender.post(url, {});
+  return requestSender.put(url, {});
 }
 
 function closeVoting(votingId) {
   const url = `/votings/${votingId}/close`;
 
-  return requestSender.post(url, {});
+  return requestSender.put(url, {});
 }
 
 function getVotingResults(votingId) {
