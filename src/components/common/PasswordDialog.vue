@@ -16,7 +16,7 @@
       >
       <v-card-text>
         {{ disclaimer }}
-        <v-form ref="form" class="p-5" v-model="valid">
+        <v-form ref="form" class="p-5" v-model="valid" @submit.prevent="success">
           <v-text-field
             :label="$t('login.password')"
             :type="isPasswordVisible ? 'text' : 'password'"

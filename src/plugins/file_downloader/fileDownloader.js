@@ -77,7 +77,7 @@ class FileDownloader {
     };
 
     if (this.params.body != null) {
-      this.request.send(JSON.stringify(this.params.body));
+      this.request.send(this.params.body);
     } else {
       this.request.send();
     }
@@ -96,14 +96,13 @@ class FileDownloader {
 
   createRequest() {
     let request = new XMLHttpRequest();
-
-    request.open(this.params.method, this.params.url, true);
-    request.setRequestHeader(
-      'Content-type',
+    let contentType =
       this.params.body == null
         ? 'application/x-www-form-urlencoded'
-        : 'application/json;charset=UTF-8',
-    );
+        : 'application/json;charset=UTF-8';
+
+    request.open(this.params.method, this.params.url, true);
+    request.setRequestHeader('Content-type', contentType);
     this.params.headers.forEach((header) => {
       request.setRequestHeader(header.name, header.value);
     });

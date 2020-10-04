@@ -44,6 +44,7 @@ function prepareApiUrl(url) {
 }
 
 function sendRequest(url, options) {
+  console.log(`Calling url: ${url}`);
   const token = JSON.parse(tokenUtils.getToken());
   const reqOptions = options;
   if (token !== null) {
@@ -88,8 +89,8 @@ export default {
     return new FileDownloader({
       url: prepareApiUrl(url),
       headers: [{ name: 'Authorization', value: `Bearer ${token}` }],
-      method: body == null ? 'GET' : 'POST',
-      body,
+      method: body != null ? 'POST' : 'GET',
+      body: body != null ? JSON.stringify(body) : body,
     });
   },
   postWithFile(url, formData) {
