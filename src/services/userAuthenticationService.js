@@ -6,7 +6,7 @@ function logout() {
 }
 
 function login(username, password) {
-  const url = '/authentication/login';
+  const url = '/authentication/login/admin';
 
   return requestSender.post(url, { login: username, password }).then((user) => {
     if (user.token) {
