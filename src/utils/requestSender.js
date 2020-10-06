@@ -15,7 +15,7 @@ function handleResponse(response, url) {
     const data = text && JSON.parse(text);
     console.log(data);
     if (!response.ok) {
-      if (response.status === 401 && url !== '/authentication/login') {
+      if (response.status === 401 && url !== '/authentication/login/admin') {
         toasts.errorToast(i18n.tc('login.invalidToken'));
         EventBus.$emit('logout');
       }
