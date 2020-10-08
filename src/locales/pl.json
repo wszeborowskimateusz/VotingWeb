@@ -26,7 +26,7 @@
     "failedToReadySession": "Wystąpił problem przy próbie rozpoczęcie sesji, spróbuj ponownie.",
     "failedToFinishSession": "Wystąpił problem przy próbie zakończenia sesji, spróbuj ponownie.",
     "failedToDownloadSession": "Wystąpił problem przy próbie pobrania sesji, spróbuj ponownie.",
-    "failedToUploadSession": "Wystąpił problem przy próbie wczytania sesji, spróbuj ponownie.",
+    "failedToUploadSession": "Wystąpił problem przy próbie wczytania sesji, spróbuj ponownie. Pamiętaj, że w systemie może być tylko jedna sesja w trakcie lub wstrzymana",
     "failedToRemoveSession": "Wystąpił problem przy próbie usunięcia sesji, spróbuj ponownie."
   },
   "login": {

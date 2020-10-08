@@ -6,8 +6,8 @@
     >
       <div class="row">
         <div class="col-12 col-md-6 text-left">
-          <h4>{{ session.name }}</h4>
-          <h6>{{ getFormatedDate(session.date) }}</h6>
+          <a @click="changeActiveSessionEndNavigateToHome" class="h3">{{ session.name }}</a>
+          <h6 class="mt-2">{{ getFormatedDate(session.date) }}</h6>
           <SessionStatusInfo
             class="mb-2"
             :status="session.status"
@@ -139,6 +139,10 @@ export default {
     },
     removeSessionWithConfirmation() {
       this.showConfirmationDialog = true;
+    },
+    changeActiveSessionEndNavigateToHome() {
+      this.changeActiveSession(this.session.id);
+      this.$router.push('/');
     },
   },
   components: {

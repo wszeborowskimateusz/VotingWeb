@@ -26,7 +26,7 @@
      "failedToReadySession": "There was an error while starting the session, try again.",
      "failedToFinishSession": "There was an error while finishing the session, try again.",
      "failedToDownloadSession": "There was an error while downloading the session, try again.",
-     "failedToUploadSession": "There was an error while uploading the session, try again.",
+     "failedToUploadSession": "There was an error while uploading the session, try again. Remember that there might be a single in progress or suspended session.",
      "failedToRemoveSession": "There was an error while removing the session, try again."
   },
   "login": {
