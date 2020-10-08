@@ -18,10 +18,10 @@
 
     <v-card>
       <v-tabs grow v-model="tab" background-color="primary" dark>
-        <v-tab v-if="votingTypes.includes('NOT_STARTED')">{{
+        <v-tab v-if="votingTypes.includes('DURING_VOTING')">{{
           $t('voting.votingInProgress')
         }}</v-tab>
-        <v-tab v-if="votingTypes.includes('DURING_VOTING')">{{
+        <v-tab v-if="votingTypes.includes('NOT_STARTED')">{{
           $t('voting.votingsReadyToStart')
         }}</v-tab>
         <v-tab v-if="votingTypes.includes('FINISHED')">{{
