@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3 class="mb-3">{{ $t('voting.votingsList') }}</h3>
-    <loader :style="{visibility: isLoading ? 'visible' : 'hidden' }"/>
+    <loader :style="{ visibility: isLoading ? 'visible' : 'hidden' }" />
     <div class="mb-3 d-flex flex-column">
       <span>
         <v-icon color="grey">mdi-star</v-icon>
@@ -15,7 +15,6 @@
         <v-icon color="red">mdi-star</v-icon>{{ $t('voting.votingFailed') }}
       </span>
     </div>
-
     <v-card>
       <v-tabs grow v-model="tab" background-color="primary" dark>
         <v-tab v-if="votingTypes.includes('DURING_VOTING')">{{
@@ -57,11 +56,30 @@ export default {
         return ['NOT_STARTED', 'DURING_VOTING', 'FINISHED'];
       },
     },
+    value: {
+      type: Number,
+    },
+  },
+  created() {
+    this.$root.$on('closeVoting', () => {
+      this.tab = 2;
+    });
+    this.$root.$on('openVoting', () => {
+      this.tab = 0;
+    });
   },
   data() {
     return {
-      tab: null,
+      tab: this.value,
     };
+  },
+  watch: {
+    tab(newValue) {
+      this.$emit('input', newValue);
+    },
+    value(newValue) {
+      this.tab = newValue;
+    },
   },
   computed: {
     ...mapState('votingsManagement', ['isLoading']),

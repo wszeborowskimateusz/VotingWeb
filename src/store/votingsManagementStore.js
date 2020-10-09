@@ -64,7 +64,7 @@ const actions = {
     );
   },
   openVoting({ dispatch }, votingId) {
-    votingsManagementService.openVoting(votingId).then(
+    return votingsManagementService.openVoting(votingId).then(
       () => dispatch('loadVotings'),
       (error) => {
         handleNotStartedAnd404Errors(error, (e) => {
@@ -72,15 +72,14 @@ const actions = {
             toasts.errorToast(
               i18n.tc('errorMessages.votings.anotherStartedVoting'),
             );
-            return true;
           }
-          return false;
+          return Promise.reject();
         });
       },
     );
   },
   closeVoting({ dispatch }, votingId) {
-    votingsManagementService.closeVoting(votingId).then(
+    return votingsManagementService.closeVoting(votingId).then(
       () => dispatch('loadVotings'),
       (error) => {
         if (error.httpCode === 404 && error.errorCode === 'NO_VOTING') {
@@ -93,6 +92,7 @@ const actions = {
         } else {
           toasts.errorToast(i18n.tc('common.somethingWentWrong'));
         }
+        return Promise.reject();
       },
     );
   },

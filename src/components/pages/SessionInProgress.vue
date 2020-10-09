@@ -13,8 +13,12 @@
       {{ $t('voting.newVoting') }}
     </v-btn>
     <v-divider v-if="activeSession.status === 'IN_PROGRESS'" />
-    <VotingsTabView class="my-5" :votingTypes="getAllowedVotingTypes()" />
-    <NewEditVoting />
+    <VotingsTabView
+      class="my-5"
+      :votingTypes="getAllowedVotingTypes()"
+      v-model="selectedVotingTab"
+    />
+    <NewEditVoting @finishSuccess="selectedVotingTab = 1" />
   </div>
 </template>
 
@@ -24,6 +28,11 @@ import VotingsTabView from '../partials/votings/VotingsTabView.vue';
 import NewEditVoting from '../partials/votings/NewEditVoting.vue';
 
 export default {
+  data() {
+    return {
+      selectedVotingTab: 0,
+    };
+  },
   computed: {
     ...mapGetters('parliamentManagement', ['activeSession']),
   },

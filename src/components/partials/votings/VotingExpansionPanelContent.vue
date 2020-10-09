@@ -53,7 +53,7 @@
         <v-btn
           color="success"
           v-else-if="voting.status === 'NOT_STARTED'"
-          @click="openVoting(voting.id)"
+          @click="openVotingWithEvent(voting.id)"
         >
           {{ $t('voting.startVoting') }}
         </v-btn>
@@ -140,7 +140,7 @@
       :header="$t('voting.areYouSureToFinish', { votingName: voting.name })"
       :description="$t('sessionActions.actionIsIrreversible')"
       v-model="isFinishVotingDialogShown"
-      @callback="closeVoting(voting.id)"
+      @callback="closeVotingWithEvent(voting.id)"
     />
   </div>
 </template>
@@ -220,6 +220,16 @@ export default {
       'closeVoting',
       'generateVotingReport',
     ]),
+    closeVotingWithEvent(votingId) {
+      this.closeVoting(votingId).then(() => {
+        this.$root.$emit('closeVoting');
+      });
+    },
+    openVotingWithEvent(votingId) {
+      this.openVoting(votingId).then(() => {
+        this.$root.$emit('openVoting');
+      });
+    },
     getResults(optionId) {
       if (this.voting.status !== 'FINISHED') {
         return null;

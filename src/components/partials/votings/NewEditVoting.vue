@@ -210,8 +210,11 @@ export default {
         options: [{ id: 0, name: '' }],
       };
     },
-    closeModal() {
+    closeModal(finishWithSuccess = false) {
       this.$modal.hide('newEditVoting');
+      if (finishWithSuccess) {
+        this.$emit('finishSuccess');
+      }
     },
     submit() {
       this.$refs.form.validate();
@@ -222,11 +225,11 @@ export default {
 
         if (this.editMode) {
           this.editVoting(this.voting).then(() => {
-            this.closeModal();
+            this.closeModal(true);
           });
         } else {
           this.addVoting(this.voting).then(() => {
-            this.closeModal();
+            this.closeModal(true);
           });
         }
       }
