@@ -5,7 +5,7 @@ COPY package*.json  package-lock.json ./
 RUN npm install --save node-fetch
 RUN npm install
 COPY . .
-RUN npm run build
+RUN npm run build:local
 
 # production stage
 FROM nginx:stable-alpine as production-stage
