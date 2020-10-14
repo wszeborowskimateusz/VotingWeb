@@ -12,8 +12,6 @@ function refreshToken(refreshedToken) {
 
 function handleResponse(response, url) {
   return response.text().then((text) => {
-    const data = text && JSON.parse(text);
-    console.log(data);
     if (!response.ok) {
       if (response.status === 401 && url !== '/authentication/login/admin') {
         toasts.errorToast(i18n.tc('login.invalidToken'));
@@ -22,10 +20,13 @@ function handleResponse(response, url) {
 
       const error = {
         httpCode: response.status,
-        errorCode: response.statusText,
+        errorCode: text,
       };
+
       return Promise.reject(error);
     }
+
+    const data = text && JSON.parse(text);
 
     console.log(response);
 
