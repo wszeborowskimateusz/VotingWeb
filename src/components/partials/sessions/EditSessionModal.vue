@@ -109,7 +109,7 @@ export default {
 
       return this.members[this.session.id].map((member) => ({
         text: member.fullName,
-        value: member,
+        value: { id: member.id, fullName: member.fullName },
       }));
     },
     electionLeadPossibilities() {

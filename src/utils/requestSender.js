@@ -29,6 +29,7 @@ function handleResponse(response, url) {
     const data = text && JSON.parse(text);
 
     console.log(response);
+    console.log(data);
 
     if (response.headers.get('Refreshed-Jwt-Token')) {
       console.log(
