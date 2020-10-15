@@ -12,4 +12,5 @@ export default {
     en: 'English',
     pl: 'Polski',
   },
+  minimalNumberOfPeopleInCommittee: 5,
 };

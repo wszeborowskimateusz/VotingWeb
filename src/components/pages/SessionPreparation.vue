@@ -70,13 +70,14 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import imagesGetter from '../../utils/imagesGetter';
+import config from '../../../config';
 
 export default {
   name: 'SessionPreparation',
   data() {
     return {
       imagesGetter,
-      minimalNumberOfMembers: 5,
+      minimalNumberOfMembers: config.minimalNumberOfPeopleInCommittee,
       valid: null,
       electionLead: '',
       committee: [],

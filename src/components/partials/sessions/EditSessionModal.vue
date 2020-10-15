@@ -42,8 +42,10 @@
               ? []
               : [
                   (v) =>
-                    (!!v && v.length >= 4) ||
-                    $t('session.committeeAtLeastMembers', { amount: 4 }),
+                    (!!v && v.length >= minimalNumberOfPeopleInCommittee) ||
+                    $t('session.committeeAtLeastMembers', {
+                      amount: minimalNumberOfPeopleInCommittee,
+                    }),
                 ]
           "
           :label="$t('session.committeeMembers')"
@@ -84,11 +86,13 @@
 </template>
 <script>
 import { mapActions, mapState } from 'vuex';
+import config from '../../../../config';
 
 export default {
   data() {
     return {
       valid: null,
+      minimalNumberOfPeopleInCommittee: config.minimalNumberOfPeopleInCommittee,
       session: {
         id: null,
         name: '',

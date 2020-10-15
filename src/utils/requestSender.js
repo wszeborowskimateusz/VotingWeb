@@ -57,6 +57,7 @@ function sendRequest(url, options) {
   }
 
   if (options.body) {
+    console.log('!!!!!!!!!!!!Request body: ');
     console.log(options.body);
   }
 
