@@ -1,3 +1,5 @@
+import Vue from 'vue';
+
 import votingsManagementService from '@/services/votingsManagementService';
 import toasts from '@/utils/toasts';
 import i18n from '../i18n';
@@ -5,7 +7,7 @@ import i18n from '../i18n';
 const getDefaultState = () => ({
   isLoading: false,
   votings: null,
-  alreadyVotedLists: null,
+  alreadyVotedLists: {},
 });
 
 const handleNotStartedAnd404Errors = (
@@ -152,13 +154,9 @@ const mutations = {
     state.isLoading = false;
     state.votings = null;
   },
-  loadingAlreadyVotedListSuccess(state, params) {
+  loadingAlreadyVotedListSuccess(state, { alreadyVotedList, votingId }) {
     state.isLoading = false;
-    if (state.alreadyVotedLists == null) {
-      state.alreadyVotedLists = {};
-    }
-
-    state.alreadyVotedLists[`${params.votingId}`] = params.alreadyVotedList;
+    Vue.set(state.alreadyVotedLists, votingId, alreadyVotedList);
   },
   loadingAlreadyVotedListFailed(state) {
     state.isLoading = false;
