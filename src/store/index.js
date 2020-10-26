@@ -12,10 +12,10 @@ import parliamentPreparation from './parliamentPreparationStore';
 import parliamentManagement from './parliamentManagementStore';
 import votingsManagement from './votingsManagementStore';
 import membersManagement from './membersManagementStore';
+import globalDatabase from './globalDatabaseStore';
 import tokenUtils from '../utils/tokenUtils';
 
 Vue.use(Vuex);
-
 
 const store = new Vuex.Store({
   modules: {
@@ -25,6 +25,7 @@ const store = new Vuex.Store({
     parliamentManagement,
     votingsManagement,
     membersManagement,
+    globalDatabase,
   },
   getters: {
     userToken: () => tokenUtils.getToken(),

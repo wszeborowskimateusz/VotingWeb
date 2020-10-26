@@ -38,7 +38,12 @@
     </div>
     <div v-if="status === 'FINISHED'"></div>
     <div v-if="status === 'FINISHED_NOT_SAVED_TO_GLOBAL'">
-      <v-btn color="cyan" dark :title="$t('sessionActions.saveToGlobalTitle')">
+      <v-btn
+        color="cyan"
+        dark
+        :title="$t('sessionActions.saveToGlobalTitle')"
+        @click="saveSessionToGlobal(session.id)"
+      >
         <v-icon left>mdi-content-save</v-icon>
         {{ $t('sessionActions.saveToGlobal') }}
       </v-btn>
@@ -47,7 +52,9 @@
       :header="
         $t('sessionActions.areYouSureToFinish', { sessionName: session.name })
       "
-      :description="$t('sessionActions.actionIsIrreversibleVotingWillBeFinished')"
+      :description="
+        $t('sessionActions.actionIsIrreversibleVotingWillBeFinished')
+      "
       v-model="isConfirmSessionFinishDialogShown"
       @callback="finishSession(session.id)"
     />
@@ -86,6 +93,7 @@ export default {
       'resumeSession',
     ]),
     ...mapActions('parliamentPreparation', ['getPasswordsList']),
+    ...mapActions('globalDatabase', ['saveSessionToGlobal']),
     onDownloadPasswords() {
       this.isPasswordDialogShown = true;
     },
