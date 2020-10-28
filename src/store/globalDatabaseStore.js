@@ -6,14 +6,10 @@ const actions = {
   /* eslint-disable implicit-arrow-linebreak */
   /* eslint-disable function-paren-newline */
   saveSessionToGlobal({ dispatch }, sessionId) {
-    globalDatabaseService
-      .saveSessionToGlobal(sessionId)
-      .then(() => {
-        dispatch('parliamentManagement/loadSessions', null, { root: true });
-      })
-      .catch(() =>
-        toasts.errorToast(i18n.tc('common.somethingWentWrong')),
-      );
+    globalDatabaseService.saveSessionToGlobal(sessionId).then(
+      () => dispatch('parliamentManagement/loadSessions', null, { root: true }),
+      () => toasts.errorToast(i18n.tc('common.somethingWentWrong')),
+    );
   },
 };
 

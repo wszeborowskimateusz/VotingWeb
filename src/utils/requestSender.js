@@ -81,7 +81,7 @@ export default {
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
+      body: body != null ? JSON.stringify(body) : body,
     };
 
     return sendRequest(url, options);
@@ -108,7 +108,7 @@ export default {
     const options = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
+      body: body != null ? JSON.stringify(body) : body,
     };
 
     return sendRequest(url, options);
