@@ -42,7 +42,7 @@
               ? []
               : [
                   (v) =>
-                    (!!v && v.length >= minimalNumberOfPeopleInCommittee) ||
+                    (!!v && (v.length === 0 || v.length >= minimalNumberOfPeopleInCommittee) ) ||
                     $t('session.committeeAtLeastMembers', {
                       amount: minimalNumberOfPeopleInCommittee,
                     }),
@@ -63,7 +63,12 @@
           :rules="
             session.status === 'BEFORE_VOTING'
               ? []
-              : [(v) => !!v || $t('session.electionLeadIsRequired')]
+              : [
+                  (v) =>
+                    !!v ||
+                    session.electionCommittee.length === 0 ||
+                    $t('session.electionLeadIsRequired'),
+                ]
           "
           :label="$t('parliamentManagement.electionLead')"
         >
