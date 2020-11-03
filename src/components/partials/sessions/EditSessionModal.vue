@@ -42,7 +42,9 @@
               ? []
               : [
                   (v) =>
-                    (!!v && (v.length === 0 || v.length >= minimalNumberOfPeopleInCommittee) ) ||
+                    (!!v &&
+                      (v.length === 0 ||
+                        v.length >= minimalNumberOfPeopleInCommittee)) ||
                     $t('session.committeeAtLeastMembers', {
                       amount: minimalNumberOfPeopleInCommittee,
                     }),
@@ -147,6 +149,19 @@ export default {
         this.session.electionCommittee = this.session.electionCommittee.map(
           (member) => member.id,
         );
+        if (
+          this.session.electionLead != null &&
+          this.session.electionLead !== ''
+        ) {
+          this.session.electionLeadId = this.session.electionLead.id;
+        }
+        if (
+          this.session.electionCommittee == null ||
+          this.session.electionCommittee.length === 0
+        ) {
+          this.session.electionLeadId = null;
+        }
+
         this.editParliamentDetails(this.session).then(() => {
           this.$modal.hide('editSessionModal');
         });

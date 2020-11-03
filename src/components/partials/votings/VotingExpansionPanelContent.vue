@@ -190,11 +190,9 @@ export default {
   },
   computed: {
     ...mapGetters('parliamentManagement', ['activeSession']),
-    ...mapGetters('membersManagement', ['electionCommittee']),
+    ...mapGetters('membersManagement', ['activeSessionMemberById']),
     electionLeadName() {
-      return this.electionCommittee.find(
-        (member) => member.id === this.voting.electionLeadId,
-      ).fullName;
+      return this.activeSessionMemberById(this.voting.electionLeadId)?.fullName;
     },
     optionsSortedByInFavorVotes() {
       if (this.voting.options == null) {

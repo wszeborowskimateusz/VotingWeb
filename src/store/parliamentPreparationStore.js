@@ -46,6 +46,7 @@ const actions = {
       () => {
         commit('loadingFinished');
         dispatch('parliamentManagement/loadSessions', null, { root: true });
+        dispatch('membersManagement/loadMembers', {}, { root: true });
       },
       (error) => {
         if (error.httpCode === 404 && error.errorCode === 'NO_SESSION') {
