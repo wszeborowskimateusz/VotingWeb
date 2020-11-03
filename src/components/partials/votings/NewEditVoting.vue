@@ -86,6 +86,7 @@
       </v-radio-group>
 
       <v-select
+        v-if="electionCommittee != null && electionCommittee.length > 0"
         v-model="voting.electionLeadId"
         :items="electionCommittee"
         :label="$t('voting.electionLead')"

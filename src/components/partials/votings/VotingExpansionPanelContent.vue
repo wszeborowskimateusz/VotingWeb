@@ -67,7 +67,13 @@
             class="d-flex flex-row"
           >
             <div v-if="voting[field] != null" class="flex-fill">
-              <span class="font-weight-bold">{{ $t(`voting.${field}`) }}</span>
+              <span class="font-weight-bold">{{
+                $t(
+                  `voting.${
+                    field === 'electionLeadId' ? 'electionLead' : field
+                  }`,
+                )
+              }}</span>
               <tooltip
                 v-if="field === 'cardinality'"
                 class="ml-1"
@@ -89,7 +95,7 @@
               <span v-else-if="field === 'secrecy'">
                 {{ $t(`common.${voting[field] ? 'yes' : 'no'}`) }}
               </span>
-              <span v-else-if="field === 'electionLead'">
+              <span v-else-if="field === 'electionLeadId'">
                 {{ electionLeadName }}
               </span>
               <span v-else>
@@ -166,7 +172,7 @@ export default {
       'cardinality',
       'secrecy',
       'threshold',
-      'electionLead',
+      'electionLeadId',
     ];
 
     if (!isVotingMultipleChoice) {
@@ -184,11 +190,9 @@ export default {
   },
   computed: {
     ...mapGetters('parliamentManagement', ['activeSession']),
-    ...mapGetters('membersManagement', ['electionCommittee']),
+    ...mapGetters('membersManagement', ['activeSessionMemberById']),
     electionLeadName() {
-      return this.electionCommittee.find(
-        (member) => member.id === this.voting.electionLead,
-      ).fullName;
+      return this.activeSessionMemberById(this.voting.electionLeadId)?.fullName;
     },
     optionsSortedByInFavorVotes() {
       if (this.voting.options == null) {

@@ -24,7 +24,7 @@
         deletable-chips
         :rules="[
           (v) =>
-            (!!v && v.length >= minimalNumberOfMembers) ||
+            (!!v && (v.length === 0 || v.length >= minimalNumberOfMembers)) ||
             $t('session.committeeAtLeastMembers', {
               amount: minimalNumberOfMembers,
             }),
@@ -40,7 +40,12 @@
         class="mb-2"
         v-model="electionLead"
         :items="electionLeadPossibilities"
-        :rules="[(v) => !!v || $t('session.electionLeadIsRequired')]"
+        :rules="[
+          (v) =>
+            !!v ||
+            committee.length === 0 ||
+            $t('session.electionLeadIsRequired'),
+        ]"
         :label="$t('parliamentManagement.electionLead')"
       >
         <template v-slot:no-data>
@@ -108,6 +113,15 @@ export default {
       }));
     },
   },
+  watch: {
+    committee: {
+      immediate: true,
+      async handler() {
+        await this.$nextTick();
+        this.$refs.form.validate();
+      },
+    },
+  },
   methods: {
     ...mapActions('parliamentPreparation', ['editParliamentDetails']),
     ...mapActions('parliamentManagement', ['startSession']),
@@ -115,7 +129,8 @@ export default {
       this.$refs.form.validate();
       if (this.valid) {
         this.editParliamentDetails({
-          electionLeadId: this.electionLead.id,
+          electionLeadId:
+            this.electionLead == null ? null : this.electionLead.id,
           electionCommittee: this.committee.map((member) => member.id),
         }).then(() => this.startSession(this.activeSession.id));
       }

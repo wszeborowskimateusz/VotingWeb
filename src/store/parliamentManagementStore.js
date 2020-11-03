@@ -46,7 +46,10 @@ function handleActionError(action, commit, error) {
     toasts.errorToast(
       i18n.tc('errorMessages.parliamentManagement.passwordGenerationRequired'),
     );
-  } else if (error.httpCode === 412) {
+  } else if (
+    error.httpCode === 412 &&
+    (error.errorCode == null || error.errorCode === '')
+  ) {
     toasts.errorToast(
       i18n.tc('errorMessages.parliamentManagement.fileValidation'),
     );
