@@ -28,13 +28,7 @@ function handleResponse(response, url) {
 
     const data = text && JSON.parse(text);
 
-    console.log(response);
-    console.log(data);
-
     if (response.headers.get('Refreshed-Jwt-Token')) {
-      console.log(
-        `Refreshed token: ${response.headers.get('Refreshed-Jwt-Token')}`,
-      );
       refreshToken(response.headers.get('Refreshed-Jwt-Token'));
     }
     return data;
@@ -46,7 +40,6 @@ function prepareApiUrl(url) {
 }
 
 function sendRequest(url, options) {
-  console.log(`Calling url: ${url}`);
   const token = JSON.parse(tokenUtils.getToken());
   const reqOptions = options;
   if (token !== null) {
@@ -56,11 +49,6 @@ function sendRequest(url, options) {
     reqOptions.headers.Authorization = `Bearer ${token}`;
   }
 
-  if (options.body) {
-    console.log('!!!!!!!!!!!!Request body: ');
-    console.log(options.body);
-  }
-
   return fetchTimeout(
     prepareApiUrl(url),
     reqOptions,
@@ -68,7 +56,6 @@ function sendRequest(url, options) {
     'TIMEOUT',
   ).then(
     (response) => handleResponse(response, url),
-    (error) => console.log(error),
   );
 }
 
