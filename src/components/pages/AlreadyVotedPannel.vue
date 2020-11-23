@@ -14,34 +14,24 @@
           }}
         </div>
         <div class="p-4 border rounded">
-          <div class="d-flex">
+          <div class="d-flex" v-for="group in voterGroups" :key="group.name">
             <div
               class="rounded mr-2"
-              style="background-color: #03A9F4; height: 20px; width: 20px;"
+              :style="{
+                'background-color': group.color,
+                height: '20px',
+                width: '20px',
+              }"
             />
-            {{ $t('voting.alreadyVoted') }}
+            {{ group.name }}
           </div>
 
-          <div class="d-flex">
-            <div
-              class="rounded mr-2"
-              style="background-color: #FF9800; height: 20px; width: 20px;"
-            />
-            {{ $t('voting.notVotedYet') }}
+          <div class="mt-5">
+            <span class="p-2 border rounded"
+              >{{ $t('userManagement.numberInSquare') }} -
+              {{ $t('userManagement.mandateNumber') }}</span
+            >
           </div>
-
-          <div class="d-flex mb-5">
-            <div
-              class="rounded mr-2"
-              style="background-color: #A8A7A7; height: 20px; width: 20px;"
-            />
-            {{ $t('voting.absentAndDidNotVote') }}
-          </div>
-
-          <span class="mt-2 p-2 border rounded"
-            >{{ $t('userManagement.numberInSquare') }} -
-            {{ $t('userManagement.mandateNumber') }}</span
-          >
         </div>
       </div>
     </div>
@@ -53,9 +43,14 @@
     />
 
     <div
-      v-for="(votersList, index) in [votedOrPresent, absentThatNotVoted]"
+      v-for="(votersList, index) in [
+        votedOrPresent,
+        absentThatNotVoted,
+        blocked,
+      ]"
       :key="'list number' + index"
     >
+      <v-divider v-if="votersList.length !== 0" />
       <v-row align="center" justify="center">
         <template v-for="(user, i) in votersList">
           <v-col :key="i" md="1">
@@ -64,11 +59,7 @@
                 :elevation="hover ? 12 : 2"
                 :class="{ 'on-hover': hover }"
                 :style="{
-                  'background-color': user.didVote
-                    ? '#03A9F4'
-                    : user.absent
-                    ? '#A8A7A7'
-                    : '#FF9800',
+                  'background-color': getVoterColor(user),
                 }"
               >
                 <v-card-title>
@@ -83,7 +74,6 @@
           </v-col>
         </template>
       </v-row>
-      <v-divider />
     </div>
   </v-container>
 </template>
@@ -106,6 +96,28 @@ export default {
     return {
       refreshTimer: null,
       refreshTimerInterval: 30000,
+      voterGroups: [
+        {
+          name: this.$t('voting.alreadyVoted'),
+          color: '#03A9F4',
+          userFilter: (v) => v.didVote,
+        },
+        {
+          name: this.$t('voting.notVotedYet'),
+          color: '#FF9800',
+          userFilter: (v) => !v.absent,
+        },
+        {
+          name: this.$t('voting.absentAndDidNotVote'),
+          color: '#A8A7A7',
+          userFilter: (v) => v.absent && !v.didVote && !v.isBlocked,
+        },
+        {
+          name: this.$t('voting.blocked'),
+          color: '#F25252',
+          userFilter: (v) => v.isBlocked,
+        },
+      ],
     };
   },
   computed: {
@@ -133,14 +145,20 @@ export default {
           mandateNumber: member.mandateNumber,
           didVote: inAlreadyVoted != null,
           absent: member.absent,
+          isBlocked: member.isBlocked,
         };
       });
+    },
+    blocked() {
+      return this.votedList.filter((v) => v.isBlocked);
     },
     votedOrPresent() {
       return this.votedList.filter((v) => v.didVote || !v.absent);
     },
     absentThatNotVoted() {
-      return this.votedList.filter((v) => v.absent && !v.didVote);
+      return this.votedList.filter(
+        (v) => !v.didVote && v.absent && !v.isBlocked,
+      );
     },
     amountOfAlreadyVotedPresentVoters() {
       return this.votedOrPresent.filter((v) => v.didVote).length;
@@ -164,6 +182,16 @@ export default {
   methods: {
     ...mapActions('votingsManagement', ['loadAlreadyVotedList', 'loadVotings']),
     ...mapActions('membersManagement', ['loadMembers']),
+    getVoterColor(voter) {
+      /* eslint-disable no-restricted-syntax */
+      for (const group of this.voterGroups) {
+        if (group.userFilter(voter)) {
+          return group.color;
+        }
+      }
+
+      return '';
+    },
   },
 };
 </script>
