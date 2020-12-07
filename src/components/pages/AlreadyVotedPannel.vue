@@ -12,6 +12,15 @@
               amountOfPresentVoters,
             ])
           }}
+          <v-btn
+            fab
+            dark
+            class="ml-4 mb-2"
+            @click="refreshState"
+            color="blue darken-2"
+          >
+            <v-icon dark>mdi-refresh</v-icon>
+          </v-btn>
         </div>
         <div class="p-4 border rounded">
           <div class="d-flex" v-for="group in voterGroups" :key="group.name">
@@ -171,10 +180,10 @@ export default {
     this.loadVotings();
     this.loadMembers();
     this.loadAlreadyVotedList(this.$route.params.votingId);
-    this.refreshtTimer = setInterval(() => {
-      this.loadAlreadyVotedList(this.$route.params.votingId);
-      this.loadMembers();
-    }, this.refreshTimerInterval);
+    this.refreshtTimer = setInterval(
+      this.refreshState,
+      this.refreshTimerInterval,
+    );
   },
   beforeDestroy() {
     clearInterval(this.refreshtTimer);
@@ -182,6 +191,10 @@ export default {
   methods: {
     ...mapActions('votingsManagement', ['loadAlreadyVotedList', 'loadVotings']),
     ...mapActions('membersManagement', ['loadMembers']),
+    refreshState() {
+      this.loadAlreadyVotedList(this.$route.params.votingId);
+      this.loadMembers();
+    },
     getVoterColor(voter) {
       /* eslint-disable no-restricted-syntax */
       for (const group of this.voterGroups) {
