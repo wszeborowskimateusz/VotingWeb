@@ -31,6 +31,7 @@
                 height: '20px',
                 width: '20px',
               }"
+              v-if="!group.hidden"
             />
             {{ group.name }}
           </div>
@@ -69,6 +70,7 @@
                 :class="{ 'on-hover': hover }"
                 :style="{
                   'background-color': getVoterColor(user),
+                  'background-image': getVoterColor(user),
                 }"
               >
                 <v-card-title>
@@ -106,6 +108,12 @@ export default {
       refreshTimer: null,
       refreshTimerInterval: 30000,
       voterGroups: [
+        {
+          hidden: true,
+          name: '',
+          color: 'linear-gradient(135deg, #03A9F4 50%, #F25252 50%)',
+          userFilter: (v) => v.didVote && v.isBlocked,
+        },
         {
           name: this.$t('voting.alreadyVoted'),
           color: '#03A9F4',
@@ -145,21 +153,25 @@ export default {
       if (this.membersThatHaveVote == null || this.alreadyVoted == null) {
         return [];
       }
-      return this.membersThatHaveVote.map((member) => {
-        const inAlreadyVoted = this.alreadyVoted.find(
-          (voted) => voted === member.id,
-        );
-        return {
-          fullName: member.fullName,
-          mandateNumber: member.mandateNumber,
-          didVote: inAlreadyVoted != null,
-          absent: member.absent,
-          isBlocked: member.isBlocked,
-        };
-      });
+      return this.membersThatHaveVote
+        .map((member) => {
+          const inAlreadyVoted = this.alreadyVoted.find(
+            (voted) => voted === member.id,
+          );
+          return {
+            fullName: member.fullName,
+            mandateNumber: member.mandateNumber,
+            didVote: inAlreadyVoted != null,
+            absent: member.absent,
+            isBlocked: member.isBlocked,
+          };
+        })
+        .sort((a, b) => a.mandateNumber - b.mandateNumber);
     },
     blocked() {
-      return this.votedList.filter((v) => v.isBlocked);
+      return this.votedList.filter(
+        (v) => v.isBlocked && !this.votedOrPresent.includes(v),
+      );
     },
     votedOrPresent() {
       return this.votedList.filter((v) => v.didVote || !v.absent);

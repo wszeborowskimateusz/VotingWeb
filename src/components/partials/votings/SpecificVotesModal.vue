@@ -1,6 +1,6 @@
 <template>
   <common-modal :name="modalName" :height="300">
-    <v-card-title>
+    <v-card-title class="mt-4">
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -52,7 +52,7 @@ export default {
       headers: [
         { text: this.$t('voting.vote'), value: 'voteType' },
         { text: this.$t('userManagement.fullName'), value: 'name' },
-        { text: this.$t('userManagement.index'), value: 'index' },
+        { text: this.$t('userManagement.mandateNumber'), value: 'mandateNumber' },
       ],
     };
   },
@@ -79,7 +79,7 @@ export default {
           return {
             voteType: specificVote.voteType,
             name: voter?.fullName ?? '',
-            index: voter?.index ?? '',
+            mandateNumber: voter?.mandateNumber ?? '',
           };
         });
     },

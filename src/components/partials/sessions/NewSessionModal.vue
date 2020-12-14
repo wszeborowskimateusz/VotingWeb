@@ -30,7 +30,7 @@
         <v-file-input
           class="mb-2"
           :rules="[(v) => !!v || $t('parliamentManagement.userFileRequired')]"
-          @change="onFileInputChange"
+          v-model="userFile"
           :label="$t('parliamentManagement.userFile')"
         ></v-file-input>
 
@@ -77,6 +77,7 @@ export default {
   methods: {
     ...mapActions('parliamentPreparation', ['setParliamentDetails']),
     handleSubmit() {
+      console.log(this.userFile);
       this.$refs.form.validate();
       if (this.valid) {
         this.setParliamentDetails({
@@ -92,9 +93,6 @@ export default {
     },
     beforeOpen() {
       this.session.date = new Date().toISOString().substr(0, 10);
-    },
-    onFileInputChange(file) {
-      this.userFile = file;
     },
     allowedDays(day) {
       const today = new Date();
