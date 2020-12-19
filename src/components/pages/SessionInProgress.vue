@@ -8,7 +8,7 @@
       v-if="activeSession.status === 'IN_PROGRESS'"
       color="success"
       class="my-5"
-      @click="$modal.show('newEditVoting')"
+      @click="$modal.show('newVoting')"
     >
       {{ $t('voting.newVoting') }}
     </v-btn>
@@ -18,7 +18,8 @@
       :votingTypes="getAllowedVotingTypes()"
       v-model="selectedVotingTab"
     />
-    <NewEditVoting @finishSuccess="selectedVotingTab = 1" />
+    <NewEditVoting @finishSuccess="selectedVotingTab = 1" name="editVoting" />
+    <NewEditVoting @finishSuccess="selectedVotingTab = 1" name="newVoting" />
   </div>
 </template>
 

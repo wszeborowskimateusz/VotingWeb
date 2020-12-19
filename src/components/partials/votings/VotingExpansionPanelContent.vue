@@ -21,7 +21,7 @@
           <v-btn
             icon
             class="ml-2"
-            @click="$modal.show('newEditVoting', voting)"
+            @click="$modal.show('editVoting', voting)"
           >
             <v-icon>mdi-pencil</v-icon>
           </v-btn>

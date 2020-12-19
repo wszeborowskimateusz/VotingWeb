@@ -1,5 +1,5 @@
 <template>
-  <common-modal name="newEditVoting" @before-open="beforeOpen">
+  <common-modal :name="name" @before-open="beforeOpen">
     <v-form ref="form" class="p-5" v-model="valid">
       <v-text-field
         v-model="voting.name"
@@ -140,6 +140,12 @@ export default {
       initialElectionCommittee: 'electionCommittee',
     }),
   },
+  props: {
+    name: {
+      type: String,
+      required: true,
+    },
+  },
   watch: {
     initialElectionLead(newValue) {
       if (
@@ -170,7 +176,8 @@ export default {
         this.voting = JSON.parse(JSON.stringify(args.params));
       } else {
         this.editMode = false;
-        this.voting = this.getClearVoting();
+        this.voting.electionLeadId =
+          this.initialElectionLead != null ? this.initialElectionLead.id : null;
       }
     },
     setCommitteeAndLeadIfEmpty() {
@@ -212,7 +219,7 @@ export default {
       };
     },
     closeModal(finishWithSuccess = false) {
-      this.$modal.hide('newEditVoting');
+      this.$modal.hide(this.name);
       if (finishWithSuccess) {
         this.$emit('finishSuccess');
       }
@@ -230,6 +237,7 @@ export default {
           });
         } else {
           this.addVoting(this.voting).then(() => {
+            this.$refs.form.reset();
             this.closeModal(true);
           });
         }
