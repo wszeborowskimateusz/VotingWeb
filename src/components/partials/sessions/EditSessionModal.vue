@@ -37,6 +37,8 @@
           multiple
           chips
           deletable-chips
+          :search-input.sync="committeeSearchInput"
+          @change="committeeSearchInput=''"
           :rules="
             session.status === 'BEFORE_VOTING'
               ? []
@@ -108,6 +110,7 @@ export default {
         electionLead: '',
         electionCommittee: [],
       },
+      committeeSearchInput: '',
     };
   },
   computed: {

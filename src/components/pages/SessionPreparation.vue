@@ -22,6 +22,8 @@
         multiple
         chips
         deletable-chips
+        :search-input.sync="committeeSearchInput"
+        @change="committeeSearchInput=''"
         :rules="[
           (v) =>
             (!!v && (v.length === 0 || v.length >= minimalNumberOfMembers)) ||
@@ -86,6 +88,7 @@ export default {
       valid: null,
       electionLead: '',
       committee: [],
+      committeeSearchInput: '',
     };
   },
   created() {
