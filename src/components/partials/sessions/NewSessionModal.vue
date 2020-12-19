@@ -84,12 +84,10 @@ export default {
           userFile: this.userFile,
           session: this.session,
         }).then(() => {
+          this.$refs.form.reset();
           this.$modal.hide('newSessionModal');
         });
       }
-    },
-    beforeClose() {
-      this.$refs.form.reset();
     },
     beforeOpen() {
       this.session.date = new Date().toISOString().substr(0, 10);
