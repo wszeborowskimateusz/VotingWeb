@@ -5,8 +5,19 @@
       {{ $t('voting.noVotings') }}
     </div>
     <v-expansion-panels v-else :focusable="true" :value="initialyExpandedIndex">
-      <v-expansion-panel v-for="voting in votings" :key="voting.id">
-        <VotingExpansionPanelContent :voting="voting" />
+      <v-expansion-panel v-for="(voting, index) in votings" :key="voting.id">
+        <VotingExpansionPanelContent
+          :voting="voting"
+          :color="
+            index % 2 === 0
+              ? $vuetify.theme.isDark
+                ? 'grey darken-2'
+                : 'grey lighten-5'
+              : $vuetify.theme.isDark
+              ? 'blue-grey darken-2'
+              : 'blue-grey lighten-4'
+          "
+        />
       </v-expansion-panel>
     </v-expansion-panels>
   </v-row>

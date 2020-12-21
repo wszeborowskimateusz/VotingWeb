@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-expansion-panel-header
-      ><div class="d-flex justify-content-center">
+    <v-expansion-panel-header :color="color"
+      ><div class="d-flex justify-content-center py-2">
         {{ voting.name }}
       </div>
     </v-expansion-panel-header>
@@ -18,11 +18,7 @@
           <v-btn icon class="mr-2" @click="isDeleteVotingDialogShown = true">
             <v-icon>mdi-delete</v-icon>
           </v-btn>
-          <v-btn
-            icon
-            class="ml-2"
-            @click="$modal.show('editVoting', voting)"
-          >
+          <v-btn icon class="ml-2" @click="$modal.show('editVoting', voting)">
             <v-icon>mdi-pencil</v-icon>
           </v-btn>
         </div>
@@ -43,13 +39,13 @@
         >
           {{ $t('voting.liveVotedList') }}
         </v-btn>
-        <v-btn
-          color="error"
+        <FinishVotingButton
           v-if="voting.status === 'DURING_VOTING'"
-          @click="isFinishVotingDialogShown = true"
-        >
-          {{ $t('voting.finishVoting') }}
-        </v-btn>
+          v-model="isFinishVotingDialogShown"
+          :voting="voting"
+          @voting-finished="$root.$emit('closeVoting')"
+        />
+
         <v-btn
           color="success"
           v-else-if="voting.status === 'NOT_STARTED'"
@@ -142,24 +138,22 @@
       v-model="isDeleteVotingDialogShown"
       @callback="deleteVoting(voting.id)"
     />
-    <ConfirmationDialog
-      :header="$t('voting.areYouSureToFinish', { votingName: voting.name })"
-      :description="$t('sessionActions.actionIsIrreversible')"
-      v-model="isFinishVotingDialogShown"
-      @callback="closeVotingWithEvent(voting.id)"
-    />
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import VotingResults from './VotingResults.vue';
+import FinishVotingButton from './FinishVotingButton.vue';
 
 export default {
   props: {
     voting: {
       type: Object,
       required: true,
+    },
+    color: {
+      type: String,
     },
   },
   data() {
@@ -221,14 +215,8 @@ export default {
     ...mapActions('votingsManagement', [
       'openVoting',
       'deleteVoting',
-      'closeVoting',
       'generateVotingReport',
     ]),
-    closeVotingWithEvent(votingId) {
-      this.closeVoting(votingId).then(() => {
-        this.$root.$emit('closeVoting');
-      });
-    },
     openVotingWithEvent(votingId) {
       this.openVoting(votingId).then(() => {
         this.$root.$emit('openVoting');
@@ -269,6 +257,7 @@ export default {
   },
   components: {
     VotingResults,
+    FinishVotingButton,
   },
 };
 </script>

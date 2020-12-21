@@ -1,8 +1,25 @@
 <template>
   <v-container>
-    <h2 class="mb-5" v-if="duringVoting.length > 0">
-      {{ duringVoting[0].name }}
-    </h2>
+    <div v-if="voting != null">
+      <h2 class="mb-5">
+        <router-link to="/" style="text-decoration: none; color: inherit;">{{
+          voting.name
+        }}</router-link>
+      </h2>
+      {{ $t('parliamentManagement.status') }}:
+      <h5 class="font-weight-bold d-inline ml-2">
+        {{ $t(`voting.statusTypes.${voting.status}`) }}
+      </h5>
+    </div>
+
+    <FinishVotingButton
+      v-if="voting != null"
+      class="my-5"
+      v-model="isFinishVotingDialogShown"
+      :voting="voting"
+      @voting-finished="$router.push('/')"
+    />
+
     <div class="d-flex justify-content-center">
       <div class="d-flex flex-column ">
         <div class="mb-2 d-block">
@@ -47,6 +64,7 @@
     </div>
 
     <loader
+      class="mt-2"
       :style="{
         visibility: isLoadingMembers || isLoadingVotings ? 'visible' : 'hidden',
       }"
@@ -101,10 +119,12 @@
 
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex';
+import FinishVotingButton from '../partials/votings/FinishVotingButton.vue';
 
 export default {
   data() {
     return {
+      isFinishVotingDialogShown: false,
       refreshTimer: null,
       refreshTimerInterval: 30000,
       voterGroups: [
@@ -142,12 +162,18 @@ export default {
       alreadyVotedLists: 'alreadyVotedLists',
       isLoadingVotings: 'isLoading',
     }),
-    ...mapGetters('votingsManagement', ['duringVoting']),
+    ...mapGetters('votingsManagement', ['votingById']),
     ...mapState('membersManagement', { isLoadingMembers: 'isLoading' }),
     ...mapGetters('membersManagement', ['membersThatHaveVote']),
+    votingId() {
+      return parseInt(this.$route.params.votingId, 10);
+    },
+    voting() {
+      return this.votingById(parseInt(this.votingId, 10));
+    },
     alreadyVoted() {
       if (this.alreadyVotedLists == null) return null;
-      return this.alreadyVotedLists[this.$route.params.votingId];
+      return this.alreadyVotedLists[this.votingId];
     },
     votedList() {
       if (this.membersThatHaveVote == null || this.alreadyVoted == null) {
@@ -191,7 +217,7 @@ export default {
   mounted() {
     this.loadVotings();
     this.loadMembers();
-    this.loadAlreadyVotedList(this.$route.params.votingId);
+    this.loadAlreadyVotedList(this.votingId);
     this.refreshtTimer = setInterval(
       this.refreshState,
       this.refreshTimerInterval,
@@ -204,7 +230,7 @@ export default {
     ...mapActions('votingsManagement', ['loadAlreadyVotedList', 'loadVotings']),
     ...mapActions('membersManagement', ['loadMembers']),
     refreshState() {
-      this.loadAlreadyVotedList(this.$route.params.votingId);
+      this.loadAlreadyVotedList(this.votingId);
       this.loadMembers();
     },
     getVoterColor(voter) {
@@ -218,5 +244,6 @@ export default {
       return '';
     },
   },
+  components: { FinishVotingButton },
 };
 </script>

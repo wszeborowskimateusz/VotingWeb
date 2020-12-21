@@ -193,5 +193,12 @@ export default {
       }
       return state.votings.filter((voting) => voting.status === 'FINISHED');
     },
+    votingById: (state) => (votingId) => {
+      if (state.votings == null) {
+        return null;
+      }
+
+      return state.votings.find((voting) => voting.id === votingId);
+    },
   },
 };
