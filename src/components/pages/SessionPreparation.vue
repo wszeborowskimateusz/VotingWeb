@@ -23,7 +23,7 @@
         chips
         deletable-chips
         :search-input.sync="committeeSearchInput"
-        @change="committeeSearchInput=''"
+        @change="committeeSearchInput = ''"
         :rules="[
           (v) =>
             (!!v && (v.length === 0 || v.length >= minimalNumberOfMembers)) ||
@@ -77,23 +77,26 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import imagesGetter from '../../utils/imagesGetter';
-import config from '../../../config';
+import remoteConfig from '../../utils/remoteConfig';
 
 export default {
   name: 'SessionPreparation',
   data() {
     return {
       imagesGetter,
-      minimalNumberOfMembers: config.minimalNumberOfPeopleInCommittee,
+      minimalNumberOfMembers: null,
       valid: null,
       electionLead: '',
       committee: [],
       committeeSearchInput: '',
     };
   },
-  created() {
+  async created() {
     this.electionLead = this.activeSession.electionLead;
     this.committee = this.activeSession.electionCommittee;
+    this.minimalNumberOfMembers = (
+      await remoteConfig.getRemoteConfig()
+    ).minimalNumberOfPeopleInCommittee;
   },
   computed: {
     ...mapGetters('membersManagement', ['activeSessionMembers']),

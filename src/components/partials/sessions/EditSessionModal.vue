@@ -38,20 +38,16 @@
           chips
           deletable-chips
           :search-input.sync="committeeSearchInput"
-          @change="committeeSearchInput=''"
-          :rules="
-            session.status === 'BEFORE_VOTING'
-              ? []
-              : [
-                  (v) =>
-                    (!!v &&
-                      (v.length === 0 ||
-                        v.length >= minimalNumberOfPeopleInCommittee)) ||
-                    $t('session.committeeAtLeastMembers', {
-                      amount: minimalNumberOfPeopleInCommittee,
-                    }),
-                ]
-          "
+          @change="committeeSearchInput = ''"
+          :rules="[
+            (v) =>
+              (!!v &&
+                (v.length === 0 ||
+                  v.length >= minimalNumberOfPeopleInCommittee)) ||
+              $t('session.committeeAtLeastMembers', {
+                amount: minimalNumberOfPeopleInCommittee,
+              }),
+          ]"
           :label="$t('session.committeeMembers')"
         >
           <template v-slot:no-data>
@@ -95,13 +91,13 @@
 </template>
 <script>
 import { mapActions, mapState } from 'vuex';
-import config from '../../../../config';
+import remoteConfig from '../../../utils/remoteConfig';
 
 export default {
   data() {
     return {
       valid: null,
-      minimalNumberOfPeopleInCommittee: config.minimalNumberOfPeopleInCommittee,
+      minimalNumberOfPeopleInCommittee: null,
       session: {
         id: null,
         name: '',
@@ -137,7 +133,7 @@ export default {
   methods: {
     ...mapActions('membersManagement', ['loadMembers']),
     ...mapActions('parliamentPreparation', ['editParliamentDetails']),
-    beforeOpen(args) {
+    async beforeOpen(args) {
       this.session = JSON.parse(JSON.stringify(args.params));
       this.session.date = args.params.date.substring(0, 10);
 
@@ -145,6 +141,12 @@ export default {
         sessionIdToLoad: this.session.id,
         takeStateFromCache: true,
       });
+      this.getMinimalNumberOfPeopleInCommittee();
+    },
+    async getMinimalNumberOfPeopleInCommittee() {
+      this.minimalNumberOfPeopleInCommittee = (
+        await remoteConfig.getRemoteConfig()
+      ).minimalNumberOfPeopleInCommittee;
     },
     handleSubmit() {
       this.$refs.form.validate();
