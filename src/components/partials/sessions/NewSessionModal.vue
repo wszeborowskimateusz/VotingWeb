@@ -1,9 +1,5 @@
 <template>
-  <common-modal
-    name="newSessionModal"
-    @before-close="beforeClose()"
-    @before-open="beforeOpen"
-  >
+  <common-modal name="newSessionModal" @before-open="beforeOpen">
     <div class="col-sm-6 offset-sm-3 py-5 h-100">
       <h2 class="mb-4">{{ $t('parliamentManagement.createNewSession') }}</h2>
       <v-form ref="form" v-model="valid">
@@ -77,7 +73,6 @@ export default {
   methods: {
     ...mapActions('parliamentPreparation', ['setParliamentDetails']),
     handleSubmit() {
-      console.log(this.userFile);
       this.$refs.form.validate();
       if (this.valid) {
         this.setParliamentDetails({
