@@ -218,9 +218,19 @@
     "unblock": "Unblock",
     "numberInSquare": "Nummber in square"
   },
+  "userFileColumns": {
+    "NAME": "name",
+    "SURNAME": "surname",
+    "MANDATE": "mandate number",
+    "INDEX": "index number",
+    "HAS_VOTE": "has vote",
+    "EMAIL": "email"
+  },
   "errorMessages": {
     "preparation": {
-      "dataIncomplete": "The data you have provided is incomplete. Make sure that all the fields in provided file are filled.",
+      "invalidRow": "The data you have provided is incomplete. The error is in {line} line in {column} column.",
+      "dataIncomplete": "The data you have provided is incomplete.",
+      "duplicateIndex": "There is an index number duplicate in a file.",
       "invalidFormat": "The suplied file is in a wrong format. Make sure that the file you provided has all the necessary columns and has a valid extension - csv.",
       "noUserFileLoaded": "In order to generate passwords the user file must be loaded.",
       "noSession": "The session you are trying to edit doesn't exist."

@@ -218,9 +218,19 @@
     "unblock": "Odblokuj",
     "numberInSquare": "Liczba w kwadracie"
   },
+  "userFileColumns": {
+    "NAME": "imię",
+    "SURNAME": "nazwisko",
+    "MANDATE": "numer mandatu",
+    "INDEX": "numer indeksu",
+    "HAS_VOTE": "czy ma prawo głosu",
+    "EMAIL": "email"
+  },
   "errorMessages": {
     "preparation": {
-      "dataIncomplete": "Przesłane dane są niekompletne. Upewnij się, że wszystkie wymagane pola w podanym pliku zostały poprawnie wypełnione.",
+      "invalidRow": "Przesłane dane są niekompletne. Błąd występuje w {line} linii w kolumnie {column}",
+      "dataIncomplete": "Przesłane dane są niekompletne.",
+      "duplicateIndex": "W przesłanych danych występuje duplikat numeru indeksu.",
       "invalidFormat": "Podany plik ma zły format. Upewnij się, że podany plik posiada wszystkie wymagane kolumny i ma właściwe rozszerzenie - csv.",
       "noUserFileLoaded": "Aby wygenerować hasła musisz załadować plik z uczestnikami.",
       "noSession": "Posiedzenie, które próbujesz edytować nie istnieje."

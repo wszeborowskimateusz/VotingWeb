@@ -29,8 +29,25 @@ const actions = {
               toasts.errorToast(
                 i18n.tc('errorMessages.preparation.invalidFormat'),
               );
+            } else if (error.errorCode === 'DUPLICATE_INDEX') {
+              toasts.errorToast(
+                i18n.tc('errorMessages.preparation.duplicateIndex'),
+              );
             } else {
-              toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+              try {
+                const errorModel = JSON.parse(error.errorCode);
+                const { line, columnType } = errorModel;
+                const column = i18n.tc(`userFileColumns.${columnType}`);
+
+                toasts.errorToast(
+                  i18n.tc('errorMessages.preparation.duplicateIndex', {
+                    line,
+                    column,
+                  }),
+                );
+              } catch {
+                toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+              }
             }
           } else {
             toasts.errorToast(i18n.tc('common.somethingWentWrong'));
