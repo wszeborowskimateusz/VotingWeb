@@ -228,10 +228,10 @@
   },
   "errorMessages": {
     "preparation": {
+      "invalidFormat": "Podany plik ma zły format lub jest pusty. Upewnij się, że podany plik ma właściwe rozszerzenie - csv.",
+      "invalidAmountOfColumns": "Wiersz {line} ma niewłaściwą liczbę kolumn.",
+      "duplicateIndex": "W przesłanych danych występuje duplikat numeru indeksu - {index}.",
       "invalidRow": "Przesłane dane są niekompletne. Błąd występuje w {line} linii w kolumnie {column}",
-      "dataIncomplete": "Przesłane dane są niekompletne.",
-      "duplicateIndex": "W przesłanych danych występuje duplikat numeru indeksu.",
-      "invalidFormat": "Podany plik ma zły format. Upewnij się, że podany plik posiada wszystkie wymagane kolumny i ma właściwe rozszerzenie - csv.",
       "noUserFileLoaded": "Aby wygenerować hasła musisz załadować plik z uczestnikami.",
       "noSession": "Posiedzenie, które próbujesz edytować nie istnieje."
     },

@@ -9,6 +9,53 @@ const getDefaultState = () => ({
 
 const preparationState = getDefaultState();
 
+function onSetParliament412Error(error) {
+  if (error.errorCode === 'INVALID_FORMAT') {
+    toasts.errorToast(i18n.tc('errorMessages.preparation.invalidFormat'));
+  } else {
+    try {
+      const errorModel = JSON.parse(error.errorCode);
+
+      const errorType = errorModel.type;
+
+      let errorMessage = i18n.tc('common.somethingWentWrong');
+
+      switch (errorType) {
+        case 'INVALID_AMOUNT_OF_COLUMNS': {
+          const { line } = errorModel;
+          errorMessage = i18n.tc(
+            'errorMessages.preparation.invalidAmountOfColumns',
+            { line },
+          );
+          break;
+        }
+        case 'DUPLICATE_INDEX': {
+          const { index } = errorModel;
+          errorMessage = i18n.tc('errorMessages.preparation.duplicateIndex', {
+            index,
+          });
+          break;
+        }
+        case 'FIELD_ERROR': {
+          const { line, columnType } = errorModel;
+          const column = i18n.tc(`userFileColumns.${columnType}`);
+          errorMessage = i18n.tc('errorMessages.preparation.invalidRow', {
+            line,
+            column,
+          });
+          break;
+        }
+        default:
+          break;
+      }
+
+      toasts.errorToast(errorMessage);
+    } catch {
+      toasts.errorToast(i18n.tc('common.somethingWentWrong'));
+    }
+  }
+}
+
 const actions = {
   setParliamentDetails({ commit, dispatch }, { session, userFile }) {
     commit('loading');
@@ -21,34 +68,7 @@ const actions = {
         },
         (error) => {
           if (error.httpCode === 412) {
-            if (error.errorCode === 'DATA_INCOMPLETE') {
-              toasts.errorToast(
-                i18n.tc('errorMessages.preparation.dataIncomplete'),
-              );
-            } else if (error.errorCode === 'INVALID_FORMAT') {
-              toasts.errorToast(
-                i18n.tc('errorMessages.preparation.invalidFormat'),
-              );
-            } else if (error.errorCode === 'DUPLICATE_INDEX') {
-              toasts.errorToast(
-                i18n.tc('errorMessages.preparation.duplicateIndex'),
-              );
-            } else {
-              try {
-                const errorModel = JSON.parse(error.errorCode);
-                const { line, columnType } = errorModel;
-                const column = i18n.tc(`userFileColumns.${columnType}`);
-
-                toasts.errorToast(
-                  i18n.tc('errorMessages.preparation.duplicateIndex', {
-                    line,
-                    column,
-                  }),
-                );
-              } catch {
-                toasts.errorToast(i18n.tc('common.somethingWentWrong'));
-              }
-            }
+            onSetParliament412Error(error);
           } else {
             toasts.errorToast(i18n.tc('common.somethingWentWrong'));
           }

@@ -228,10 +228,10 @@
   },
   "errorMessages": {
     "preparation": {
+      "invalidFormat": "The suplied file is in a wrong format or the file is empty. Make sure that the file you provided has a valid extension - csv.",
+      "invalidAmountOfColumns": "Line {line} has invalid number of columns.",
+      "duplicateIndex": "There is an index number duplicate in a file. Index: {index}",
       "invalidRow": "The data you have provided is incomplete. The error is in {line} line in {column} column.",
-      "dataIncomplete": "The data you have provided is incomplete.",
-      "duplicateIndex": "There is an index number duplicate in a file.",
-      "invalidFormat": "The suplied file is in a wrong format. Make sure that the file you provided has all the necessary columns and has a valid extension - csv.",
       "noUserFileLoaded": "In order to generate passwords the user file must be loaded.",
       "noSession": "The session you are trying to edit doesn't exist."
     },
