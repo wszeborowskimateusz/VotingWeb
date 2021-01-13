@@ -25,23 +25,28 @@ function onSetParliament412Error(error) {
           const { line } = errorModel;
           errorMessage = i18n.tc(
             'errorMessages.preparation.invalidAmountOfColumns',
+            null,
             { line },
           );
           break;
         }
         case 'DUPLICATE_INDEX': {
           const { index } = errorModel;
-          errorMessage = i18n.tc('errorMessages.preparation.duplicateIndex', {
-            index,
-          });
+          errorMessage = i18n.tc(
+            'errorMessages.preparation.duplicateIndex',
+            null,
+            {
+              index,
+            },
+          );
           break;
         }
         case 'FIELD_ERROR': {
-          const { line, columnType } = errorModel;
-          const column = i18n.tc(`userFileColumns.${columnType}`);
-          errorMessage = i18n.tc('errorMessages.preparation.invalidRow', {
+          const { line, column } = errorModel;
+          const columnName = i18n.tc(`userFileColumns.${column}`);
+          errorMessage = i18n.tc('errorMessages.preparation.invalidRow', null, {
             line,
-            column,
+            column: columnName,
           });
           break;
         }
