@@ -77,10 +77,7 @@
         ]"
       ></v-text-field>
 
-      <v-radio-group v-model="voting.secrecy" row>
-        <template v-slot:label>
-          <div>{{ $t('voting.secrecy') }}</div>
-        </template>
+      <v-radio-group v-model="voting.secrecy" row :label="$t('voting.secrecy')">
         <v-radio :label="$t('common.yes')" :value="true"></v-radio>
         <v-radio :label="$t('common.no')" :value="false"></v-radio>
       </v-radio-group>
@@ -237,7 +234,7 @@ export default {
           });
         } else {
           this.addVoting(this.voting).then(() => {
-            this.$refs.form.reset();
+            this.voting = this.getClearVoting();
             this.closeModal(true);
           });
         }

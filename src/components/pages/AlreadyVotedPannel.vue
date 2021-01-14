@@ -17,7 +17,7 @@
       class="my-5"
       v-model="isFinishVotingDialogShown"
       :voting="voting"
-      @voting-finished="$router.push('/')"
+      :pushHome="true"
     />
 
     <div class="d-flex justify-content-center">

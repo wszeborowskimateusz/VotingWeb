@@ -42,12 +42,20 @@ export default {
       type: Object,
       required: true,
     },
+    pushHome: {
+      type: Boolean,
+      required: false,
+      default: () => false,
+    },
   },
   methods: {
     ...mapActions('votingsManagement', ['closeVoting']),
-    closeVotingWithCallback() {
-      this.closeVoting(this.voting.id).then(() => {
-        this.$emit('voting-finished');
+    async closeVotingWithCallback() {
+      await this.closeVoting(this.voting.id).then(() => {
+        this.$root.$emit('closeVoting');
+        if (this.pushHome) {
+          this.$router.push('/');
+        }
       });
     },
   },

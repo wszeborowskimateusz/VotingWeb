@@ -43,7 +43,6 @@
           v-if="voting.status === 'DURING_VOTING'"
           v-model="isFinishVotingDialogShown"
           :voting="voting"
-          @voting-finished="$root.$emit('closeVoting')"
         />
 
         <v-btn
