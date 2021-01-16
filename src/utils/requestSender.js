@@ -28,8 +28,9 @@ function handleResponse(response, url) {
 
     const data = text && JSON.parse(text);
 
-    if (response.headers.get('Refreshed-Jwt-Token')) {
-      refreshToken(response.headers.get('Refreshed-Jwt-Token'));
+    const refreshedToken = response.headers.get('Refreshed-Jwt-Token');
+    if (refreshedToken) {
+      refreshToken(refreshedToken);
     }
     return data;
   });
@@ -49,14 +50,14 @@ function sendRequest(url, options) {
     reqOptions.headers.Authorization = `Bearer ${token}`;
   }
 
+  console.log(options.body);
+
   return fetchTimeout(
     prepareApiUrl(url),
     reqOptions,
     config.requestTimeout,
     'TIMEOUT',
-  ).then(
-    (response) => handleResponse(response, url),
-  );
+  ).then((response) => handleResponse(response, url));
 }
 
 export default {

@@ -26,7 +26,6 @@
           type="date"
           :first-day-of-week="1"
           :locale="$i18n.locale"
-          :allowed-dates="allowedDays"
           required
         ></v-date-picker>
 
@@ -174,15 +173,6 @@ export default {
     },
     beforeClose() {
       this.$refs.form.reset();
-    },
-    allowedDays(day) {
-      const today = new Date();
-      const yesterday = new Date(today);
-      yesterday.setDate(today.getDate() - 1);
-
-      const date = new Date(day);
-
-      return date >= yesterday;
     },
   },
 };

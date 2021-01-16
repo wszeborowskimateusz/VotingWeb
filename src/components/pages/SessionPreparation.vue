@@ -124,7 +124,9 @@ export default {
       immediate: true,
       async handler() {
         await this.$nextTick();
-        this.$refs.form.validate();
+        if (this.activeSession.status !== 'IN_PREPARATION') {
+          this.$refs.form.validate();
+        }
       },
     },
   },
