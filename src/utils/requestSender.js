@@ -50,8 +50,6 @@ function sendRequest(url, options) {
     reqOptions.headers.Authorization = `Bearer ${token}`;
   }
 
-  console.log(options.body);
-
   return fetchTimeout(
     prepareApiUrl(url),
     reqOptions,
