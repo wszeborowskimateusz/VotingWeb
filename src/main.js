@@ -23,7 +23,6 @@ router.beforeEach((to, from, next) => {
 Vue.use(VModal);
 commonComponents.register();
 
-
 new Vue({
   router,
   store,
